@@ -1,0 +1,43 @@
+
+# This file provides records to read inputs D1 to D5
+# that are provided by the 3062 option. This option card
+# can be used with both the 336 and 350. By default these
+# records are disabled (there is a record to control this).
+
+# This file can be included in the lakeshore336.template
+# so does not need to be instantiated separately. It will
+# make use of the macros used in lakeshore336.template.
+
+record(bo, "$(P):DISABLE_3062") {
+  field(DESC, "Disable 3062 polling")
+  field(PINI, "YES")
+  field(VAL, "1")
+  field(OMSL, "supervisory")
+  field(ZNAM, "Enabled")
+  field(ONAM, "Disabled")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+substitute "DISABLE=$(P):DISABLE_3062"
+
+substitute "INPUT=D1"
+substitute "INDEX=D1"
+include "lakeshore_input.template"
+
+substitute "INPUT=D2"
+substitute "INDEX=D2"
+include "lakeshore_input.template"
+
+substitute "INPUT=D3"
+substitute "INDEX=D3"
+include "lakeshore_input.template"
+
+substitute "INPUT=D4"
+substitute "INDEX=D4"
+include "lakeshore_input.template"
+
+substitute "INPUT=D5"
+substitute "INDEX=D5"
+include "lakeshore_input.template"
+
