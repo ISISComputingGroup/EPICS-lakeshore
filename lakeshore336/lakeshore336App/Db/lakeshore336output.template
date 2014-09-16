@@ -40,7 +40,7 @@ record(ai, "$(P):RAMP$(OUT)") {
   field(INP, "@ls336.proto getRAMP($(OUT),$(P):RAMPST$(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "3")
-  field(EGU, "K/min")  
+  field(EGU, "K/minute")  
 }
 
 ## 
@@ -215,7 +215,7 @@ record(ao, "$(P):RAMP_S$(OUT)") {
   field(OUT, "@ls336.proto setRAMP($(P):RAMPST$(OUT),$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "3")
   field(FLNK, "$(P):RAMP$(OUT).PROC CA")
-  field(EGU, "K/min")
+  field(EGU, "K/minute")
 }
 
 ## 
