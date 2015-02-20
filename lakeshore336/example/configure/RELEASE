@@ -24,7 +24,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 EPICS=/home/controls/epics/R3.14.12.2
 SUPPORT=$(EPICS)/support
 
-ASYN=		$(SUPPORT)/asyn
+ASYN=$(SUPPORT)/asyn/4-26
 STREAMDEVICE=	$(SUPPORT)/StreamDevice
 LAKESHORE336=	$(SUPPORT)/lakeshore/lakeshore336
 DEVIOCSTATS=    $(SUPPORT)/devIocStats

@@ -16,7 +16,7 @@
 EPICS=/home/controls/epics/R3.14.12.2
 SUPPORT=$(EPICS)/support
 
-ASYN=		$(SUPPORT)/asyn/4-22
+ASYN=$(SUPPORT)/asyn/4-26
 STREAMS=	$(SUPPORT)/StreamDevice
 
 EPICS_BASE=$(EPICS)/base
