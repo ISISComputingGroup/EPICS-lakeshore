@@ -1,4 +1,4 @@
-TOP = ../../extensions
+TOP = ../../../extensions/master
 include $(TOP)/configure/CONFIG
 
 DIRS = lakeshore336
