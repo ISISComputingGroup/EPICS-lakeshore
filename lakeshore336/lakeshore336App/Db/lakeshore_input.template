@@ -233,10 +233,63 @@ record(longin, "$(P):INCRV$(INDEX)") {
   field(SDIS, "$(DISABLE)")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getINCRV($(INPUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):INCRV$(INDEX)_HEAD")
+}
+
+##
+## Read the input curve header.
+## 
+record(bi, "$(P):INCRV$(INDEX)_HEAD") {
+  field(DESC, "Read Input Curve Header Params")
+  field(DTYP, "stream")
+  field(SDIS, "$(DISABLE)")
+ ######### field(SCAN, "$(SCAN) second") Have FLNK from previous?
+  field(INP, "@ls336.proto getCRVHDR($(P):INCRV$(INDEX),N,SN,F,LIM,C) $(PORT) $(ADDR)")
+}
+
+##
+## Read the rest of the input curve header.
+##
+record(stringin, "$(P):INCRV$(INDEX)_N") {
+  field(DESC, "Curve Name")
+}
+
+record(stringin, "$(P):INCRV$(INDEX)_SN") {
+  field(DESC, "Curve Serial Number")
+}
+
+record(mbbi, "$(P):INCRV$(INDEX)_F") {
+  field(DESC, "Curve Data Format")
+  field(ZRVL, "0")
+  field(ZRST, "Unknown")
+  field(ONVL, "1")
+  field(ONST, "mV/K")
+  field(TWVL, "2")
+  field(TWST, "V/K")
+  field(THVL, "3")
+  field(THST, "Ohm/K")
+  field(FRVL, "4")
+  field(FRST, "log Ohm/K")
+}
+
+record(ai, "$(P):INCRV$(INDEX)_LIM") {
+  field(DESC, "Curve Temperature Limit")
+  field(EGU, "K")
+  field(PREC, "3")
+}
+
+record(mbbi, "$(P):INCRV$(INDEX)_C") {
+  field(DESC, "Curve Temperature Coefficient")
+  field(ZRVL, "0")
+  field(ZRST, "Unknown")
+  field(ONVL, "1")
+  field(ONST, "Negative")
+  field(TWVL, "2")
+  field(TWST, "Positive")
 }
 
 
-##
+## Isabella: try to remove hard-coding from protocol
 ## Read the input type information.
 ## NOTE: the last part of the record name is hard coded into protocol file. 
 ##

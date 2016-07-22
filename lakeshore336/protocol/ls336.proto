@@ -209,6 +209,18 @@ getINCRV {
    in "%d"
 }
 
+# /// Read the input curve header.
+# /// The first argument is the curve number record (also prefix for other record names).
+# /// The second argument is the curve name record (suffix only).
+# /// The third argument is the curve serial number record (suffix only).
+# /// The fourth argument is the curve data format record (suffix only).
+# /// The fifth argument is the curve temperature limit record (suffix only).
+# /// The sixth argument is the curve temperature coefficient record (suffix only).
+getCRVHDR {
+	out "CRVHDR? %(\$1.VAL)d";
+	in "%(\$1_\$2)15c,%(\$1_\$3)10c,%(\$1_\$4)d,%(\$1_\$5)f,%(\$1_\$6)d"
+}
+
 # /// Read the input type params. I put the ends of the PV names here
 # /// to make the initial record INP link short.
 getINTYPE {
