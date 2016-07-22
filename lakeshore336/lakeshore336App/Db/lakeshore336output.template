@@ -11,10 +11,6 @@
 # INPUTB - Sensor 2 PV name
 # INPUTC - Sensor 3 PV name
 # INPUTD - Sensor 4 PV name
-# INPUTD2 - Sensor D2 PV name
-# INPUTD3 - Sensor D3 PV name
-# INPUTD4 - Sensor D4 PV name
-# INPUTD5 - Sensor D5 PV name
 # TOLERANCE (optional - defaults to 1)
 # 
 # The input link names must fit into a stringout record for this to work.
@@ -43,12 +39,7 @@ record(ai, "$(P):SETP$(OUT)") {
   field(SCAN, "$(TEMPSCAN) second")
   field(PREC, "3")
   field(EGU, "K")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
-
-## Isabella: this comment is useless
-## Read the setpoint limit
-##
 
 ## 
 ## Read the ramp parameter. This also populates the ramp status $(P):RAMPST$(OUT),
@@ -90,13 +81,6 @@ record(mbbi, "$(P):RANGE$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(INP, "@ls336.proto getRANGE($(OUT)) $(PORT) $(ADDR)")
 }
-
-##'### Isabella: I think they forgot to delete this after refactoring, prob got replaced by OMM
-##'### Read the mode to use for outmode
-##'### This is output specific and is defined in another file.
-##'###
-##'#record(mbbi, "$(P):OMMODE$(OUT)") {
-##'#}
 
 ## 
 ## Read the manual output parameter.
@@ -154,7 +138,6 @@ record(mbbi, "$(P):OMM$(OUT)") {
   field(FVVL, "5")
   field(SCAN, "$(SCAN) second")
   field(INP, "@ls336.proto getOM($(OUT),$(P),OMI$(OUT),OMP$(OUT)) $(PORT) $(ADDR)")
-##'#  field(INP, "@ls336.proto getOM($(OUT),$(P):OMI$(OUT),$(P):OMP$(OUT)) $(PORT) $(ADDR)")
 }
 
 ##
@@ -208,7 +191,6 @@ record(ao, "$(P):SETP_S$(OUT)") {
   field(PREC, "3")
   field(FLNK, "$(P):SETP_S$(OUT)_BUSYSET.PROC")
   field(EGU, "K")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ###############################################################################
@@ -245,9 +227,7 @@ record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
   field(OUT, "$(P):IN_WINDOW$(OUT).VAL PP")
   field(DOPT, "Use CALC")
   field(SCAN, "1 second")
-  field(PREC, "1")
-##'#info(autosaveFields, "A")
-##'#info(archive, "Monitor, 00:00:01, A B C VAL")   
+  field(PREC, "1") 
 }
 record(bo, "$(P):IN_WINDOW$(OUT)") {
   field(DESC, "Temperature In Window")
@@ -256,7 +236,6 @@ record(bo, "$(P):IN_WINDOW$(OUT)") {
   field(OMSL, "supervisory")
   field(ZNAM, "Not In Window")
   field(ONAM, "In Window")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -335,61 +314,6 @@ record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
   field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
 }
 
-# Isabella: these are not needed as we don't have these inputs unless the 3062 option is used
-#DDDrecord(calcout, "$(P):SET_$(OUT)_INPUTD2") {
-#DDD  field(CALC, "A=5")
-#DDD  field(INPA, "$(P):OMI$(OUT).VAL CP")
-#DDD  field(DOPT, "Use OCAL")
-#DDD  field(OVAL, "1")
-#DDD  field(OOPT, "When Non-zero")
-#DDD  field(OUT, "$(P):SET_$(OUT)_INPUTD2_LINK.PROC")
-#DDD}
-#DDDrecord(stringout, "$(P):SET_$(OUT)_INPUTD2_LINK") {
-#DDD  field(VAL, "$(INPUTD2=$(P):DUMMY$(OUT)).VAL CP")
-#DDD  field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
-#DDD}
-#DDD
-#DDDrecord(calcout, "$(P):SET_$(OUT)_INPUTD3") {
-#DDD  field(CALC, "A=6")
-#DDD  field(INPA, "$(P):OMI$(OUT).VAL CP")
-#DDD  field(DOPT, "Use OCAL")
-#DDD  field(OVAL, "1")
-#DDD  field(OOPT, "When Non-zero")
-#DDD  field(OUT, "$(P):SET_$(OUT)_INPUTD3_LINK.PROC")
-#DDD}
-#DDDrecord(stringout, "$(P):SET_$(OUT)_INPUTD3_LINK") {
-#DDD  field(VAL, "$(INPUTD3=$(P):DUMMY$(OUT)).VAL CP")
-#DDD  field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
-#DDD}
-#DDD
-#DDDrecord(calcout, "$(P):SET_$(OUT)_INPUTD4") {
-#DDD  field(CALC, "A=7")
-#DDD  field(INPA, "$(P):OMI$(OUT).VAL CP")
-#DDD  field(DOPT, "Use OCAL")
-#DDD  field(OVAL, "1")
-#DDD  field(OOPT, "When Non-zero")
-#DDD  field(OUT, "$(P):SET_$(OUT)_INPUTD4_LINK.PROC")
-#DDD}
-#DDDrecord(stringout, "$(P):SET_$(OUT)_INPUTD4_LINK") {
-#DDD  field(VAL, "$(INPUTD4=$(P):DUMMY$(OUT)).VAL CP")
-#DDD  field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
-#DDD}
-#DDD
-#DDDrecord(calcout, "$(P):SET_$(OUT)_INPUTD5") {
-#DDD  field(CALC, "A=8")
-#DDD  field(INPA, "$(P):OMI$(OUT).VAL CP")
-#DDD  field(DOPT, "Use OCAL")
-#DDD  field(OVAL, "1")
-#DDD  field(OOPT, "When Non-zero")
-#DDD  field(OUT, "$(P):SET_$(OUT)_INPUTD5_LINK.PROC")
-#DDD}
-#DDDrecord(stringout, "$(P):SET_$(OUT)_INPUTD5_LINK") {
-#DDD  field(VAL, "$(INPUTD5=$(P):DUMMY$(OUT)).VAL CP")
-#DDD  field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
-#DDD}
-
-
-
 ## 
 ## Set the range parameter.
 ## The strings are output specific and is defined in another file.
@@ -459,7 +383,6 @@ record(ao, "$(P):MOUT_S$(OUT)") {
 record(ao, "$(P):P_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-##'#  field(OUT, "@ls336.proto setP($(OUT),$(P):I$(OUT),$(P):D$(OUT)) $(PORT) $(ADDR)")
   field(OUT, "@ls336.proto setP($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
@@ -471,7 +394,6 @@ record(ao, "$(P):P_S$(OUT)") {
 record(ao, "$(P):I_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-##'#  field(OUT, "@ls336.proto setI($(P):P$(OUT),$(OUT),$(P):D$(OUT)) $(PORT) $(ADDR)")
   field(OUT, "@ls336.proto setI($(OUT),$(P),P$(OUT),D$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
@@ -483,7 +405,6 @@ record(ao, "$(P):I_S$(OUT)") {
 record(ao, "$(P):D_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-##  field(OUT, "@ls336.proto setD($(P):P$(OUT),$(P):I$(OUT),$(OUT)) $(PORT) $(ADDR)")
   field(OUT, "@ls336.proto setD($(OUT),$(P),P$(OUT),I$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
@@ -502,7 +423,6 @@ record(mbbo, "$(P):OMM_S$(OUT)") {
   field(THVL, "3")
   field(FRVL, "4")
   field(FVVL, "5")
-  #field(OUT, "@ls336.proto setOM($(OUT),$(P):OMI$(OUT),$(P):OMP$(OUT)) $(PORT) $(ADDR)")
   field(OUT, "@ls336.proto setOM($(OUT),$(P),OMI$(OUT),OMP$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OMM$(OUT).PROC CA")
 }
@@ -523,15 +443,6 @@ record(mbbo, "$(P):OMI_S$(OUT)") {
   field(THVL, "3")
   field(FRST, "Input D")
   field(FRVL, "4")
-#DDDfield(FVST, "Input D2")
-#DDDfield(FVVL, "5")
-#DDDfield(SXST, "Input D3")
-#DDDfield(SXVL, "6")
-#DDDfield(SVST, "Input D4")
-#DDDfield(SVVL, "7")
-#DDDfield(EIST, "Input D5")
-#DDDfield(EIVL, "8")
-#  field(OUT, "@ls336.proto setOMI($(OUT),$(P):OMM$(OUT),$(P):OMP$(OUT)) $(PORT) $(ADDR)")
   field(OUT, "@ls336.proto setOMI($(OUT),$(P),OMM$(OUT),OMP$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OMM$(OUT).PROC CA")
 }
@@ -546,7 +457,6 @@ record(mbbo, "$(P):OMP_S$(OUT)") {
   field(ZRVL, "0")
   field(ONST, "On")
   field(ONVL, "1")
-##  field(OUT, "@ls336.proto setOMP($(OUT),$(P):OMM$(OUT),$(P):OMI$(OUT)) $(PORT) $(ADDR)")
   field(OUT, "@ls336.proto setOMP($(OUT),$(P),OMM$(OUT),OMI$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OMM$(OUT).PROC CA")
 }
@@ -575,43 +485,3 @@ record(ao, "$(P):TUNESTART$(OUT)") {
   field(OUT, "@ls336.proto setATUNE($(OUT),$(P):TUNEMODE_S$(OUT)) $(PORT) $(ADDR)")
 }
 
-
-##'###
-##'### Read all ZONE settings
-##'###
-##'#record(seq, "$(P):Z:READ$(OUT)") {
-##'#  field(DESC, "Read Output $(OUT) ZONE")
-##'#  field(DOL1, "1")
-##'#  field(DLY1, "0.1")
-##'#  field(LNK1, "$(P):Z1:ALL$(OUT).PROC")
-##'#  field(DOL2, "1")
-##'#  field(DLY2, "0.1")
-##'#  field(LNK2, "$(P):Z2:ALL$(OUT).PROC")
-##'#  field(DOL3, "1")
-##'#  field(DLY3, "0.1")
-##'#  field(LNK3, "$(P):Z3:ALL$(OUT).PROC")
-##'#  field(DOL4, "1")
-##'#  field(DLY4, "0.1")
-##'#  field(LNK4, "$(P):Z4:ALL$(OUT).PROC")
-##'#  field(DOL5, "1")
-##'#  field(DLY5, "0.1")
-##'#  field(LNK5, "$(P):Z5:ALL$(OUT).PROC")
-##'#  field(DOL6, "1")
-##'#  field(DLY6, "0.1")
-##'#  field(LNK6, "$(P):Z6:ALL$(OUT).PROC")
-##'#  field(DOL7, "1")
-##'#  field(DLY7, "0.1")
-##'#  field(LNK7, "$(P):Z7:ALL$(OUT).PROC")
-##'#  field(DOL8, "1")
-##'#  field(DLY8, "0.1")
-##'#  field(LNK8, "$(P):Z8:ALL$(OUT).PROC")
-##'#  field(DOL9, "1")
-##'#  field(DLY9, "0.1")
-##'#  field(LNK9, "$(P):Z9:ALL$(OUT).PROC")
-##'#  field(DOLA, "1")
-##'#  field(DLYA, "0.1")
-##'#  field(LNKA, "$(P):Z10:ALL$(OUT).PROC")
-##'#  field(PINI, "YES")
-##'#}
-
-###############################################

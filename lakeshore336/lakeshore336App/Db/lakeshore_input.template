@@ -11,7 +11,7 @@
 # For the ZONE commands I used waveforms and subarrays, but that is not as simple.
 #
 # Macros:
-# INPUT - A to D, or D1 to D5
+# INPUT - A to D
 # INDEX - Index to use for the input channel PV name and DESC (eg. 0 to 3)
 # DISABLE - PV name to use for SDIS
 
@@ -44,7 +44,6 @@ record(bi, "$(P):ALARM$(INDEX)_SUMMARY") {
   field(OSV, "MAJOR")
   field(PINI, "YES")
   field(VAL, "0")  
-##  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -78,11 +77,7 @@ record(ai, "$(P):KRDG$(INDEX)") {
   field(HIHI,"1000")
   field(HIGH,"1000")
   field(LOW,"-1")
-  field(LOLO,"-1")
-##'#  field(ADEL, "$(ADEL=1)")
-##'#  field(MDEL, "$(MDEL=0)")
-##'#  info(autosaveFields, "HIHI HIGH LOW LOLO ADEL MDEL")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
+  field(LOLO,"-1")  
 }
 
 ## 
@@ -133,7 +128,6 @@ record(bi, "$(P):ALARM$(INDEX)_HIGH") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(OSV, "MAJOR")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -144,7 +138,6 @@ record(bi, "$(P):ALARM$(INDEX)_LOW") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(OSV, "MAJOR")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -222,7 +215,6 @@ record(mbbi, "$(P):RDGST$(INDEX)") {
   field(FVSV, "MAJOR")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getRDGST($(INPUT)) $(PORT) $(ADDR)")
-##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -243,7 +235,6 @@ record(bi, "$(P):INCRV$(INDEX)_HEAD") {
   field(DESC, "Read Input Curve Header Params")
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
- ######### field(SCAN, "$(SCAN) second") Have FLNK from previous?
   field(INP, "@ls336.proto getCRVHDR($(P):INCRV$(INDEX),N,SN,F,LIM,C) $(PORT) $(ADDR)")
 }
 
