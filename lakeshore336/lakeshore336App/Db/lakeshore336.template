@@ -75,48 +75,48 @@ record(stringin, "$(P):MODEL") {
   field(SCAN, "I/O Intr")
 }
 
-## 
-## Read the serial number from the device.
-##
-record(stringin, "$(P):SERIAL") {
-  field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE")
-  field(INP, "@ls336.proto getSERIAL $(PORT) $(ADDR)")
-  field(SCAN, "I/O Intr")
-}
+#DDD## Isabella: delete this as it pops an error sometimes and it's not needed
+#DDD## Read the serial number from the device.
+#DDD##
+#DDDrecord(stringin, "$(P):SERIAL") {
+#DDD  field(DTYP, "stream")
+#DDD  field(SDIS, "$(P):DISABLE")
+#DDD  field(INP, "@ls336.proto getSERIAL $(PORT) $(ADDR)")
+#DDD  field(SCAN, "I/O Intr")
+#DDD}
 
-## 
-## Read the firmware from the device.
-##
-record(stringin, "$(P):FIRMWARE") {
-  field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE")
-  field(INP, "@ls336.proto getFIRMWARE $(PORT) $(ADDR)")
-  field(SCAN, "I/O Intr")
-}
+#DDD## Isabella: delete this as it pops an error sometimes and it's not needed
+#DDD## Read the firmware from the device.
+#DDD##
+#DDDrecord(stringin, "$(P):FIRMWARE") {
+#DDD  field(DTYP, "stream")
+#DDD  field(SDIS, "$(P):DISABLE")
+#DDD  field(INP, "@ls336.proto getFIRMWARE $(PORT) $(ADDR)")
+#DDD  field(SCAN, "I/O Intr")
+#DDD}
 
 
-## 
-## Read the tuning status from the device.
-##
-#record(stringin, "$(P):TUNEST") {
-#  field(DTYP, "stream")
-#  field(SDIS, "$(P):DISABLE_POLL")
-#  field(INP, "@ls336.proto getTUNEST $(PORT) $(ADDR)")
-#  field(SCAN, "$(SCAN) second")
-#}
-
-## 
-## Read the tuning status success parameter
-##
-#record(bi, "$(P):TUNESTSUCCESS") {
-#  field(DTYP, "stream")
-#  field(SDIS, "$(P):DISABLE_POLL")
-#  field(INP, "@ls336.proto getTUNESTSUCCESS $(PORT) $(ADDR)")
-#  field(SCAN, "$(SCAN) second")
-#  field(ZNAM, "No Error")
-#  field(ONAM, "Error (see manual)")
-#}
+#DDD## Isabella: this was commented out in the original, so can delete
+#DDD## Read the tuning status from the device.
+#DDD##
+#DDD#record(stringin, "$(P):TUNEST") {
+#DDD#  field(DTYP, "stream")
+#DDD#  field(SDIS, "$(P):DISABLE_POLL")
+#DDD#  field(INP, "@ls336.proto getTUNEST $(PORT) $(ADDR)")
+#DDD#  field(SCAN, "$(SCAN) second")
+#DDD#}
+#DDD
+#DDD## 
+#DDD## Read the tuning status success parameter
+#DDD##
+#DDD#record(bi, "$(P):TUNESTSUCCESS") {
+#DDD#  field(DTYP, "stream")
+#DDD#  field(SDIS, "$(P):DISABLE_POLL")
+#DDD#  field(INP, "@ls336.proto getTUNESTSUCCESS $(PORT) $(ADDR)")
+#DDD#  field(SCAN, "$(SCAN) second")
+#DDD#  field(ZNAM, "No Error")
+#DDD#  field(ONAM, "Error (see manual)")
+#DDD#}
 
 ################################################################
 # Input sensor records
@@ -125,49 +125,51 @@ record(stringin, "$(P):FIRMWARE") {
 record(bo, "$(P):DISABLE_0") {
   field(DESC, "Disable A polling")
   field(PINI, "YES")
-  field(VAL, "1")
+  ##'#field(VAL, "1")
+  field(VAL, "0")
   field(OMSL, "supervisory")
   field(ZNAM, "Enabled")
   field(ONAM, "Disabled")
   field(ZSV, "NO_ALARM")
   field(OSV, "MINOR")
-  info(autosaveFields, "VAL")
+##'#  info(autosaveFields, "VAL")
 }
 
 record(bo, "$(P):DISABLE_1") {
   field(DESC, "Disable B polling")
   field(PINI, "YES")
-  field(VAL, "1")
+  ##'#field(VAL, "1")
+  field(VAL, "0")
   field(OMSL, "supervisory")
   field(ZNAM, "Enabled")
   field(ONAM, "Disabled")
   field(ZSV, "NO_ALARM")
   field(OSV, "MINOR")
-  info(autosaveFields, "VAL")
+  ##'#info(autosaveFields, "VAL")
 }
 
 record(bo, "$(P):DISABLE_2") {
   field(DESC, "Disable C polling")
   field(PINI, "YES")
-  field(VAL, "1")
+  field(VAL, "0")
   field(OMSL, "supervisory")
   field(ZNAM, "Enabled")
   field(ONAM, "Disabled")
   field(ZSV, "NO_ALARM")
   field(OSV, "MINOR")
-  info(autosaveFields, "VAL")
+##'#  info(autosaveFields, "VAL")
 }
 
 record(bo, "$(P):DISABLE_3") {
   field(DESC, "Disable D polling")
   field(PINI, "YES")
-  field(VAL, "1")
+  field(VAL, "0")
   field(OMSL, "supervisory")
   field(ZNAM, "Enabled")
   field(ONAM, "Disabled")
   field(ZSV, "NO_ALARM")
   field(OSV, "MINOR")
-  info(autosaveFields, "VAL")
+##'#  info(autosaveFields, "VAL")
 }
 
 substitute "DISABLE=$(P):DISABLE_0"
@@ -196,7 +198,7 @@ include "lakeshore_input.template"
 # Include 3062 option 
 ################################################################
 
-include "lakeshore_option_3062.template"
+##'#include "lakeshore_option_3062.template"
 
 ################################################################
 # Now include the loop dependant records, for outputs 1, 2, 3 and 4.
@@ -207,11 +209,11 @@ substitute "INPUTA=$(P):KRDG0"
 substitute "INPUTB=$(P):KRDG1"
 substitute "INPUTC=$(P):KRDG2"
 substitute "INPUTD=$(P):KRDG3"
-substitute "INPUTD2=$(P):KRDGD2"
-substitute "INPUTD3=$(P):KRDGD3"
-substitute "INPUTD4=$(P):KRDGD4"
-substitute "INPUTD5=$(P):KRDGD5"
-#substitute "TOLERANCE=1"
+#DDD##'#substitute "INPUTD2=$(P):KRDGD2"
+#DDD##'#substitute "INPUTD3=$(P):KRDGD3"
+#DDD##'#substitute "INPUTD4=$(P):KRDGD4"
+#DDD##'#substitute "INPUTD5=$(P):KRDGD5"
+substitute "TOLERANCE=1"
 
 substitute "OUT=1"
 include "lakeshore336output.template"
@@ -221,105 +223,107 @@ substitute "OUT=2"
 include "lakeshore336output.template"
 include "lakeshore336loop.template"
 
-substitute "OUT=3"
-include "lakeshore336output.template"
-include "lakeshore336analog.template"
-
-substitute "OUT=4"
-include "lakeshore336output.template"
-include "lakeshore336analog.template"
-
-substitute "OUT=3"
-include "lakeshore336zone_analog.template"
-
-substitute "OUT=4"
-include "lakeshore336zone_analog.template"
+# Isabella: we don't care about outputs 3 and 4
+#DDD##'#substitute "OUT=3"
+#DDD##'#include "lakeshore336output.template"
+#DDD##'#include "lakeshore336analog.template"
+#DDD##'#
+#DDD##'#substitute "OUT=4"
+#DDD##'#include "lakeshore336output.template"
+#DDD##'#include "lakeshore336analog.template"
+#DDD##'#
+#DDD##'#substitute "OUT=3"
+#DDD##'#include "lakeshore336zone_analog.template"
+#DDD##'#
+#DDD##'#substitute "OUT=4"
+#DDD##'#include "lakeshore336zone_analog.template"
 
 ################################################################
 # Records dealing with alarm handling
 
-##
-## Disable top level alarm handling
-##
-record(bo, "$(P):DISABLE_ALARM") {
-  field(DESC, "Disable Alarms")
-  field(PINI, "YES")
-  field(VAL, "0")
-  field(OMSL, "supervisory")
-  field(ZNAM, "Alarm Enabled")
-  field(ONAM, "Alarm Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MINOR")
-  field(FLNK, "$(P):ALARM_SUMMARY_CALC")
-  info(autosaveFields, "VAL")
-}
+#DDD##'### Isabella: I don't think we care about top-level alarm summary PVs
+#DDD##'### Disable top level alarm handling
+#DDD##'###
+#DDD##'#record(bo, "$(P):DISABLE_ALARM") {
+#DDD##'#  field(DESC, "Disable Alarms")
+#DDD##'#  field(PINI, "YES")
+#DDD##'#  field(VAL, "0")
+#DDD##'#  field(OMSL, "supervisory")
+#DDD##'#  field(ZNAM, "Alarm Enabled")
+#DDD##'#  field(ONAM, "Alarm Disabled")
+#DDD##'#  field(ZSV, "NO_ALARM")
+#DDD##'#  field(OSV, "MINOR")
+#DDD##'#  field(FLNK, "$(P):ALARM_SUMMARY_CALC")
+#DDD##'#  info(autosaveFields, "VAL")
+#DDD##'#}
+#DDD
+#DDD#Isabella: this record was commented out in the original, can delete
+#DDD#record(bo, "$(P):DISABLE_ALARM_CALC") {
+#DDD#  field(DESC, "Disable Alarms Calc")
+#DDD#  field(VAL, "1")
+#DDD#  field(OUT, "$(P):ALARM_SUMMARY_CALC.DISA PP")
+#DDD#  field(FLNK, "$(P):ALARM_SUMMARY_CALC2")
+#DDD#}
 
-#record(bo, "$(P):DISABLE_ALARM_CALC") {
-#  field(DESC, "Disable Alarms Calc")
-#  field(VAL, "1")
-#  field(OUT, "$(P):ALARM_SUMMARY_CALC.DISA PP")
-#  field(FLNK, "$(P):ALARM_SUMMARY_CALC2")
-#}
-
-##
-## If we disable the alarm handling, clear the alarm status
-##
-record(calcout, "$(P):DISABLE_ALARM_SETZERO") {
-  field(INPA, "$(P):DISABLE_ALARM CP")
-  field(CALC, "A==1?0:1")
-  field(DOPT, "Use CALC")
-  field(OOPT, "When Zero")
-  field(OUT, "$(P):ALARM_SUMMARY.VAL PP")
-}
-
-record(calc, "$(P):ALARM_SUMMARY_CALC") {
-  field(INPA, "$(P):ALARM0_SUMMARY CP MS")
-  field(INPB, "$(P):ALARM1_SUMMARY CP MS")
-  field(INPC, "$(P):ALARM2_SUMMARY CP MS")
-  field(INPD, "$(P):ALARM3_SUMMARY CP MS")
-  field(INPE, "$(P):ALARMD2_SUMMARY CP MS")
-  field(INPF, "$(P):ALARMD3_SUMMARY CP MS")
-  field(INPG, "$(P):ALARMD4_SUMMARY CP MS")
-  field(INPH, "$(P):ALARMD5_SUMMARY CP MS")
-  field(INPI, "$(P):HTRST1_CACHE CP MS")
-  field(INPJ, "$(P):HTRST2_CACHE CP MS")
-  field(CALC, "A")
-  field(FLNK, "$(P):ALARM_SUMMARY_CALC2")
-  field(SDIS, "$(P):DISABLE_ALARM")  
-}
-record(calcout, "$(P):ALARM_SUMMARY_CALC2") {
-  field(INPA, "$(P):ALARM_SUMMARY_CALC.STAT")
-  field(CALC, "A!=0?1:0")
-  field(DOPT, "Use CALC")
-  field(OOPT, "Every Time")
-  field(OUT, "$(P):ALARM_SUMMARY PP")
-}
-
-##
-## Top level alarm summary record. 
-## This summarizes the input alarm summary record
-## along with the two main output heater status records
-## which are on loop 1 and 2.
-##
-record(bi, "$(P):ALARM_SUMMARY") {
-  field(ZNAM, "No Alarm")
-  field(ONAM, "Alarm")
-  field(OSV, "MAJOR")
-  field(PINI, "YES")
-  field(VAL, "0")
-  info(archive, "Monitor, 00:00:01, VAL")     
-}
-
-##
-## Generic Asyn record for reading parameters.
-##
-record(asyn,"$(P):ASYN")
-{
-    field(DTYP,"asynRecordDevice")
-    field(PORT,"$(PORT)")
-    field(ADDR,"$(ADDR)")
-    field(OMAX,"1024")
-    field(IMAX,"1024")
-    field(OEOS,"\r\n")
-    field(IEOS,"\r\n")
-}
+#DDD##'###
+#DDD##'### If we disable the alarm handling, clear the alarm status
+#DDD##'###
+#DDD##'#record(calcout, "$(P):DISABLE_ALARM_SETZERO") {
+#DDD##'#  field(INPA, "$(P):DISABLE_ALARM CP")
+#DDD##'#  field(CALC, "A==1?0:1")
+#DDD##'#  field(DOPT, "Use CALC")
+#DDD##'#  field(OOPT, "When Zero")
+#DDD##'#  field(OUT, "$(P):ALARM_SUMMARY.VAL PP")
+#DDD##'#}
+#DDD
+#DDD##'#record(calc, "$(P):ALARM_SUMMARY_CALC") {
+#DDD##'#  field(INPA, "$(P):ALARM0_SUMMARY CP MS")
+#DDD##'#  field(INPB, "$(P):ALARM1_SUMMARY CP MS")
+#DDD##'#  field(INPC, "$(P):ALARM2_SUMMARY CP MS")
+#DDD##'#  field(INPD, "$(P):ALARM3_SUMMARY CP MS")
+#DDD##'#  field(INPE, "$(P):ALARMD2_SUMMARY CP MS")
+#DDD##'#  field(INPF, "$(P):ALARMD3_SUMMARY CP MS")
+#DDD##'#  field(INPG, "$(P):ALARMD4_SUMMARY CP MS")
+#DDD##'#  field(INPH, "$(P):ALARMD5_SUMMARY CP MS")
+#DDD##'#  field(INPI, "$(P):HTRST1_CACHE CP MS")
+#DDD##'#  field(INPJ, "$(P):HTRST2_CACHE CP MS")
+#DDD##'#  field(CALC, "A")
+#DDD##'#  field(FLNK, "$(P):ALARM_SUMMARY_CALC2")
+#DDD##'#  field(SDIS, "$(P):DISABLE_ALARM")  
+#DDD##'#}
+#DDD##'#record(calcout, "$(P):ALARM_SUMMARY_CALC2") {
+#DDD##'#  field(INPA, "$(P):ALARM_SUMMARY_CALC.STAT")
+#DDD##'#  field(CALC, "A!=0?1:0")
+#DDD##'#  field(DOPT, "Use CALC")
+#DDD##'#  field(OOPT, "Every Time")
+#DDD##'#  field(OUT, "$(P):ALARM_SUMMARY PP")
+#DDD##'#}
+#DDD
+#DDD##'###
+#DDD##'### Top level alarm summary record. 
+#DDD##'### This summarizes the input alarm summary record
+#DDD##'### along with the two main output heater status records
+#DDD##'### which are on loop 1 and 2.
+#DDD##'###
+#DDD##'#record(bi, "$(P):ALARM_SUMMARY") {
+#DDD##'#  field(ZNAM, "No Alarm")
+#DDD##'#  field(ONAM, "Alarm")
+#DDD##'#  field(OSV, "MAJOR")
+#DDD##'#  field(PINI, "YES")
+#DDD##'#  field(VAL, "0")
+#DDD##'#  info(archive, "Monitor, 00:00:01, VAL")     
+#DDD##'#}
+#DDD##'#
+#DDD##'### Isabella: this is for debugging, but we can delete it
+#DDD##'### Generic Asyn record for reading parameters.
+#DDD##'###
+#DDD##'#record(asyn,"$(P):ASYN")
+#DDD##'#{
+#DDD##'#    field(DTYP,"asynRecordDevice")
+#DDD##'#    field(PORT,"$(PORT)")
+#DDD##'#    field(ADDR,"$(ADDR)")
+#DDD##'#    field(OMAX,"1024")
+#DDD##'#    field(IMAX,"1024")
+#DDD##'#    field(OEOS,"\r\n")
+#DDD##'#    field(IEOS,"\r\n")
+#DDD##'#}

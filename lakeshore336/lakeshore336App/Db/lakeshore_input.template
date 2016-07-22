@@ -44,7 +44,7 @@ record(bi, "$(P):ALARM$(INDEX)_SUMMARY") {
   field(OSV, "MAJOR")
   field(PINI, "YES")
   field(VAL, "0")  
-  info(archive, "Monitor, 00:00:01, VAL")   
+##  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -79,10 +79,10 @@ record(ai, "$(P):KRDG$(INDEX)") {
   field(HIGH,"1000")
   field(LOW,"-1")
   field(LOLO,"-1")
-  field(ADEL, "$(ADEL=1)")
-  field(MDEL, "$(MDEL=0)")
-  info(autosaveFields, "HIHI HIGH LOW LOLO ADEL MDEL")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##'#  field(ADEL, "$(ADEL=1)")
+##'#  field(MDEL, "$(MDEL=0)")
+##'#  info(autosaveFields, "HIHI HIGH LOW LOLO ADEL MDEL")
+##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ## 
@@ -133,7 +133,7 @@ record(bi, "$(P):ALARM$(INDEX)_HIGH") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(OSV, "MAJOR")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -144,7 +144,7 @@ record(bi, "$(P):ALARM$(INDEX)_LOW") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(OSV, "MAJOR")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -197,7 +197,7 @@ record(bi, "$(P):ALARM$(INDEX)_VIS") {
 }
 
 
-##
+## ISIS: This may need to change to an mbbiDirect
 ## Read the input reading status
 ##
 record(mbbi, "$(P):RDGST$(INDEX)") {
@@ -222,7 +222,7 @@ record(mbbi, "$(P):RDGST$(INDEX)") {
   field(FVSV, "MAJOR")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getRDGST($(INPUT)) $(PORT) $(ADDR)")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##

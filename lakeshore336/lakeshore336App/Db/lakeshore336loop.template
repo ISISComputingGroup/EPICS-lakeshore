@@ -15,7 +15,7 @@ record(ai, "$(P):HTR$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(PREC, "1")
   field(EGU, "%")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##'#  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ## 
@@ -38,6 +38,9 @@ record(mbbi, "$(P):OMM$(OUT)") {
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
   field(THST, "Open Loop")
+  
+  field(FRST, "Monitor Out")
+  field(FVST, "Warm Up Supply")
 }
 
 ## 
@@ -71,7 +74,7 @@ record(longin, "$(P):HTRST$(OUT)") {
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getHTRST($(INPUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):HTRST$(OUT)_CALC")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -97,7 +100,7 @@ record(mbbi, "$(P):HTRST$(OUT)_CACHE") {
   field(PINI, "YES")
   field(ONSV, "MAJOR")
   field(TWSV, "MAJOR")
-  info(archive, "Monitor, 00:00:01, VAL")   
+##  info(archive, "Monitor, 00:00:01, VAL")   
 }
 
 ##
@@ -113,38 +116,38 @@ record(bo, "$(P):HTRST$(OUT)_RESET") {
 # Add in ZONE support
 ###############################################
 
-substitute "ZONE=1"
-include "lakeshore336zone.template"
-
-substitute "ZONE=2"
-include "lakeshore336zone.template"
-
-substitute "ZONE=2"
-include "lakeshore336zone.template"
-
-substitute "ZONE=3"
-include "lakeshore336zone.template"
-
-substitute "ZONE=4"
-include "lakeshore336zone.template"
-
-substitute "ZONE=5"
-include "lakeshore336zone.template"
-
-substitute "ZONE=6"
-include "lakeshore336zone.template"
-
-substitute "ZONE=7"
-include "lakeshore336zone.template"
-
-substitute "ZONE=8"
-include "lakeshore336zone.template"
-
-substitute "ZONE=9"
-include "lakeshore336zone.template"
-
-substitute "ZONE=10"
-include "lakeshore336zone.template"
+##'#substitute "ZONE=1"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=2"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=2"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=3"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=4"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=5"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=6"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=7"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=8"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=9"
+##'#include "lakeshore336zone.template"
+##'#
+##'#substitute "ZONE=10"
+##'#include "lakeshore336zone.template"
 
 
 
