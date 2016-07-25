@@ -168,6 +168,7 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(INP, "@ls336.proto getOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
 }
+alias("$(P):OUTPUT_MODE$(OUT)", "$(P):OUTPUT_MODE$(OUT):SP:RBV")
 
 ##
 ## Read the input to use for outmode
@@ -196,6 +197,7 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(EIST, "Input D5")
   field(EIVL, "8")
 }
+alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
 
 ##
 ## Read the power up mode to use for outmode
@@ -210,6 +212,7 @@ record(mbbi, "$(P):POWERUP$(OUT)") {
   field(ONST, "On")
   field(ONVL, "1")
 }
+alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 
 ################################################################
 # Write records
@@ -437,6 +440,7 @@ record(bo, "$(P):RAMP_ON$(OUT):SP") {
 ## record(ao, "$(P):MOUT_S$(OUT)")
 ##
 record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
+  field(DESC, "Manual Output Paramter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setMOUT($(OUT)) $(PORT) $(ADDR)")
@@ -449,6 +453,7 @@ record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
 ## record(ao, "$(P):P_S$(OUT)")
 ##
 record(ao, "$(P):P$(OUT):SP") {
+  field(DESC, "PID P Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setP($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -462,6 +467,7 @@ record(ao, "$(P):P$(OUT):SP") {
 ## record(ao, "$(P):I_S$(OUT)")
 ##
 record(ao, "$(P):I$(OUT):SP") {
+  field(DESC, "PID I Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setI($(OUT),$(P),P$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -475,6 +481,7 @@ record(ao, "$(P):I$(OUT):SP") {
 ## record(ao, "$(P):D_S$(OUT)")
 ##
 record(ao, "$(P):D$(OUT):SP") {
+  field(DESC, "PID D Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setD($(OUT),$(P),P$(OUT),I$(OUT)) $(PORT) $(ADDR)")
@@ -485,8 +492,11 @@ record(ao, "$(P):D$(OUT):SP") {
 ##
 ## Set the mode to use for outmode
 ## The strings are output specific. This is defined in another file.
+## In vendor code this was:
+## record(mbbo, "$(P):OMM_S$(OUT)")
 ##
-record(mbbo, "$(P):OMM_S$(OUT)") {
+record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
+  field(DESC, "Output Mode")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRVL, "0")
@@ -501,8 +511,11 @@ record(mbbo, "$(P):OMM_S$(OUT)") {
 
 ##
 ## Set the input to use for outmode
+## In vendor code this was:
+## record(mbbo, "$(P):OMI_S$(OUT)")
 ##
-record(mbbo, "$(P):OMI_S$(OUT)") {
+record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
+  field(DESC, "Which Input To Control")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRST, "None")
@@ -521,8 +534,11 @@ record(mbbo, "$(P):OMI_S$(OUT)") {
 
 ##
 ## Set the power up mode to use for outmode
+## In vendor code this was:
+## record(mbbo, "$(P):OMP_S$(OUT)")
 ##
-record(mbbo, "$(P):OMP_S$(OUT)") {
+record(mbbo, "$(P):POWERUP$(OUT):SP") {
+  field(DESC, "Power Up Enable")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRST, "Off")
@@ -535,8 +551,11 @@ record(mbbo, "$(P):OMP_S$(OUT)") {
 
 ##
 ## Set the type of tuning mode
+## In vendor code this was:
+## record(mbbo, "$(P):TUNEMODE_S$(OUT)")
 ##
-record(mbbo, "$(P):TUNEMODE_S$(OUT)") {
+record(mbbo, "$(P):AUTOTUNE_MODE$(OUT):SP") {
+  field(DESC, "Autotune Mode")
   field(SDIS, "$(P):DISABLE")
   field(ZRST, "P Only")
   field(ZRVL, "0")
@@ -546,14 +565,15 @@ record(mbbo, "$(P):TUNEMODE_S$(OUT)") {
   field(TWVL, "2")
 }
 
-
 ## 
 ## Start the tuning process
+## In vendor code this was:
+## record(ao, "$(P):TUNESTART$(OUT)")
 ##
-record(ao, "$(P):TUNESTART$(OUT)") {
+record(ao, "$(P):AUTOTUNE_START$(OUT)") {
+  field(DESC, "Start the Auto Tuning")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-  field(DESC, "Start the auto tuning")
-  field(OUT, "@ls336.proto setATUNE($(OUT),$(P):TUNEMODE_S$(OUT)) $(PORT) $(ADDR)")
+  field(OUT, "@ls336.proto setATUNE($(OUT),$(P):AUTOTUNE_MODE$(OUT):SP) $(PORT) $(ADDR)")
 }
 

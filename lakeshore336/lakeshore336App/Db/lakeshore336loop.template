@@ -62,8 +62,10 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
 
 ##
 ## Define the strings and values for this record.
+## In vendor code this was:
+## record(mbbo, "$(P):OMM_S$(OUT)")
 ##
-record(mbbo, "$(P):OMM_S$(OUT)") {
+record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
   field(ZRST, "Off")
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
