@@ -225,7 +225,7 @@ getCRVHDR {
 # /// to make the initial record INP link short.
 getINTYPE {
    out "INTYPE? \$1";
-   in "%(\$2_S)d,%(\$2_AR)d,%(\$2_R)d,%(\$2_C)d,%(\$2_U)d"
+   in "%(\$2.A)d,%(\$2.B)d,%(\$2.C)d,%(\$2.D)d,%(\$2.E)d"
 }
 
 
