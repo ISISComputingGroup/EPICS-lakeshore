@@ -24,6 +24,7 @@
 ## Record holding the output number
 ##
 record(stringout, "$(P):OUTPUT$(OUT)") {
+  field(DESC, "Output Number")
   field(DTYP, "Soft Channel")
   field(VAL, "$(OUT)")
   field(PINI, "YES")
@@ -31,8 +32,10 @@ record(stringout, "$(P):OUTPUT$(OUT)") {
 
 ## 
 ## Read the setpoint temperature.
-##
-record(ai, "$(P):SETP$(OUT)") {
+## In vendor code this was:
+## record(ai, "$(P):SETP$(OUT)")
+record(ai, "$(P):TEMP$(OUT):SP:RBV") {
+  field(DESC, "Setpoint Temperature Readback")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(INP, "@ls336.proto getSETP($(OUT)) $(PORT) $(ADDR)")
@@ -42,12 +45,14 @@ record(ai, "$(P):SETP$(OUT)") {
 }
 
 ## 
-## Read the ramp parameter. This also populates the ramp status $(P):RAMPST$(OUT),
-##
-record(ai, "$(P):RAMP$(OUT)") {
+## Read the ramp rate parameter. This also populates the ramp status $(P):RAMP_ON$(OUT),
+## In vendor code this was:
+## record(ai, "$(P):RAMP$(OUT)") 
+record(ai, "$(P):RAMP_RATE$(OUT)") {
+  field(DESC, "Setpoint Ramp Rate")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
-  field(INP, "@ls336.proto getRAMP($(OUT),$(P):RAMPST$(OUT)) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getRAMP($(OUT),$(P):RAMP_ON$(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "3")
   field(EGU, "K/minute")  
@@ -58,8 +63,10 @@ record(ai, "$(P):RAMP$(OUT)") {
 ##
 ## 0=off
 ## 1=on
-##
-record(bi, "$(P):RAMPST$(OUT)") {
+## In vendor code this was:
+## record(bi, "$(P):RAMPST$(OUT)") {
+record(bi, "$(P):RAMP_ON$(OUT)") {
+  field(DESC, "Setpoint Ramp On")
   field(DTYP, "Soft Channel")
   field(ZNAM, "Off")
   field(ONAM, "On")
@@ -68,8 +75,10 @@ record(bi, "$(P):RAMPST$(OUT)") {
 ## 
 ## Read the range parameter (the heater output power range).
 ## This is output specific and is defined in another file.
-##
-record(mbbi, "$(P):RANGE$(OUT)") {
+## In vendor code this was:
+## record(mbbi, "$(P):RANGE$(OUT)")
+record(mbbi, "$(P):HEATER$(OUT):RANGE") {
+  field(DESC, "Heater Output Power Range")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(ZRVL, "0")
@@ -84,8 +93,10 @@ record(mbbi, "$(P):RANGE$(OUT)") {
 
 ## 
 ## Read the manual output parameter.
-##
-record(ai, "$(P):MOUT$(OUT)") {
+## In vendor code this was:
+## record(ai, "$(P):MOUT$(OUT)") 
+record(ai, "$(P):MANUAL_OUT$(OUT)") {
+  field(DESC, "Manual Output Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(INP, "@ls336.proto getMOUT($(OUT)) $(PORT) $(ADDR)")
@@ -97,6 +108,7 @@ record(ai, "$(P):MOUT$(OUT)") {
 ## Separate out the prefix, to make INP field shorter.
 ##
 record(ai, "$(P):P$(OUT)") {
+  field(DESC, "PID P Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(INP, "@ls336.proto getPID($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -108,6 +120,7 @@ record(ai, "$(P):P$(OUT)") {
 ## Read the PID I parameter.
 ##
 record(ai, "$(P):I$(OUT)") {
+  field(DESC, "PID I Parameter")
   field(DTYP, "Soft Channel")
   field(SCAN, "Passive")
   field(PREC, "1")
@@ -117,6 +130,7 @@ record(ai, "$(P):I$(OUT)") {
 ## Read the PID D parameter.
 ##
 record(ai, "$(P):D$(OUT)") {
+  field(DESC, "PID D Parameter")
   field(DTYP, "Soft Channel")
   field(SCAN, "Passive")
   field(PREC, "1")
@@ -126,8 +140,9 @@ record(ai, "$(P):D$(OUT)") {
 ## Read the mode to use for outmode.
 ## This also populates the OMI and OMP records.
 ## The mbbi strings and values are defined in the output specific templates.
-##
-record(mbbi, "$(P):OMM$(OUT)") {
+## In vendor code this was:
+## record(mbbi, "$(P):OMM$(OUT)")
+record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(ZRVL, "0")
@@ -137,13 +152,14 @@ record(mbbi, "$(P):OMM$(OUT)") {
   field(FRVL, "4")
   field(FVVL, "5")
   field(SCAN, "$(SCAN) second")
-  field(INP, "@ls336.proto getOM($(OUT),$(P),OMI$(OUT),OMP$(OUT)) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
 }
 
 ##
 ## Read the input to use for outmode
-##
-record(mbbi, "$(P):OMI$(OUT)") {
+## In vendor code this was:
+## record(mbbi, "$(P):OMI$(OUT)")
+record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(DTYP, "Soft Channel")
   field(ZRST, "None")
   field(ZRVL, "0")
@@ -167,8 +183,9 @@ record(mbbi, "$(P):OMI$(OUT)") {
 
 ##
 ## Read the power up mode to use for outmode
-##
-record(mbbi, "$(P):OMP$(OUT)") {
+## In vendor code this was:
+## record(mbbi, "$(P):OMP$(OUT)")
+record(mbbi, "$(P):POWERUP$(OUT)") {
   field(DTYP, "Soft Channel")
   field(ZRST, "Off")
   field(ZRVL, "0")
@@ -182,14 +199,15 @@ record(mbbi, "$(P):OMP$(OUT)") {
 
 ## 
 ## Set the setpoint temperature.
-##
-record(ao, "$(P):SETP_S$(OUT)") {
+## In vendor code this was:
+## record(ao, "$(P):SETP_S$(OUT)")
+record(ao, "$(P):TEMP$(OUT):SP") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(DESC, "Setpoint temperature")
   field(OUT, "@ls336.proto setSETP($(OUT)) $(PORT) $(ADDR)")
   field(PREC, "3")
-  field(FLNK, "$(P):SETP_S$(OUT)_BUSYSET.PROC")
+  field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET.PROC")
   field(EGU, "K")
 }
 
@@ -201,27 +219,35 @@ record(ao, "$(P):SETP_S$(OUT)") {
 ## the window, before the callback is done.
 ##
 
-record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET")
+## In vendor code this was:
+## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET")
+record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET")
 {
    field(VAL, "0")
    field(OUTA, "$(P):IN_WINDOW$(OUT).VAL PP")
-   field(FLNK, "$(P):SETP_S$(OUT)_BUSYSET2")
+   field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET2")
 }
-record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET2")
+
+## In vendor code this was:
+## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET2")
+record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2")
 {
    field(VAL, "1")
-   field(OUTA, "$(P):SETP$(OUT).PROC PP")
-   field(OUTB, "$(P):SETP_S$(OUT)_BUSY PP")
+   field(OUTA, "$(P):TEMP$(OUT):SP:RBV.PROC PP")
+   field(OUTB, "$(P):TEMP$(OUT):SP_BUSY PP")
    field(FLNK, "$(P):CALC_IN_WINDOW$(OUT)")
 }
-record(busy, "$(P):SETP_S$(OUT)_BUSY")
+
+## In vendor code this was:
+## record(busy, "$(P):SETP_S$(OUT)_BUSY")
+record(busy, "$(P):TEMP$(OUT):SP_BUSY")
 {
 }
 record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
   field(PINI, "YES")
   field(INPA, "$(TOLERANCE=1)")
   field(INPB, "$(P):DUMMY$(OUT).VAL")
-  field(INPC, "$(P):SETP_S$(OUT).VAL")
+  field(INPC, "$(P):TEMP$(OUT):SP.VAL")
   field(CALC, "((B>=(C-A))&&(B<=(C+A)))?1:0")
   field(OOPT, "Every Time")
   field(OUT, "$(P):IN_WINDOW$(OUT).VAL PP")
@@ -245,7 +271,7 @@ record(calcout, "$(P):CALC_BUSY_DONE$(OUT)") {
   field(INPA, "$(P):IN_WINDOW$(OUT).VAL CP")
   field(CALC, "(A=1)?0:1")
   field(OOPT, "Every Time")
-  field(OUT, "$(P):SETP_S$(OUT)_BUSY.VAL PP")
+  field(OUT, "$(P):TEMP$(OUT):SP_BUSY.VAL PP")
 }
 
 ###############################################################################
@@ -257,14 +283,14 @@ record(ai, "$(P):DUMMY$(OUT)") {
 }
 
 ##
-## Monitor $(P):OMI$(OUT) to determin which input sensor to use
+## Monitor $(P):CTRL_INPUT$(OUT) to determin which input sensor to use
 ## to deal with the callback. The below set of records automatically
 ## switch the input when the 'control input' is changed. They make
 ## use of the input sensor PV names passed into this template.
 ##
 record(calcout, "$(P):SET_$(OUT)_INPUTA") {
   field(CALC, "A=1")
-  field(INPA, "$(P):OMI$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -277,7 +303,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTA_LINK") {
 
 record(calcout, "$(P):SET_$(OUT)_INPUTB") {
   field(CALC, "A=2")
-  field(INPA, "$(P):OMI$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -290,7 +316,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTB_LINK") {
 
 record(calcout, "$(P):SET_$(OUT)_INPUTC") {
   field(CALC, "A=3")
-  field(INPA, "$(P):OMI$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -303,7 +329,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTC_LINK") {
 
 record(calcout, "$(P):SET_$(OUT)_INPUTD") {
   field(CALC, "A=4")
-  field(INPA, "$(P):OMI$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -322,7 +348,7 @@ record(mbbo, "$(P):RANGE_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRANGE($(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):RANGE$(OUT).PROC CA") 
+  field(FLNK, "$(P):HEATER$(OUT):RANGE.PROC CA") 
 }
 
 ## 
@@ -340,9 +366,9 @@ record(mbbo, "$(P):RANGE_S$(OUT)") {
 record(ao, "$(P):RAMP_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-  field(OUT, "@ls336.proto setRAMP($(P):RAMPST$(OUT),$(OUT)) $(PORT) $(ADDR)")
+  field(OUT, "@ls336.proto setRAMP($(P):RAMP_ON$(OUT),$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "3")
-  field(FLNK, "$(P):RAMP$(OUT).PROC CA")
+  field(FLNK, "$(P):RAMP_RATE$(OUT).PROC CA")
   field(EGU, "K/minute")
 }
 
@@ -361,8 +387,8 @@ record(ao, "$(P):RAMP_S$(OUT)") {
 record(bo, "$(P):RAMPST_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-  field(OUT, "@ls336.proto setRAMPSTATUS($(P):RAMP$(OUT),$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):RAMP$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setRAMPSTATUS($(P):RAMP_RATE$(OUT),$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):RAMP_RATE$(OUT).PROC CA")
   field(ZNAM, "Off")
   field(ONAM, "On")
 }
@@ -374,7 +400,7 @@ record(ao, "$(P):MOUT_S$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setMOUT($(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):MOUT$(OUT).PROC CA")
+  field(FLNK, "$(P):MANUAL_OUT$(OUT).PROC CA")
 }
 
 ##
@@ -423,8 +449,8 @@ record(mbbo, "$(P):OMM_S$(OUT)") {
   field(THVL, "3")
   field(FRVL, "4")
   field(FVVL, "5")
-  field(OUT, "@ls336.proto setOM($(OUT),$(P),OMI$(OUT),OMP$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):OMM$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
 }
 
 ##
@@ -443,8 +469,8 @@ record(mbbo, "$(P):OMI_S$(OUT)") {
   field(THVL, "3")
   field(FRST, "Input D")
   field(FRVL, "4")
-  field(OUT, "@ls336.proto setOMI($(OUT),$(P),OMM$(OUT),OMP$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):OMM$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setOMI($(OUT),$(P),OUTPUT_MODE$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
 }
 
 ##
@@ -457,8 +483,8 @@ record(mbbo, "$(P):OMP_S$(OUT)") {
   field(ZRVL, "0")
   field(ONST, "On")
   field(ONVL, "1")
-  field(OUT, "@ls336.proto setOMP($(OUT),$(P),OMM$(OUT),OMI$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):OMM$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setOMP($(OUT),$(P),OUTPUT_MODE$(OUT),CTRL_INPUT$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
 }
 
 ##

@@ -19,8 +19,9 @@ record(ai, "$(P):HTR$(OUT)") {
 
 ## 
 ## Define the strings and values for this record.
-##
-record(mbbi, "$(P):RANGE$(OUT)") {
+## In vendor code this was:
+## record(mbbi, "$(P):RANGE$(OUT)")
+record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(ZRST, "Off")
   field(ONST, "Range1/Low")
   field(TWST, "Range2/Medium")
@@ -31,8 +32,9 @@ record(mbbi, "$(P):RANGE$(OUT)") {
 
 ##
 ## Define the strings and values for this record.
-##
-record(mbbi, "$(P):OMM$(OUT)") {
+## In vendor code this was:
+## record(mbbi, "$(P):OMM$(OUT)")
+record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(ZRST, "Off")
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
