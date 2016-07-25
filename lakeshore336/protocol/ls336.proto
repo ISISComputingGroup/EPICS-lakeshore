@@ -110,11 +110,11 @@ getPID {
 
 # /// Combine getOUTMODEMODE, getOUTMODEINPUT and getOUTMODEPE into one function.
 # /// The first argument is the output number.
-# /// The second argument is the output mode intput record.
-# /// The third argument is the output mode powerup enable record.
+# /// The second argument is the PV prefix.
+# /// The third argument is the output mode intput record (suffix only).
+# /// The fourth argument is the output mode powerup enable record (suffix only).
 getOM {
   out "OUTMODE? \$1";
-##  in "%d,%(\$2)d,%(\$3)d";
   in "%d,%(\$2:\$3)d,%(\$2:\$4)d";
 }
 
@@ -267,43 +267,36 @@ setMOUT {
 
 # /// Set the PID P parameter for outputs 1-4
 setP {
-##   out "PID \$1,%f,%(\$2.VAL)f,%(\$3.VAL)f";
    out "PID \$1,%f,%(\$2:\$3)f,%(\$2:\$4)f";
    @init { out "PID? \$1"; in "%f,%*f,%*f"; }
 }
 
 # /// Set the PID I parameter for outputs 1-4
 setI {
-##   out "PID \$2,%(\$1.VAL)f,%f,%(\$3.VAL)f";
-   out "PID \$1,%f,%(\$2:\$3)f,%(\$2:\$4)f";
    out "PID \$1,%(\$2:\$3)f,%f,%(\$2:\$4)f";
    @init { out "PID? \$1"; in "%*f,%f,%*f"; }
 }
 
 # /// Set the PID D parameter for outputs 1-4
 setD {
-##   out "PID \$3,%(\$1.VAL)f,%(\$2.VAL)f,%f";
    out "PID \$1,%(\$2:\$3)f,%(\$2:\$4)f,%f";
    @init { out "PID? \$1"; in "%*f,%*f,%f"; }
 }
 
 # /// Set the output mode [loop],[mode],[input],[power up enable]
 setOM {
-##  out "OUTMODE \$1,%d,%(\$2.VAL)d,%(\$3.VAL)d";
   out "OUTMODE \$1,%d,%(\$2:\$3)d,%(\$2:\$4)d";
   @init { out "OUTMODE? \$1"; in "%d,%*d,%*d";}
 }
 
 # /// Set the output mode input [loop],[mode],[input],[power up enable]
 setOMI {
-##  out "OUTMODE \$1,%(\$2.VAL)d,%d,%(\$3.VAL)d";
   out "OUTMODE \$1,%(\$2:\$3)d,%d,%(\$2:\$4)d";
   @init { out "OUTMODE? \$1"; in "%*d,%d,%*d";}
 }
 
 # /// Set the output mode power up enable [loop],[mode],[input],[power up enable]
 setOMP {
-##  out "OUTMODE \$1,%(\$2.VAL)d,%(\$3.VAL)d,%d";
   out "OUTMODE \$1,%(\$2:\$3)d,%(\$2:\$4)d,%d";
   @init { out "OUTMODE? \$1"; in "%*d,%*d,%d";}
 }
