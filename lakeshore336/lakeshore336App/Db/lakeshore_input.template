@@ -24,7 +24,11 @@ record(calc, "$(P):ALARM$(INDEX)_SUMMARY_CALC") {
   field(INPA, "$(P):TEMP$(INDEX) CP MS")
   field(INPB, "$(P):ALARM$(INDEX):HIGH CP MS")
   field(INPC, "$(P):ALARM$(INDEX):LOW CP MS")
-  field(INPD, "$(P):RDGST$(INDEX) CP MS")
+  field(INPD, "$(P):READING$(INDEX):INVALID CP MS")
+  field(INPE, "$(P):READING$(INDEX):TEMP_UNDER CP MS")
+  field(INPF, "$(P):READING$(INDEX):TEMP_OVER CP MS")
+  field(INPG, "$(P):READING$(INDEX):SENS_ZERO CP MS")
+  field(INPH, "$(P):READING$(INDEX):SENS_OVER CP MS")
   field(CALC, "A")
   field(FLNK, "$(P):ALARM$(INDEX)_SUMMARY_CALC2")
   field(SDIS, "$(DISABLE)")  
@@ -224,32 +228,63 @@ record(bi, "$(P):ALARM$(INDEX):VISIBLE:SP:RBV") {
 }
 
 
-## ISIS: This may need to change to an mbbiDirect
-## Read the input reading status
 ##
-record(mbbi, "$(P):RDGST$(INDEX)") {
-  field(DTYP, "stream")
+## Read the input reading status
+## This replaces the following from vendor code:
+## record(mbbi, "$(P):RDGST$(INDEX)")
+record(mbbiDirect, "$(P):READING$(INDEX):STAT") {
+  field(DESC, "Input $(INDEX) Reading Status")
   field(SDIS, "$(DISABLE)")
-  field(ZRST, "Valid")
-  field(ZRVL, "0")
-  field(ONST, "Invalid")
-  field(ONVL, "1")
-  field(TWST, "Temp Under")
-  field(TWVL, "16")
-  field(THST, "Temp Over")
-  field(THVL, "32")
-  field(FRST, "Sensor Zero")
-  field(FRVL, "64")
-  field(FVST, "Sensor Over")
-  field(FVVL, "128")
-  field(ONSV, "MAJOR")
-  field(TWSV, "MAJOR")
-  field(THSV, "MAJOR")
-  field(FRSV, "MAJOR")
-  field(FVSV, "MAJOR")
   field(SCAN, "$(SCAN) second")  
+  field(DTYP, "stream")
   field(INP, "@ls336.proto getRDGST($(INPUT)) $(PORT) $(ADDR)")
 }
+
+record(bi, "$(P):READING$(INDEX):INVALID") {
+  field(DESC, "Input $(INDEX) Reading Invalid")
+  field(INP, "$(P):READING$(INDEX):STAT.B0 CP")
+  field(ZNAM, "Valid")
+  field(ONAM, "Invalid")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):READING$(INDEX):TEMP_UNDER") {
+  field(DESC, "Input $(INDEX) Temperature Underrange")
+  field(INP, "$(P):READING$(INDEX):STAT.B4 CP")
+  field(ZNAM, "Valid")
+  field(ONAM, "Temp Underrange")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):READING$(INDEX):TEMP_OVER") {
+  field(DESC, "Input $(INDEX) Temperature Overrange")
+  field(INP, "$(P):READING$(INDEX):STAT.B5 CP")
+  field(ZNAM, "Valid")
+  field(ONAM, "Temp Overrange")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):READING$(INDEX):SENS_ZERO") {
+  field(DESC, "Input $(INDEX) Sensor Units Zero")
+  field(INP, "$(P):READING$(INDEX):STAT.B6 CP")
+  field(ZNAM, "Valid")
+  field(ONAM, "Sensor Units Zero")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+record(bi, "$(P):READING$(INDEX):SENS_OVER") {
+  field(DESC, "Input $(INDEX) Sensor Units Overrange")
+  field(INP, "$(P):READING$(INDEX):STAT.B7 CP")
+  field(ZNAM, "Valid")
+  field(ONAM, "Sensor Units Overrange")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
 
 ##
 ## Read the input curve number
