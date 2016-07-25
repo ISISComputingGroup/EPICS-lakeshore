@@ -191,11 +191,6 @@ getALARM {
    in "%(\$2.A)d,%(\$2.B)f,%(\$2.C)f,%(\$2.D)f,%(\$2.E)d,%(\$2.F)d,%(\$2.G)d"
 }
 
-getALARM2 {
-   out "ALARM? \$1";
-   in "%(\$2.A)d,%(\$2.B)f,%(\$2.C)f,%(\$2.D)f,%(\$2.E)d,%(\$2.F)d,%(\$2.G)d"
-}
-
 # /// Read the input reading status
 getRDGST {
    out "RDGST? \$1";
@@ -222,8 +217,8 @@ getINCRV {
 # /// The fifth argument is the curve temperature limit record (suffix only).
 # /// The sixth argument is the curve temperature coefficient record (suffix only).
 getCRVHDR {
-	out "CRVHDR? %(\$1.VAL)d";
-	in "%(\$1_\$2)15c,%(\$1_\$3)10c,%(\$1_\$4)d,%(\$1_\$5)f,%(\$1_\$6)d"
+	out "CRVHDR? %(\$1:\$2)d";
+	in "%(\$1:\$3.AA)15c,%(\$1:\$3.BB)10c,%(\$1:\$3.A)d,%(\$1:\$3.B)f,%(\$1:\$3.C)d"
 }
 
 # /// Read the input type params. I put the ends of the PV names here

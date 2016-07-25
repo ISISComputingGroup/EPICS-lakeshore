@@ -104,19 +104,19 @@ record(ai, "$(P):RAW_VOLT$(INDEX)") {
 ## Set sensor $(INDEX) name 
 ## In vendor code this was:
 ## record(stringout, "$(P):INNAME_S$(INDEX)")
-record(stringout, "$(P):INPUT$(INDEX):NAME:SP") {
+record(stringout, "$(P):NAME$(INDEX):SP") {
   field(DESC, "Set Input $(INDEX) Name")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setINNAME($(INPUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):INNAME$(INDEX).PROC CA")
+  field(FLNK, "$(P):NAME$(INDEX).PROC CA")
 }
 
 ## 
 ## Read input sensor $(INDEX) name
 ## In vendor code this was:
 ## record(stringin, "$(P):INNAME$(INDEX)")
-record(stringin, "$(P):INPUT$(INDEX):NAME") {
+record(stringin, "$(P):NAME$(INDEX)") {
   field(DESC, "Read Input $(INDEX) Name")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
@@ -124,7 +124,7 @@ record(stringin, "$(P):INPUT$(INDEX):NAME") {
   field(PINI, "YES")
   field(SCAN, "Passive")
 }
-alias("$(P):INPUT$(INDEX):NAME", "$(P):INPUT$(INDEX):NAME:SP:RBV")
+alias("$(P):NAME$(INDEX)", "$(P):NAME$(INDEX):SP:RBV")
 
 ##
 ## Read the high alarm status for input $(INDEX).
@@ -175,57 +175,70 @@ record(calc, "$(P):ALARM$(INDEX):SP:RBV_BUFF") {
 ## Read the rest of the alarm params.
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_ONOFF")
-record(bi, "$(P):ALARM$(INDEX):ON:SP:RBV") {
+record(bi, "$(P):ALARM$(INDEX):ON") {
   field(DESC, "Alarm Enabled")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.A CP")
   field(ZNAM, "Disabled")
   field(ONAM, "Enabled")
 }
+alias("$(P):ALARM$(INDEX):ON", "$(P):ALARM$(INDEX):ON:SP:RBV")
+
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_HIGHVAL")
-record(ai, "$(P):ALARM$(INDEX):HIVAL:SP:RBV") {
+record(ai, "$(P):ALARM$(INDEX):HIVAL") {
   field(DESC, "Alarm High Value")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.B CP")
   field(EGU, "K")
 }
+alias("$(P):ALARM$(INDEX):HIVAL", "$(P):ALARM$(INDEX):HIVAL:SP:RBV")
+
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_LOWVAL")
-record(ai, "$(P):ALARM$(INDEX):LOVAL:SP:RBV") {
+record(ai, "$(P):ALARM$(INDEX):LOVAL") {
   field(DESC, "Alarm Low Value")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.C CP")
   field(EGU, "K")
 }
+alias("$(P):ALARM$(INDEX):LOVAL", "$(P):ALARM$(INDEX):LOVAL:SP:RBV")
+
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_DB")
-record(ai, "$(P):ALARM$(INDEX):DEADBAND:SP:RBV") {
+record(ai, "$(P):ALARM$(INDEX):DEADBAND") {
   field(DESC, "Alarm Deadband")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.D CP")
   field(EGU, "K")
 }
+alias("$(P):ALARM$(INDEX):DEADBAND", "$(P):ALARM$(INDEX):DEADBAND:SP:RBV")
+
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_LE")
-record(bi, "$(P):ALARM$(INDEX):LATCHED:SP:RBV") {
+record(bi, "$(P):ALARM$(INDEX):LATCHED") {
   field(DESC, "Alarm Latch Enable")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.E CP")
   field(ZNAM, "Non Latching")
   field(ONAM, "Latching")
 }
+alias("$(P):ALARM$(INDEX):LATCHED", "$(P):ALARM$(INDEX):LATCHED:SP:RBV")
+
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_AU")
-record(bi, "$(P):ALARM$(INDEX):AUDIBLE:SP:RBV") {
+record(bi, "$(P):ALARM$(INDEX):AUDIBLE") {
   field(DESC, "Alarm Audible")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.F CP")
   field(ZNAM, "Quiet")
   field(ONAM, "Audible")
 }
+alias("$(P):ALARM$(INDEX):AUDIBLE", "$(P):ALARM$(INDEX):AUDIBLE:SP:RBV")
+
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_VIS")
-record(bi, "$(P):ALARM$(INDEX):VISIBLE:SP:RBV") {
+record(bi, "$(P):ALARM$(INDEX):VISIBLE") {
   field(DESC, "Alarm Visible")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.G CP")
   field(ZNAM, "Non Visible")
   field(ONAM, "Visible")
 }
+alias("$(P):ALARM$(INDEX):VISIBLE", "$(P):ALARM$(INDEX):VISIBLE:SP:RBV")
 
 
 ##
@@ -233,7 +246,7 @@ record(bi, "$(P):ALARM$(INDEX):VISIBLE:SP:RBV") {
 ## This replaces the following from vendor code:
 ## record(mbbi, "$(P):RDGST$(INDEX)")
 record(mbbiDirect, "$(P):READING$(INDEX):STAT") {
-  field(DESC, "Input $(INDEX) Reading Status")
+  field(DESC, "Input Reading Status")
   field(SDIS, "$(DISABLE)")
   field(SCAN, "$(SCAN) second")  
   field(DTYP, "stream")
@@ -241,7 +254,7 @@ record(mbbiDirect, "$(P):READING$(INDEX):STAT") {
 }
 
 record(bi, "$(P):READING$(INDEX):INVALID") {
-  field(DESC, "Input $(INDEX) Reading Invalid")
+  field(DESC, "Input Reading Invalid")
   field(INP, "$(P):READING$(INDEX):STAT.B0 CP")
   field(ZNAM, "Valid")
   field(ONAM, "Invalid")
@@ -250,7 +263,7 @@ record(bi, "$(P):READING$(INDEX):INVALID") {
 }
 
 record(bi, "$(P):READING$(INDEX):TEMP_UNDER") {
-  field(DESC, "Input $(INDEX) Temperature Underrange")
+  field(DESC, "Input Temperature Underrange")
   field(INP, "$(P):READING$(INDEX):STAT.B4 CP")
   field(ZNAM, "Valid")
   field(ONAM, "Temp Underrange")
@@ -259,7 +272,7 @@ record(bi, "$(P):READING$(INDEX):TEMP_UNDER") {
 }
 
 record(bi, "$(P):READING$(INDEX):TEMP_OVER") {
-  field(DESC, "Input $(INDEX) Temperature Overrange")
+  field(DESC, "Input Temperature Overrange")
   field(INP, "$(P):READING$(INDEX):STAT.B5 CP")
   field(ZNAM, "Valid")
   field(ONAM, "Temp Overrange")
@@ -268,7 +281,7 @@ record(bi, "$(P):READING$(INDEX):TEMP_OVER") {
 }
 
 record(bi, "$(P):READING$(INDEX):SENS_ZERO") {
-  field(DESC, "Input $(INDEX) Sensor Units Zero")
+  field(DESC, "Input Sensor Units Zero")
   field(INP, "$(P):READING$(INDEX):STAT.B6 CP")
   field(ZNAM, "Valid")
   field(ONAM, "Sensor Units Zero")
@@ -277,7 +290,7 @@ record(bi, "$(P):READING$(INDEX):SENS_ZERO") {
 }
 
 record(bi, "$(P):READING$(INDEX):SENS_OVER") {
-  field(DESC, "Input $(INDEX) Sensor Units Overrange")
+  field(DESC, "Input Sensor Units Overrange")
   field(INP, "$(P):READING$(INDEX):STAT.B7 CP")
   field(ZNAM, "Valid")
   field(ONAM, "Sensor Units Overrange")
@@ -288,38 +301,52 @@ record(bi, "$(P):READING$(INDEX):SENS_OVER") {
 
 ##
 ## Read the input curve number
-##
-record(longin, "$(P):INCRV$(INDEX)") {
+## In vendor code this was:
+## record(longin, "$(P):INCRV$(INDEX)")
+record(longin, "$(P):CURVE$(INDEX):NUM") {
+  field(DESC, "Input Curve Number")
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getINCRV($(INPUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):INCRV$(INDEX)_HEAD")
+  field(FLNK, "$(P):CURVE$(INDEX):HEAD_DO")
 }
+alias("$(P):CURVE$(INDEX):NUM", "$(P):CURVE$(INDEX):NUM:SP:RBV")
 
 ##
 ## Read the input curve header.
-## 
-record(bi, "$(P):INCRV$(INDEX)_HEAD") {
+## NOTE: reads values into the inputs of a scalcout record 
+##
+record(bi, "$(P):CURVE$(INDEX):HEAD_DO") {
   field(DESC, "Read Input Curve Header Params")
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
-  field(INP, "@ls336.proto getCRVHDR($(P):INCRV$(INDEX),N,SN,F,LIM,C) $(PORT) $(ADDR)")
+#  field(INP, "@ls336.proto getCRVHDR($(P):CURVE$(INDEX),NUM,NAME,SERIAL_N,FORMAT,LIM,COEFF) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getCRVHDR($(P):CURVE$(INDEX),NUM,HEAD_BUFF) $(PORT) $(ADDR)")
+}
+
+record(scalcout, "$(P):CURVE$(INDEX):HEAD_BUFF") {
+	field(CALC, "0")
 }
 
 ##
 ## Read the rest of the input curve header.
 ##
-record(stringin, "$(P):INCRV$(INDEX)_N") {
+record(stringin, "$(P):CURVE$(INDEX):NAME") {
   field(DESC, "Curve Name")
+  field(INP, "$(P):CURVE$(INDEX):HEAD_BUFF.AA CP")
 }
+alias("$(P):CURVE$(INDEX):NAME", "$(P):CURVE$(INDEX):NAME:SP:RBV")
 
-record(stringin, "$(P):INCRV$(INDEX)_SN") {
+record(stringin, "$(P):CURVE$(INDEX):SERIAL_N") {
   field(DESC, "Curve Serial Number")
+  field(INP, "$(P):CURVE$(INDEX):HEAD_BUFF.BB CP")
 }
+alias("$(P):CURVE$(INDEX):SERIAL_N", "$(P):CURVE$(INDEX):SERIAL_N:SP:RBV")
 
-record(mbbi, "$(P):INCRV$(INDEX)_F") {
+record(mbbi, "$(P):CURVE$(INDEX):FORMAT") {
   field(DESC, "Curve Data Format")
+  field(INP, "$(P):CURVE$(INDEX):HEAD_BUFF.A CP")
   field(ZRVL, "0")
   field(ZRST, "Unknown")
   field(ONVL, "1")
@@ -331,15 +358,19 @@ record(mbbi, "$(P):INCRV$(INDEX)_F") {
   field(FRVL, "4")
   field(FRST, "log Ohm/K")
 }
+alias("$(P):CURVE$(INDEX):FORMAT", "$(P):CURVE$(INDEX):FORMAT:SP:RBV")
 
-record(ai, "$(P):INCRV$(INDEX)_LIM") {
+record(ai, "$(P):CURVE$(INDEX):LIM") {
   field(DESC, "Curve Temperature Limit")
+  field(INP, "$(P):CURVE$(INDEX):HEAD_BUFF.B CP")
   field(EGU, "K")
   field(PREC, "3")
 }
+alias("$(P):CURVE$(INDEX):FORMAT", "$(P):CURVE$(INDEX):FORMAT:SP:RBV")
 
-record(mbbi, "$(P):INCRV$(INDEX)_C") {
+record(mbbi, "$(P):CURVE$(INDEX):COEFF") {
   field(DESC, "Curve Temperature Coefficient")
+  field(INP, "$(P):CURVE$(INDEX):HEAD_BUFF.C CP")
   field(ZRVL, "0")
   field(ZRST, "Unknown")
   field(ONVL, "1")
@@ -347,6 +378,7 @@ record(mbbi, "$(P):INCRV$(INDEX)_C") {
   field(TWVL, "2")
   field(TWST, "Positive")
 }
+alias("$(P):CURVE$(INDEX):FORMAT", "$(P):CURVE$(INDEX):FORMAT:SP:RBV")
 
 
 ## Isabella: try to remove hard-coding from protocol
