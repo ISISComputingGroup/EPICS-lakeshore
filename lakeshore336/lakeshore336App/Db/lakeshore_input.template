@@ -20,7 +20,7 @@
 ## This summarizes the software limits on the temperature readings,
 ## the alarm status reading from the controller and the input reading status.
 ##
-record(calc, "$(P):ALARM$(INDEX)_SUMMARY_CALC") {
+record(calc, "$(P):ALARM$(INDEX):SUMMARY_CALC") {
   field(INPA, "$(P):TEMP$(INDEX) CP MS")
   field(INPB, "$(P):ALARM$(INDEX):HIGH CP MS")
   field(INPC, "$(P):ALARM$(INDEX):LOW CP MS")
@@ -30,19 +30,19 @@ record(calc, "$(P):ALARM$(INDEX)_SUMMARY_CALC") {
   field(INPG, "$(P):READING$(INDEX):SENS_ZERO CP MS")
   field(INPH, "$(P):READING$(INDEX):SENS_OVER CP MS")
   field(CALC, "A")
-  field(FLNK, "$(P):ALARM$(INDEX)_SUMMARY_CALC2")
+  field(FLNK, "$(P):ALARM$(INDEX):SUMMARY_CALC2")
   field(SDIS, "$(DISABLE)")  
 }
 
-record(calcout, "$(P):ALARM$(INDEX)_SUMMARY_CALC2") {
+record(calcout, "$(P):ALARM$(INDEX):SUMMARY_CALC2") {
   field(INPA, "$(P):ALARM$(INDEX)_SUMMARY_CALC.STAT")
   field(CALC, "A!=0?1:0")
   field(DOPT, "Use CALC")
   field(OOPT, "Every Time")
-  field(OUT, "$(P):ALARM$(INDEX)_SUMMARY PP")
+  field(OUT, "$(P):ALARM$(INDEX):SUMMARY PP")
 }
 
-record(bi, "$(P):ALARM$(INDEX)_SUMMARY") {
+record(bi, "$(P):ALARM$(INDEX):SUMMARY") {
   field(ZNAM, "No Alarm")
   field(ONAM, "Alarm")
   field(OSV, "MAJOR")
@@ -53,12 +53,12 @@ record(bi, "$(P):ALARM$(INDEX)_SUMMARY") {
 ##
 ## If we disable polling this input, disable the alarm
 ##
-record(calcout, "$(P):ALARM$(INDEX)_SUMMARY_DISABLE") {
+record(calcout, "$(P):ALARM$(INDEX):SUMMARY:DISABLE") {
   field(INPA, "$(DISABLE) CP")
   field(CALC, "A==1?0:1")
   field(DOPT, "Use CALC")
   field(OOPT, "When Zero")
-  field(OUT, "$(P):ALARM$(INDEX)_SUMMARY.VAL PP")
+  field(OUT, "$(P):ALARM$(INDEX):SUMMARY.VAL PP")
 }
 	
 
@@ -371,7 +371,8 @@ record(mbbi, "$(P):CURVE$(INDEX):COEFF") {
 ## 
 ## Read the input type information.
 ## NOTE: reads values into the inputs of a calc record 
-##
+## In vendor code this was:
+## record(bi, "$(P):INTYPE$(INDEX)")
 record(bi, "$(P):IN$(INDEX):TYPE_DO") {
   field(DESC, "Read Input Type Params")
   field(DTYP, "stream")
@@ -387,7 +388,8 @@ record(calc, "$(P):IN$(INDEX):TYPE_BUFF") {
 ##
 ## Read the rest of the input type params.
 ## NOTE: the last part of the record names are hard coded into protocol file. 
-##
+## In vendor code this was:
+## record(mbbi, "$(P):INTYPE$(INDEX)_S")
 record(mbbi, "$(P):IN$(INDEX):SENS_TYPE") {
   field(DESC, "Sensor Type")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.A CP")
@@ -404,12 +406,18 @@ record(mbbi, "$(P):IN$(INDEX):SENS_TYPE") {
   field(FVST, "Capacitance")
   field(FVVL, "5")
 }
+
+## In vendor code this was:
+## record(bi, "$(P):INTYPE$(INDEX)_AR")
 record(bi, "$(P):IN$(INDEX):AUTORANGE") {
   field(DESC, "Auto Range")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.B CP")
   field(ZNAM, "Off")
   field(ONAM, "On")
 }
+
+## In vendor code this was:
+## record(mbbi, "$(P):INTYPE$(INDEX)_R")
 record(mbbi, "$(P):IN$(INDEX):RANGE") {
   field(DESC, "Range")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.C CP")
@@ -432,12 +440,17 @@ record(mbbi, "$(P):IN$(INDEX):RANGE") {
   field(EIST, "100 KOhm")
   field(EIVL, "8")
 }
+## In vendor code this was:
+## record(bi, "$(P):INTYPE$(INDEX)_C")
 record(bi, "$(P):IN$(INDEX):COMPENSATION") {
   field(DESC, "Compensation")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.D CP")
   field(ZNAM, "Off")
   field(ONAM, "On")
 }
+
+## In vendor code this was:
+## record(mbbi, "$(P):INTYPE$(INDEX)_U")
 record(mbbi, "$(P):IN$(INDEX):UNITS") {
   field(DESC, "Units")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.E CP")
