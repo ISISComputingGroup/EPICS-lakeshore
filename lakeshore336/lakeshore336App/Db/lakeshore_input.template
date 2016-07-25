@@ -152,24 +152,28 @@ record(bi, "$(P):ALARM$(INDEX):LOW") {
 
 ##
 ## Read the alarm parameters.
-## NOTE: the last part of the record name is hard coded into protocol file. 
+## NOTE: reads values into the inputs of a CALC record 
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)")
 record(bi, "$(P):ALARM$(INDEX):SP:RBV_DO") {
   field(DESC, "Read Alarm Params")
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
-  field(INP, "@ls336.proto getALARM($(INPUT),$(P):ALARM$(INDEX),SP:RBV) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getALARM($(INPUT),$(P):ALARM$(INDEX):SP:RBV_BUFF) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
+}
+
+record(calc, "$(P):ALARM$(INDEX):SP:RBV_BUFF") {
+  field(CALC, "0")
 }
 
 ##
 ## Read the rest of the alarm params.
-## NOTE: the last part of the record names are hard coded into protocol file. 
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_ONOFF")
 record(bi, "$(P):ALARM$(INDEX):ON:SP:RBV") {
   field(DESC, "Alarm Enabled")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.A CP")
   field(ZNAM, "Disabled")
   field(ONAM, "Enabled")
 }
@@ -177,24 +181,28 @@ record(bi, "$(P):ALARM$(INDEX):ON:SP:RBV") {
 ## record(ai, "$(P):ALARM$(INDEX)_HIGHVAL")
 record(ai, "$(P):ALARM$(INDEX):HIVAL:SP:RBV") {
   field(DESC, "Alarm High Value")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.B CP")
   field(EGU, "K")
 }
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_LOWVAL")
 record(ai, "$(P):ALARM$(INDEX):LOVAL:SP:RBV") {
   field(DESC, "Alarm Low Value")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.C CP")
   field(EGU, "K")
 }
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_DB")
 record(ai, "$(P):ALARM$(INDEX):DEADBAND:SP:RBV") {
   field(DESC, "Alarm Deadband")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.D CP")
   field(EGU, "K")
 }
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_LE")
 record(bi, "$(P):ALARM$(INDEX):LATCHED:SP:RBV") {
   field(DESC, "Alarm Latch Enable")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.E CP")
   field(ZNAM, "Non Latching")
   field(ONAM, "Latching")
 }
@@ -202,6 +210,7 @@ record(bi, "$(P):ALARM$(INDEX):LATCHED:SP:RBV") {
 ## record(bi, "$(P):ALARM$(INDEX)_AU")
 record(bi, "$(P):ALARM$(INDEX):AUDIBLE:SP:RBV") {
   field(DESC, "Alarm Audible")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.F CP")
   field(ZNAM, "Quiet")
   field(ONAM, "Audible")
 }
@@ -209,6 +218,7 @@ record(bi, "$(P):ALARM$(INDEX):AUDIBLE:SP:RBV") {
 ## record(bi, "$(P):ALARM$(INDEX)_VIS")
 record(bi, "$(P):ALARM$(INDEX):VISIBLE:SP:RBV") {
   field(DESC, "Alarm Visible")
+  field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.G CP")
   field(ZNAM, "Non Visible")
   field(ONAM, "Visible")
 }

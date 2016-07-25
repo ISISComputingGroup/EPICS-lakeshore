@@ -188,7 +188,12 @@ getALARMST {
 # /// to make the initial record INP link short.
 getALARM {
    out "ALARM? \$1";
-   in "%(\$2:ON:\$3)d,%(\$2:HIVAL:\$3)f,%(\$2:LOVAL:\$3)f,%(\$2:DEADBAND:\$3)f,%(\$2:LATCHED:\$3)d,%(\$2:AUDIBLE:\$3)d,%(\$2:VISIBLE:\$3)d"
+   in "%(\$2.A)d,%(\$2.B)f,%(\$2.C)f,%(\$2.D)f,%(\$2.E)d,%(\$2.F)d,%(\$2.G)d"
+}
+
+getALARM2 {
+   out "ALARM? \$1";
+   in "%(\$2.A)d,%(\$2.B)f,%(\$2.C)f,%(\$2.D)f,%(\$2.E)d,%(\$2.F)d,%(\$2.G)d"
 }
 
 # /// Read the input reading status
