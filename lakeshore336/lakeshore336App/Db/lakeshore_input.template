@@ -66,6 +66,7 @@ record(calcout, "$(P):ALARM$(INDEX):SUMMARY:DISABLE") {
 ## Read the temperature on channel $(INDEX) in Kelvin.
 ## In vendor code this was:
 ##  record(ai, "$(P):KRDG$(INDEX)")
+##
 record(ai, "$(P):TEMP$(INDEX)") {
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
@@ -89,6 +90,7 @@ record(ai, "$(P):TEMP$(INDEX)") {
 ## Read the raw voltage on channel $(INDEX).
 ## In vendor code this was:
 ## record(ai, "$(P):SRDG$(INDEX)")
+##
 record(ai, "$(P):RAW_VOLT$(INDEX)") {
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
@@ -104,6 +106,7 @@ record(ai, "$(P):RAW_VOLT$(INDEX)") {
 ## Set sensor $(INDEX) name 
 ## In vendor code this was:
 ## record(stringout, "$(P):INNAME_S$(INDEX)")
+##
 record(stringout, "$(P):NAME$(INDEX):SP") {
   field(DESC, "Set Input $(INDEX) Name")
   field(DTYP, "stream")
@@ -116,6 +119,7 @@ record(stringout, "$(P):NAME$(INDEX):SP") {
 ## Read input sensor $(INDEX) name
 ## In vendor code this was:
 ## record(stringin, "$(P):INNAME$(INDEX)")
+##
 record(stringin, "$(P):NAME$(INDEX)") {
   field(DESC, "Read Input $(INDEX) Name")
   field(DTYP, "stream")
@@ -131,6 +135,7 @@ alias("$(P):NAME$(INDEX)", "$(P):NAME$(INDEX):SP:RBV")
 ## This also populates ALARM$(INDEX):LOW
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_HIGH")
+##
 record(bi, "$(P):ALARM$(INDEX):HIGH") {
   field(DESC, "High Alarm Status")
   field(DTYP, "stream")
@@ -146,6 +151,7 @@ record(bi, "$(P):ALARM$(INDEX):HIGH") {
 ## Read the low alarm status for input $(INDEX)
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_LOW")
+##
 record(bi, "$(P):ALARM$(INDEX):LOW") {
   field(DESC, "Low Alarm Status")
   field(DTYP, "Soft Channel")	   
@@ -159,6 +165,7 @@ record(bi, "$(P):ALARM$(INDEX):LOW") {
 ## NOTE: reads values into the inputs of a CALC record 
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)")
+##
 record(bi, "$(P):ALARM$(INDEX):SP:RBV_DO") {
   field(DESC, "Read Alarm Params")
   field(DTYP, "stream")
@@ -175,6 +182,7 @@ record(calc, "$(P):ALARM$(INDEX):SP:RBV_BUFF") {
 ## Read the rest of the alarm params.
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_ONOFF")
+##
 record(bi, "$(P):ALARM$(INDEX):ON") {
   field(DESC, "Alarm Enabled")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.A CP")
@@ -182,32 +190,40 @@ record(bi, "$(P):ALARM$(INDEX):ON") {
   field(ONAM, "Enabled")
 }
 
+##
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_HIGHVAL")
+##
 record(ai, "$(P):ALARM$(INDEX):HIVAL") {
   field(DESC, "Alarm High Value")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.B CP")
   field(EGU, "K")
 }
 
+##
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_LOWVAL")
+##
 record(ai, "$(P):ALARM$(INDEX):LOVAL") {
   field(DESC, "Alarm Low Value")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.C CP")
   field(EGU, "K")
 }
 
+##
 ## In vendor code this was:
 ## record(ai, "$(P):ALARM$(INDEX)_DB")
+##
 record(ai, "$(P):ALARM$(INDEX):DEADBAND") {
   field(DESC, "Alarm Deadband")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.D CP")
   field(EGU, "K")
 }
 
+##
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_LE")
+##
 record(bi, "$(P):ALARM$(INDEX):LATCHED") {
   field(DESC, "Alarm Latch Enable")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.E CP")
@@ -215,8 +231,10 @@ record(bi, "$(P):ALARM$(INDEX):LATCHED") {
   field(ONAM, "Latching")
 }
 
+##
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_AU")
+##
 record(bi, "$(P):ALARM$(INDEX):AUDIBLE") {
   field(DESC, "Alarm Audible")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.F CP")
@@ -224,8 +242,10 @@ record(bi, "$(P):ALARM$(INDEX):AUDIBLE") {
   field(ONAM, "Audible")
 }
 
+##
 ## In vendor code this was:
 ## record(bi, "$(P):ALARM$(INDEX)_VIS")
+##
 record(bi, "$(P):ALARM$(INDEX):VISIBLE") {
   field(DESC, "Alarm Visible")
   field(INP, "$(P):ALARM$(INDEX):SP:RBV_BUFF.G CP")
@@ -238,6 +258,7 @@ record(bi, "$(P):ALARM$(INDEX):VISIBLE") {
 ## Read the input reading status
 ## This replaces the following from vendor code:
 ## record(mbbi, "$(P):RDGST$(INDEX)")
+##
 record(mbbiDirect, "$(P):READING$(INDEX):STAT") {
   field(DESC, "Input Reading Status")
   field(SDIS, "$(DISABLE)")
@@ -296,6 +317,7 @@ record(bi, "$(P):READING$(INDEX):SENS_OVER") {
 ## Read the input curve number
 ## In vendor code this was:
 ## record(longin, "$(P):INCRV$(INDEX)")
+##
 record(longin, "$(P):CURVE$(INDEX):NUM") {
   field(DESC, "Input Curve Number")
   field(DTYP, "stream")
@@ -373,6 +395,7 @@ record(mbbi, "$(P):CURVE$(INDEX):COEFF") {
 ## NOTE: reads values into the inputs of a calc record 
 ## In vendor code this was:
 ## record(bi, "$(P):INTYPE$(INDEX)")
+##
 record(bi, "$(P):IN$(INDEX):TYPE_DO") {
   field(DESC, "Read Input Type Params")
   field(DTYP, "stream")
@@ -390,6 +413,7 @@ record(calc, "$(P):IN$(INDEX):TYPE_BUFF") {
 ## NOTE: the last part of the record names are hard coded into protocol file. 
 ## In vendor code this was:
 ## record(mbbi, "$(P):INTYPE$(INDEX)_S")
+##
 record(mbbi, "$(P):IN$(INDEX):SENS_TYPE") {
   field(DESC, "Sensor Type")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.A CP")
@@ -407,8 +431,10 @@ record(mbbi, "$(P):IN$(INDEX):SENS_TYPE") {
   field(FVVL, "5")
 }
 
+##
 ## In vendor code this was:
 ## record(bi, "$(P):INTYPE$(INDEX)_AR")
+##
 record(bi, "$(P):IN$(INDEX):AUTORANGE") {
   field(DESC, "Auto Range")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.B CP")
@@ -416,8 +442,10 @@ record(bi, "$(P):IN$(INDEX):AUTORANGE") {
   field(ONAM, "On")
 }
 
+##
 ## In vendor code this was:
 ## record(mbbi, "$(P):INTYPE$(INDEX)_R")
+##
 record(mbbi, "$(P):IN$(INDEX):RANGE") {
   field(DESC, "Range")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.C CP")
@@ -440,8 +468,11 @@ record(mbbi, "$(P):IN$(INDEX):RANGE") {
   field(EIST, "100 KOhm")
   field(EIVL, "8")
 }
+
+##
 ## In vendor code this was:
 ## record(bi, "$(P):INTYPE$(INDEX)_C")
+##
 record(bi, "$(P):IN$(INDEX):COMPENSATION") {
   field(DESC, "Compensation")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.D CP")
@@ -449,8 +480,10 @@ record(bi, "$(P):IN$(INDEX):COMPENSATION") {
   field(ONAM, "On")
 }
 
+##
 ## In vendor code this was:
 ## record(mbbi, "$(P):INTYPE$(INDEX)_U")
+##
 record(mbbi, "$(P):IN$(INDEX):UNITS") {
   field(DESC, "Units")
   field(INP, "$(P):IN$(INDEX):TYPE_BUFF.E CP")

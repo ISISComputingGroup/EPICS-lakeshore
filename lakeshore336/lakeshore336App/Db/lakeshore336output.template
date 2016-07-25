@@ -34,6 +34,7 @@ record(stringout, "$(P):OUTPUT$(OUT)") {
 ## Read the setpoint temperature.
 ## In vendor code this was:
 ## record(ai, "$(P):SETP$(OUT)")
+##
 record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(DESC, "Setpoint Temperature Readback")
   field(DTYP, "stream")
@@ -48,8 +49,9 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
 ## Read the ramp rate parameter. This also populates the ramp status $(P):RAMP_ON$(OUT),
 ## In vendor code this was:
 ## record(ai, "$(P):RAMP$(OUT)") 
+##
 record(ai, "$(P):RAMP_RATE$(OUT)") {
-  field(DESC, "Setpoint Ramp Rate")
+  field(DESC, "Ramp Rate")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(INP, "@ls336.proto getRAMP($(OUT),$(P):RAMP_ON$(OUT)) $(PORT) $(ADDR)")
@@ -57,6 +59,7 @@ record(ai, "$(P):RAMP_RATE$(OUT)") {
   field(PREC, "3")
   field(EGU, "K/minute")  
 }
+alias("$(P):RAMP_RATE$(OUT)", "$(P):RAMP_RATE$(OUT):SP:RBV")
 
 ## 
 ## Read the ramp status parameter.
@@ -64,19 +67,22 @@ record(ai, "$(P):RAMP_RATE$(OUT)") {
 ## 0=off
 ## 1=on
 ## In vendor code this was:
-## record(bi, "$(P):RAMPST$(OUT)") {
+## record(bi, "$(P):RAMPST$(OUT)") 
+##
 record(bi, "$(P):RAMP_ON$(OUT)") {
-  field(DESC, "Setpoint Ramp On")
+  field(DESC, "Ramp On")
   field(DTYP, "Soft Channel")
   field(ZNAM, "Off")
   field(ONAM, "On")
 }
+alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
 ## 
 ## Read the range parameter (the heater output power range).
 ## This is output specific and is defined in another file.
 ## In vendor code this was:
 ## record(mbbi, "$(P):RANGE$(OUT)")
+##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(DESC, "Heater Output Power Range")
   field(DTYP, "stream")
@@ -90,11 +96,13 @@ record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(SCAN, "$(SCAN) second")
   field(INP, "@ls336.proto getRANGE($(OUT)) $(PORT) $(ADDR)")
 }
+alias("$(P):HEATER$(OUT):RANGE", "$(P):HEATER$(OUT):RANGE:SP:RBV")
 
 ## 
 ## Read the manual output parameter.
 ## In vendor code this was:
 ## record(ai, "$(P):MOUT$(OUT)") 
+##
 record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(DESC, "Manual Output Parameter")
   field(DTYP, "stream")
@@ -102,6 +110,7 @@ record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(INP, "@ls336.proto getMOUT($(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
 }
+alias("$(P):MANUAL_OUT$(OUT)", "$(P):MANUAL_OUT$(OUT):SP:RBV")
 
 ## 
 ## Read the PID P parameter. Pass the I and D records into the protocol to read those as well.
@@ -115,6 +124,7 @@ record(ai, "$(P):P$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(PREC, "1")
 }
+alias("$(P):P$(OUT)", "$(P):P$(OUT):SP:RBV")
 
 ## 
 ## Read the PID I parameter.
@@ -125,6 +135,7 @@ record(ai, "$(P):I$(OUT)") {
   field(SCAN, "Passive")
   field(PREC, "1")
 }
+alias("$(P):I$(OUT)", "$(P):I$(OUT):SP:RBV")
 
 ## 
 ## Read the PID D parameter.
@@ -135,14 +146,17 @@ record(ai, "$(P):D$(OUT)") {
   field(SCAN, "Passive")
   field(PREC, "1")
 }
+alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 
 ##
 ## Read the mode to use for outmode.
-## This also populates the OMI and OMP records.
+## This also populates the CTRL_INPUT and POWERUP records.
 ## The mbbi strings and values are defined in the output specific templates.
 ## In vendor code this was:
 ## record(mbbi, "$(P):OMM$(OUT)")
+##
 record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
+  field(DESC, "Output Mode")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(ZRVL, "0")
@@ -159,7 +173,9 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
 ## Read the input to use for outmode
 ## In vendor code this was:
 ## record(mbbi, "$(P):OMI$(OUT)")
+##
 record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
+  field(DESC, "Which Input To Control")
   field(DTYP, "Soft Channel")
   field(ZRST, "None")
   field(ZRVL, "0")
@@ -185,7 +201,9 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
 ## Read the power up mode to use for outmode
 ## In vendor code this was:
 ## record(mbbi, "$(P):OMP$(OUT)")
+##
 record(mbbi, "$(P):POWERUP$(OUT)") {
+  field(DESC, "Power Up Enable")
   field(DTYP, "Soft Channel")
   field(ZRST, "Off")
   field(ZRVL, "0")
@@ -201,7 +219,9 @@ record(mbbi, "$(P):POWERUP$(OUT)") {
 ## Set the setpoint temperature.
 ## In vendor code this was:
 ## record(ao, "$(P):SETP_S$(OUT)")
+##
 record(ao, "$(P):TEMP$(OUT):SP") {
+  field(DESC, "Temperature Setpoint")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(DESC, "Setpoint temperature")
@@ -219,8 +239,10 @@ record(ao, "$(P):TEMP$(OUT):SP") {
 ## the window, before the callback is done.
 ##
 
+##
 ## In vendor code this was:
 ## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET")
+##
 record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET")
 {
    field(VAL, "0")
@@ -228,8 +250,10 @@ record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET")
    field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET2")
 }
 
+##
 ## In vendor code this was:
 ## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET2")
+##
 record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2")
 {
    field(VAL, "1")
@@ -238,8 +262,10 @@ record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2")
    field(FLNK, "$(P):CALC_IN_WINDOW$(OUT)")
 }
 
+##
 ## In vendor code this was:
 ## record(busy, "$(P):SETP_S$(OUT)_BUSY")
+##
 record(busy, "$(P):TEMP$(OUT):SP_BUSY")
 {
 }
@@ -278,6 +304,7 @@ record(calcout, "$(P):CALC_BUSY_DONE$(OUT)") {
 
 ##
 ## Dummy record to use for input link name default
+## Where used, it will be replaced at runtime with the Temperature Readback
 ##
 record(ai, "$(P):DUMMY$(OUT)") {
 }
@@ -343,8 +370,11 @@ record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
 ## 
 ## Set the range parameter.
 ## The strings are output specific and is defined in another file.
+## In vendor code this was:
+## record(mbbo, "$(P):RANGE_S$(OUT)")
 ##
-record(mbbo, "$(P):RANGE_S$(OUT)") {
+record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
+  field(DESC, "Heater Output Power Range")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRANGE($(OUT)) $(PORT) $(ADDR)")
@@ -363,7 +393,11 @@ record(mbbo, "$(P):RANGE_S$(OUT)") {
 ## desired ramp. This is done automatically by reading the 
 ## PV which holds the current ramp status.
 ##
-record(ao, "$(P):RAMP_S$(OUT)") {
+## In vendor code this was:
+## record(ao, "$(P):RAMP_S$(OUT)")
+##
+record(ao, "$(P):RAMP_RATE$(OUT):SP") {
+  field(DESC, "Ramp Rate")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRAMP($(P):RAMP_ON$(OUT),$(OUT)) $(PORT) $(ADDR)")
@@ -384,7 +418,11 @@ record(ao, "$(P):RAMP_S$(OUT)") {
 ## desired ramp status. This is done automatically by reading the 
 ## PV which holds the current ramp value.
 ##
-record(bo, "$(P):RAMPST_S$(OUT)") {
+## In vendor code this was:
+## record(bo, "$(P):RAMPST_S$(OUT)")
+##
+record(bo, "$(P):RAMP_ON$(OUT):SP") {
+  field(DESC, "Ramp On")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRAMPSTATUS($(P):RAMP_RATE$(OUT),$(OUT)) $(PORT) $(ADDR)")
@@ -395,8 +433,10 @@ record(bo, "$(P):RAMPST_S$(OUT)") {
 
 ## 
 ## Set the manual output value.
+## In vendor code this was:
+## record(ao, "$(P):MOUT_S$(OUT)")
 ##
-record(ao, "$(P):MOUT_S$(OUT)") {
+record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setMOUT($(OUT)) $(PORT) $(ADDR)")
@@ -405,8 +445,10 @@ record(ao, "$(P):MOUT_S$(OUT)") {
 
 ##
 ## Set the PID P parameter.
+## In vendor code this was:
+## record(ao, "$(P):P_S$(OUT)")
 ##
-record(ao, "$(P):P_S$(OUT)") {
+record(ao, "$(P):P$(OUT):SP") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setP($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -416,8 +458,10 @@ record(ao, "$(P):P_S$(OUT)") {
 
 ##
 ## Set the PID I parameter.
+## In vendor code this was:
+## record(ao, "$(P):I_S$(OUT)")
 ##
-record(ao, "$(P):I_S$(OUT)") {
+record(ao, "$(P):I$(OUT):SP") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setI($(OUT),$(P),P$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -427,8 +471,10 @@ record(ao, "$(P):I_S$(OUT)") {
 
 ##
 ## Set the PID D parameter.
+## In vendor code this was:
+## record(ao, "$(P):D_S$(OUT)")
 ##
-record(ao, "$(P):D_S$(OUT)") {
+record(ao, "$(P):D$(OUT):SP") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setD($(OUT),$(P),P$(OUT),I$(OUT)) $(PORT) $(ADDR)")
