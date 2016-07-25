@@ -188,7 +188,7 @@ getALARMST {
 # /// to make the initial record INP link short.
 getALARM {
    out "ALARM? \$1";
-   in "%(\$2_ONOFF)d,%(\$2_HIGHVAL)f,%(\$2_LOWVAL)f,%(\$2_DB)f,%(\$2_LE)d,%(\$2_AU)d,%(\$2_VIS)d"
+   in "%(\$2:ON:\$3)d,%(\$2:HIVAL:\$3)f,%(\$2:LOVAL:\$3)f,%(\$2:DEADBAND:\$3)f,%(\$2:LATCHED:\$3)d,%(\$2:AUDIBLE:\$3)d,%(\$2:VISIBLE:\$3)d"
 }
 
 # /// Read the input reading status

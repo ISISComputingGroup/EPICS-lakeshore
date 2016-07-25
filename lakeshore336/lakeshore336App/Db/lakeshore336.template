@@ -55,16 +55,6 @@ record(stringin, "$(P):ID") {
   field(PINI, "YES")
 }
 
-## 
-## Read the model number from the device.
-##
-record(stringin, "$(P):MODEL") {
-  field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE")
-  field(INP, "@ls336.proto getMODEL $(PORT) $(ADDR)")
-  field(SCAN, "I/O Intr")
-}
-
 ################################################################
 # Input sensor records
 ################################################################
@@ -138,10 +128,10 @@ include "lakeshore_input.template"
 # The common records are in lakeshore336output.template.
 ################################################################
 
-substitute "INPUTA=$(P):KRDG0"
-substitute "INPUTB=$(P):KRDG1"
-substitute "INPUTC=$(P):KRDG2"
-substitute "INPUTD=$(P):KRDG3"
+substitute "INPUTA=$(P):TEMP0"
+substitute "INPUTB=$(P):TEMP1"
+substitute "INPUTC=$(P):TEMP2"
+substitute "INPUTD=$(P):TEMP3"
 substitute "TOLERANCE=1"
 
 substitute "OUT=1"

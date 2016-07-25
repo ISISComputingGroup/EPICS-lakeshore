@@ -21,9 +21,9 @@
 ## the alarm status reading from the controller and the input reading status.
 ##
 record(calc, "$(P):ALARM$(INDEX)_SUMMARY_CALC") {
-  field(INPA, "$(P):KRDG$(INDEX) CP MS")
-  field(INPB, "$(P):ALARM$(INDEX)_HIGH CP MS")
-  field(INPC, "$(P):ALARM$(INDEX)_LOW CP MS")
+  field(INPA, "$(P):TEMP$(INDEX) CP MS")
+  field(INPB, "$(P):ALARM$(INDEX):HIGH CP MS")
+  field(INPC, "$(P):ALARM$(INDEX):LOW CP MS")
   field(INPD, "$(P):RDGST$(INDEX) CP MS")
   field(CALC, "A")
   field(FLNK, "$(P):ALARM$(INDEX)_SUMMARY_CALC2")
@@ -60,8 +60,9 @@ record(calcout, "$(P):ALARM$(INDEX)_SUMMARY_DISABLE") {
 
 ## 
 ## Read the temperature on channel $(INDEX) in Kelvin.
-##  
-record(ai, "$(P):KRDG$(INDEX)") {
+## In vendor code this was:
+##  record(ai, "$(P):KRDG$(INDEX)")
+record(ai, "$(P):TEMP$(INDEX)") {
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
   field(DESC, "Channel $(INDEX) Temperature")
@@ -82,8 +83,9 @@ record(ai, "$(P):KRDG$(INDEX)") {
 
 ## 
 ## Read the raw voltage on channel $(INDEX).
-##
-record(ai, "$(P):SRDG$(INDEX)") {
+## In vendor code this was:
+## record(ai, "$(P):SRDG$(INDEX)")
+record(ai, "$(P):RAW_VOLT$(INDEX)") {
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
   field(INP, "@ls336.proto getSRDG($(INPUT)) $(PORT) $(ADDR)")
@@ -96,9 +98,10 @@ record(ai, "$(P):SRDG$(INDEX)") {
 
 ##
 ## Set sensor $(INDEX) name 
-##
-record(stringout, "$(P):INNAME_S$(INDEX)") {
-  field(DESC, "Input $(INDEX) Name")
+## In vendor code this was:
+## record(stringout, "$(P):INNAME_S$(INDEX)")
+record(stringout, "$(P):INPUT$(INDEX):NAME:SP") {
+  field(DESC, "Set Input $(INDEX) Name")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setINNAME($(INPUT)) $(PORT) $(ADDR)")
@@ -107,23 +110,28 @@ record(stringout, "$(P):INNAME_S$(INDEX)") {
 
 ## 
 ## Read input sensor $(INDEX) name
-##
-record(stringin, "$(P):INNAME$(INDEX)") {
+## In vendor code this was:
+## record(stringin, "$(P):INNAME$(INDEX)")
+record(stringin, "$(P):INPUT$(INDEX):NAME") {
+  field(DESC, "Read Input $(INDEX) Name")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getINNAME($(INPUT)) $(PORT) $(ADDR)")
   field(PINI, "YES")
   field(SCAN, "Passive")
 }
+alias("$(P):INPUT$(INDEX):NAME", "$(P):INPUT$(INDEX):NAME:SP:RBV")
 
 ##
 ## Read the high alarm status for input $(INDEX).
-## This also populates ALARM$(INDEX)_LOW
-##
-record(bi, "$(P):ALARM$(INDEX)_HIGH") {
+## This also populates ALARM$(INDEX):LOW
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)_HIGH")
+record(bi, "$(P):ALARM$(INDEX):HIGH") {
+  field(DESC, "High Alarm Status")
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
-  field(INP, "@ls336.proto getALARMST($(INPUT),$(P):ALARM$(INDEX)_LOW) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getALARMST($(INPUT),$(P):ALARM$(INDEX):LOW) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(ZNAM, "Off")
   field(ONAM, "On")
@@ -132,8 +140,10 @@ record(bi, "$(P):ALARM$(INDEX)_HIGH") {
 
 ##
 ## Read the low alarm status for input $(INDEX)
-##
-record(bi, "$(P):ALARM$(INDEX)_LOW") {
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)_LOW")
+record(bi, "$(P):ALARM$(INDEX):LOW") {
+  field(DESC, "Low Alarm Status")
   field(DTYP, "Soft Channel")	   
   field(ZNAM, "Off")
   field(ONAM, "On")
@@ -143,47 +153,61 @@ record(bi, "$(P):ALARM$(INDEX)_LOW") {
 ##
 ## Read the alarm parameters.
 ## NOTE: the last part of the record name is hard coded into protocol file. 
-##
-record(bi, "$(P):ALARM$(INDEX)") {
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)")
+record(bi, "$(P):ALARM$(INDEX):SP:RBV_DO") {
   field(DESC, "Read Alarm Params")
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
-  field(INP, "@ls336.proto getALARM($(INPUT),$(P):ALARM$(INDEX)) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getALARM($(INPUT),$(P):ALARM$(INDEX),SP:RBV) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
 }
 
 ##
 ## Read the rest of the alarm params.
 ## NOTE: the last part of the record names are hard coded into protocol file. 
-##
-record(bi, "$(P):ALARM$(INDEX)_ONOFF") {
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)_ONOFF")
+record(bi, "$(P):ALARM$(INDEX):ON:SP:RBV") {
   field(DESC, "Alarm Enabled")
   field(ZNAM, "Disabled")
   field(ONAM, "Enabled")
 }
-record(ai, "$(P):ALARM$(INDEX)_HIGHVAL") {
+## In vendor code this was:
+## record(ai, "$(P):ALARM$(INDEX)_HIGHVAL")
+record(ai, "$(P):ALARM$(INDEX):HIVAL:SP:RBV") {
   field(DESC, "Alarm High Value")
   field(EGU, "K")
 }
-record(ai, "$(P):ALARM$(INDEX)_LOWVAL") {
+## In vendor code this was:
+## record(ai, "$(P):ALARM$(INDEX)_LOWVAL")
+record(ai, "$(P):ALARM$(INDEX):LOVAL:SP:RBV") {
   field(DESC, "Alarm Low Value")
   field(EGU, "K")
 }
-record(ai, "$(P):ALARM$(INDEX)_DB") {
+## In vendor code this was:
+## record(ai, "$(P):ALARM$(INDEX)_DB")
+record(ai, "$(P):ALARM$(INDEX):DEADBAND:SP:RBV") {
   field(DESC, "Alarm Deadband")
   field(EGU, "K")
 }
-record(bi, "$(P):ALARM$(INDEX)_LE") {
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)_LE")
+record(bi, "$(P):ALARM$(INDEX):LATCHED:SP:RBV") {
   field(DESC, "Alarm Latch Enable")
   field(ZNAM, "Non Latching")
   field(ONAM, "Latching")
 }
-record(bi, "$(P):ALARM$(INDEX)_AU") {
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)_AU")
+record(bi, "$(P):ALARM$(INDEX):AUDIBLE:SP:RBV") {
   field(DESC, "Alarm Audible")
   field(ZNAM, "Quiet")
   field(ONAM, "Audible")
 }
-record(bi, "$(P):ALARM$(INDEX)_VIS") {
+## In vendor code this was:
+## record(bi, "$(P):ALARM$(INDEX)_VIS")
+record(bi, "$(P):ALARM$(INDEX):VISIBLE:SP:RBV") {
   field(DESC, "Alarm Visible")
   field(ZNAM, "Non Visible")
   field(ONAM, "Visible")
