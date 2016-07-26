@@ -41,6 +41,8 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(SCAN, "$(TEMPSCAN) second")
   field(PREC, "3")
   field(EGU, "K")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:TEMP$(OUT):SP:RBV")
 }
 
 ## 
@@ -54,6 +56,8 @@ record(ai, "$(P):RAMP_RATE$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(PREC, "3")
   field(EGU, "K/minute")  
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:RAMP_RATE$(OUT)")
 }
 alias("$(P):RAMP_RATE$(OUT)", "$(P):RAMP_RATE$(OUT):SP:RBV")
 
@@ -68,6 +72,8 @@ record(bi, "$(P):RAMP_ON$(OUT)") {
   field(DTYP, "Soft Channel")
   field(ZNAM, "Off")
   field(ONAM, "On")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:RAMP_ON$(OUT)")
 }
 alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
@@ -87,6 +93,8 @@ record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(FVVL, "5")
   field(SCAN, "$(SCAN) second")
   field(INP, "@ls336.proto getRANGE($(OUT)) $(PORT) $(ADDR)")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:HEATER$(OUT):RANGE")
 }
 alias("$(P):HEATER$(OUT):RANGE", "$(P):HEATER$(OUT):RANGE:SP:RBV")
 
@@ -99,6 +107,8 @@ record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(SDIS, "$(P):DISABLE_POLL")
   field(INP, "@ls336.proto getMOUT($(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT)")
 }
 alias("$(P):MANUAL_OUT$(OUT)", "$(P):MANUAL_OUT$(OUT):SP:RBV")
 
@@ -113,6 +123,8 @@ record(ai, "$(P):P$(OUT)") {
   field(INP, "@ls336.proto getPID($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "1")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:P$(OUT)")
 }
 alias("$(P):P$(OUT)", "$(P):P$(OUT):SP:RBV")
 
@@ -124,6 +136,8 @@ record(ai, "$(P):I$(OUT)") {
   field(DTYP, "Soft Channel")
   field(SCAN, "Passive")
   field(PREC, "1")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:I$(OUT)")
 }
 alias("$(P):I$(OUT)", "$(P):I$(OUT):SP:RBV")
 
@@ -135,6 +149,8 @@ record(ai, "$(P):D$(OUT)") {
   field(DTYP, "Soft Channel")
   field(SCAN, "Passive")
   field(PREC, "1")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:D$(OUT)")
 }
 alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 
@@ -155,6 +171,8 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(FVVL, "5")
   field(SCAN, "$(SCAN) second")
   field(INP, "@ls336.proto getOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT)")
 }
 alias("$(P):OUTPUT_MODE$(OUT)", "$(P):OUTPUT_MODE$(OUT):SP:RBV")
 
@@ -182,6 +200,8 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(SVVL, "7")
   field(EIST, "Input D5")
   field(EIVL, "8")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT)")
 }
 alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
 
@@ -195,6 +215,8 @@ record(mbbi, "$(P):POWERUP$(OUT)") {
   field(ZRVL, "0")
   field(ONST, "On")
   field(ONVL, "1")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:POWERUP$(OUT)")
 }
 alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 
@@ -214,6 +236,8 @@ record(ao, "$(P):TEMP$(OUT):SP") {
   field(PREC, "3")
   field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET.PROC")
   field(EGU, "K")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:TEMP$(OUT):SP")
 }
 
 ###############################################################################
@@ -348,6 +372,8 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRANGE($(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):HEATER$(OUT):RANGE.PROC CA") 
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:HEATER$(OUT):RANGE:SP")
 }
 
 ## 
@@ -370,6 +396,10 @@ record(ao, "$(P):RAMP_RATE$(OUT):SP") {
   field(PREC, "3")
   field(FLNK, "$(P):RAMP_RATE$(OUT).PROC CA")
   field(EGU, "K/minute")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:RAMP_RATE$(OUT):SP")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:RAMP_ON$(OUT):SP")
 }
 
 ## 
@@ -392,6 +422,8 @@ record(bo, "$(P):RAMP_ON$(OUT):SP") {
   field(FLNK, "$(P):RAMP_RATE$(OUT).PROC CA")
   field(ZNAM, "Off")
   field(ONAM, "On")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:RAMP_ON$(OUT):SP")
 }
 
 ## 
@@ -403,6 +435,8 @@ record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setMOUT($(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):MANUAL_OUT$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT):SP")
 }
 
 ##
@@ -415,6 +449,8 @@ record(ao, "$(P):P$(OUT):SP") {
   field(OUT, "@ls336.proto setP($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:P$(OUT):SP")
 }
 
 ##
@@ -427,6 +463,8 @@ record(ao, "$(P):I$(OUT):SP") {
   field(OUT, "@ls336.proto setI($(OUT),$(P),P$(OUT),D$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:I$(OUT):SP")
 }
 
 ##
@@ -439,6 +477,8 @@ record(ao, "$(P):D$(OUT):SP") {
   field(OUT, "@ls336.proto setD($(OUT),$(P),P$(OUT),I$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:D$(OUT):SP")
 }
 
 ##
@@ -457,6 +497,8 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
   field(FVVL, "5")
   field(OUT, "@ls336.proto setOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT):SP") 
 }
 
 ##
@@ -478,6 +520,8 @@ record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
   field(FRVL, "4")
   field(OUT, "@ls336.proto setOMI($(OUT),$(P),OUTPUT_MODE$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT):SP")
 }
 
 ##
@@ -493,6 +537,8 @@ record(mbbo, "$(P):POWERUP$(OUT):SP") {
   field(ONVL, "1")
   field(OUT, "@ls336.proto setOMP($(OUT),$(P),OUTPUT_MODE$(OUT),CTRL_INPUT$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:POWERUP$(OUT):SP")
 }
 
 ##
@@ -517,5 +563,7 @@ record(ao, "$(P):AUTOTUNE_START$(OUT)") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setATUNE($(OUT),$(P):AUTOTUNE_MODE$(OUT):SP) $(PORT) $(ADDR)")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:AUTOTUNE_START$(OUT)")
 }
 

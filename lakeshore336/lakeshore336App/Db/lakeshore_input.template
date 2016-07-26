@@ -79,6 +79,8 @@ record(ai, "$(P):TEMP_$(INPUT)") {
   field(HIGH,"1000")
   field(LOW,"-1")
   field(LOLO,"-1")  
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:TEMP_$(INPUT)")
 }
 
 ## 
@@ -93,6 +95,8 @@ record(ai, "$(P):RAW_VOLT_$(INPUT)") {
   field(EGU, "V")
   field(ADEL, "$(ADEL=1)")
   field(MDEL, "$(MDEL=0)")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:RAW_VOLT_$(INPUT)")
 }
 
 ##
@@ -104,6 +108,8 @@ record(stringout, "$(P):NAME_$(INPUT):SP") {
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setINNAME($(INPUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):NAME_$(INPUT).PROC CA")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:NAME_$(INPUT):SP")
 }
 
 ## 
@@ -116,6 +122,8 @@ record(stringin, "$(P):NAME_$(INPUT)") {
   field(INP, "@ls336.proto getINNAME($(INPUT)) $(PORT) $(ADDR)")
   field(PINI, "YES")
   field(SCAN, "Passive")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:NAME_$(INPUT)")
 }
 alias("$(P):NAME_$(INPUT)", "$(P):NAME_$(INPUT):SP:RBV")
 
@@ -132,6 +140,8 @@ record(bi, "$(P):ALARM_$(INPUT):HIGH") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(OSV, "MAJOR")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:ALARM_$(INPUT):HIGH")
 }
 
 ##
@@ -155,6 +165,8 @@ record(bi, "$(P):ALARM_$(INPUT):SP:RBV_DO") {
   field(SDIS, "$(DISABLE)")
   field(INP, "@ls336.proto getALARM($(INPUT),$(P):ALARM_$(INPUT):SP:RBV_BUFF) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:ALARM_$(INPUT):SP:RBV_DO")
 }
 
 record(calc, "$(P):ALARM_$(INPUT):SP:RBV_BUFF") {
@@ -220,6 +232,8 @@ record(mbbiDirect, "$(P):READING_$(INPUT):STAT") {
   field(SCAN, "$(SCAN) second")  
   field(DTYP, "stream")
   field(INP, "@ls336.proto getRDGST($(INPUT)) $(PORT) $(ADDR)")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:READING_$(INPUT):STAT")
 }
 
 record(bi, "$(P):READING_$(INPUT):INVALID") {
@@ -278,6 +292,8 @@ record(longin, "$(P):CURVE_$(INPUT):NUM") {
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getINCRV($(INPUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):CURVE_$(INPUT):HEAD_DO")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:CURVE_$(INPUT):NUM")
 }
 
 ##
@@ -289,6 +305,8 @@ record(bi, "$(P):CURVE_$(INPUT):HEAD_DO") {
   field(DTYP, "stream")
   field(SDIS, "$(DISABLE)")
   field(INP, "@ls336.proto getCRVHDR($(P):CURVE_$(INPUT),NUM,HEAD_BUFF) $(PORT) $(ADDR)")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:CURVE_$(INPUT):HEAD_DO")
 }
 
 record(scalcout, "$(P):CURVE_$(INPUT):HEAD_BUFF") {
@@ -352,6 +370,8 @@ record(bi, "$(P):IN_$(INPUT):TYPE_DO") {
   field(SDIS, "$(DISABLE)")
   field(INP, "@ls336.proto getINTYPE($(INPUT),$(P):IN_$(INPUT):TYPE_BUFF) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:IN_$(INPUT):TYPE_DO")
 }
 
 record(calc, "$(P):IN_$(INPUT):TYPE_BUFF") {

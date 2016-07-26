@@ -18,6 +18,12 @@
 #
 ################################################################
 
+record(bo, "$(P):SIM") {
+  field(ZNAM, "NO")
+  field(ONAM, "YES")
+  field(VAL, "$(RECSIM=0)")
+}
+
 record(bo, "$(P):DISABLE") {
   field(DESC, "Disable set records")
   field(PINI, "YES")
@@ -53,6 +59,8 @@ record(stringin, "$(P):ID") {
   field(INP, "@ls336.proto getID $(PORT) $(ADDR)")
   field(SCAN, "Passive")
   field(PINI, "YES")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:ID")
 }
 
 ################################################################
