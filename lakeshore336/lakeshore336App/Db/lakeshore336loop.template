@@ -7,8 +7,11 @@
 
 ## 
 ## Read the heater output value.
+## In vendor code this was:
+## record(ai, "$(P):HTR$(OUT)")
 ##
-record(ai, "$(P):HTR$(OUT)") {
+record(ai, "$(P):HEATER$(OUT):OUTPUT") {
+  field(DESC, "Heater Output Percentage")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(INP, "@ls336.proto getHTR($(OUT)) $(PORT) $(ADDR)")
@@ -74,27 +77,38 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
 
 ##
 ## Read the heater status
+## In vendor code this was:
+## record(longin, "$(P):HTRST$(OUT)")
 ##
-record(longin, "$(P):HTRST$(OUT)") {
+record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
+  field(DESC, "Raw Heater Status")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE_POLL")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getHTRST($(INPUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):HTRST$(OUT)_CALC")
+  field(FLNK, "$(P):HEATER$(OUT):STAT_CALC")
 }
 
 ##
 ## Cache the heater status because this is cleared on a read on the controller.
+## In vendor code this was:
+## record(calcout, "$(P):HTRST$(OUT)_CALC")
 ##
-record(calcout, "$(P):HTRST$(OUT)_CALC") {
-  field(INPA, "$(P):HTRST$(OUT).VAL")
+record(calcout, "$(P):HEATER$(OUT):STAT_CALC") {
+  field(INPA, "$(P):HEATER$(OUT):RAW_STAT")
   field(CALC, "A!=0?A:0")
   field(DOPT, "Use CALC")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(P):HTRST$(OUT)_CACHE.RVAL PP")
+  field(OUT, "$(P):HEATER$(OUT):STAT.RVAL PP")
 }
-record(mbbi, "$(P):HTRST$(OUT)_CACHE") {
-  field(DESC, "Cached HTRST")
+
+##
+## Caches the heater status
+## In vendor code this was:
+## record(mbbi, "$(P):HTRST$(OUT)_CACHE")
+##
+record(mbbi, "$(P):HEATER$(OUT):STAT") {
+  field(DESC, "Cached Heater Status")
   field(DTYP, "Raw Soft Channel")
   field(ZRST, "No Error")
   field(ZRVL, "0")
@@ -110,10 +124,12 @@ record(mbbi, "$(P):HTRST$(OUT)_CACHE") {
 
 ##
 ## Provide record to reset the cached value
+## In vendor code this was:
+## record(bo, "$(P):HTRST$(OUT)_RESET")
 ##
-record(bo, "$(P):HTRST$(OUT)_RESET") {
-  field(DESC, "Reset Cached HTRST")
+record(bo, "$(P):HEATER$(OUT):STAT_RESET") {
+  field(DESC, "Reset Cached Heater Status")
   field(VAL, "0")
-  field(OUT, "$(P):HTRST$(OUT)_CACHE.RVAL PP")
+  field(OUT, "$(P):HEATER$(OUT):STAT.RVAL PP")
 }
 
