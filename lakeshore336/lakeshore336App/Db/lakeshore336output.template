@@ -246,8 +246,7 @@ record(ao, "$(P):TEMP$(OUT):SP") {
 ## In vendor code this was:
 ## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET")
 ##
-record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET")
-{
+record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET") {
    field(VAL, "0")
    field(OUTA, "$(P):IN_WINDOW$(OUT).VAL PP")
    field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET2")
@@ -257,8 +256,7 @@ record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET")
 ## In vendor code this was:
 ## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET2")
 ##
-record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2")
-{
+record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2") {
    field(VAL, "1")
    field(OUTA, "$(P):TEMP$(OUT):SP:RBV.PROC PP")
    field(OUTB, "$(P):TEMP$(OUT):SP_BUSY PP")
@@ -269,8 +267,7 @@ record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2")
 ## In vendor code this was:
 ## record(busy, "$(P):SETP_S$(OUT)_BUSY")
 ##
-record(busy, "$(P):TEMP$(OUT):SP_BUSY")
-{
+record(busy, "$(P):TEMP$(OUT):SP_BUSY") {
 }
 record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
   field(PINI, "YES")
