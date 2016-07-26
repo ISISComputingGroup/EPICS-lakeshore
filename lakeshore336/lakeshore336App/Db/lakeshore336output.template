@@ -73,7 +73,7 @@ record(bi, "$(P):RAMP_ON$(OUT)") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:RAMP_ON$(OUT)")
+  field(SIOL, "$(P):SIM:RAMP_ON$(OUT) CP")
 }
 alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
@@ -137,7 +137,7 @@ record(ai, "$(P):I$(OUT)") {
   field(SCAN, "Passive")
   field(PREC, "1")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:I$(OUT)")
+  field(SIOL, "$(P):SIM:I$(OUT) CP")
 }
 alias("$(P):I$(OUT)", "$(P):I$(OUT):SP:RBV")
 
@@ -150,7 +150,7 @@ record(ai, "$(P):D$(OUT)") {
   field(SCAN, "Passive")
   field(PREC, "1")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:D$(OUT)")
+  field(SIOL, "$(P):SIM:D$(OUT) CP")
 }
 alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 
@@ -201,7 +201,7 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(EIST, "Input D5")
   field(EIVL, "8")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT)")
+  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT) CP")
 }
 alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
 
@@ -216,7 +216,7 @@ record(mbbi, "$(P):POWERUP$(OUT)") {
   field(ONST, "On")
   field(ONVL, "1")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:POWERUP$(OUT)")
+  field(SIOL, "$(P):SIM:POWERUP$(OUT) CP")
 }
 alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 
@@ -398,8 +398,6 @@ record(ao, "$(P):RAMP_RATE$(OUT):SP") {
   field(EGU, "K/minute")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_RATE$(OUT):SP")
-  field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:RAMP_ON$(OUT):SP")
 }
 
 ## 
@@ -423,7 +421,7 @@ record(bo, "$(P):RAMP_ON$(OUT):SP") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:RAMP_ON$(OUT):SP")
+  field(SIOL, "$(P):SIM:RAMP_ON$(OUT):SP PP")
 }
 
 ## 
@@ -450,7 +448,7 @@ record(ao, "$(P):P$(OUT):SP") {
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:P$(OUT):SP")
+  field(SIOL, "$(P):SIM:P$(OUT):SP PP")
 }
 
 ##
@@ -464,7 +462,7 @@ record(ao, "$(P):I$(OUT):SP") {
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:I$(OUT):SP")
+  field(SIOL, "$(P):SIM:I$(OUT):SP PP")
 }
 
 ##
@@ -478,7 +476,7 @@ record(ao, "$(P):D$(OUT):SP") {
   field(PREC, "1")
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:D$(OUT):SP")
+  field(SIOL, "$(P):SIM:D$(OUT):SP PP")
 }
 
 ##
@@ -521,7 +519,7 @@ record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
   field(OUT, "@ls336.proto setOMI($(OUT),$(P),OUTPUT_MODE$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT):SP")
+  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT):SP PP")
 }
 
 ##
@@ -538,7 +536,7 @@ record(mbbo, "$(P):POWERUP$(OUT):SP") {
   field(OUT, "@ls336.proto setOMP($(OUT),$(P),OUTPUT_MODE$(OUT),CTRL_INPUT$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:POWERUP$(OUT):SP")
+  field(SIOL, "$(P):SIM:POWERUP$(OUT):SP PP")
 }
 
 ##

@@ -60,7 +60,7 @@ record(stringin, "$(P):ID") {
   field(SCAN, "Passive")
   field(PINI, "YES")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:ID")
+  field(SIOL, "$(P):SIM:ID CP")
 }
 
 ################################################################
@@ -114,18 +114,22 @@ record(bo, "$(P):DISABLE_3") {
 substitute "DISABLE=$(P):DISABLE_0"
 substitute "INPUT=A"
 include "lakeshore_input.template"
+include "lakeshore_input_SIM.template"
 
 substitute "DISABLE=$(P):DISABLE_1"
 substitute "INPUT=B"
 include "lakeshore_input.template"
+include "lakeshore_input_SIM.template"
 
 substitute "DISABLE=$(P):DISABLE_2"
 substitute "INPUT=C"
 include "lakeshore_input.template"
+include "lakeshore_input_SIM.template"
 
 substitute "DISABLE=$(P):DISABLE_3"
 substitute "INPUT=D"
 include "lakeshore_input.template"
+include "lakeshore_input_SIM.template"
 
 ################################################################
 # Now include the loop dependant records, for outputs 1, 2.
@@ -141,8 +145,11 @@ substitute "TOLERANCE=1"
 substitute "OUT=1"
 include "lakeshore336output.template"
 include "lakeshore336loop.template"
+include "lakeshore336output_SIM.template"
+include "lakeshore336loop_SIM.template"
 
 substitute "OUT=2"
 include "lakeshore336output.template"
 include "lakeshore336loop.template"
-
+include "lakeshore336output_SIM.template"
+include "lakeshore336loop_SIM.template"

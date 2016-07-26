@@ -32,7 +32,7 @@ record(calc, "$(P):ALARM_$(INPUT):SUMMARY_CALC") {
 }
 
 record(calcout, "$(P):ALARM_$(INPUT):SUMMARY_CALC2") {
-  field(INPA, "$(P):ALARM_$(INPUT)_SUMMARY_CALC.STAT")
+  field(INPA, "$(P):ALARM_$(INPUT):SUMMARY_CALC.STAT")
   field(CALC, "A!=0?1:0")
   field(DOPT, "Use CALC")
   field(OOPT, "Every Time")
@@ -229,7 +229,7 @@ record(bi, "$(P):ALARM_$(INPUT):VISIBLE") {
 record(mbbiDirect, "$(P):READING_$(INPUT):STAT") {
   field(DESC, "Input Reading Status")
   field(SDIS, "$(DISABLE)")
-  field(SCAN, "$(SCAN) second")  
+  field(SCAN, "$(TEMPSCAN) second")  
   field(DTYP, "stream")
   field(INP, "@ls336.proto getRDGST($(INPUT)) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
