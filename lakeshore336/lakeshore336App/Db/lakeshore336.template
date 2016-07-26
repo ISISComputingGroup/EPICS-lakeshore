@@ -105,22 +105,18 @@ record(bo, "$(P):DISABLE_3") {
 
 substitute "DISABLE=$(P):DISABLE_0"
 substitute "INPUT=A"
-#substitute "INDEX=0"
 include "lakeshore_input.template"
 
 substitute "DISABLE=$(P):DISABLE_1"
 substitute "INPUT=B"
-#substitute "INDEX=1"
 include "lakeshore_input.template"
 
 substitute "DISABLE=$(P):DISABLE_2"
 substitute "INPUT=C"
-#substitute "INDEX=2"
 include "lakeshore_input.template"
 
 substitute "DISABLE=$(P):DISABLE_3"
 substitute "INPUT=D"
-#substitute "INDEX=3"
 include "lakeshore_input.template"
 
 ################################################################
