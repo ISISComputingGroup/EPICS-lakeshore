@@ -105,22 +105,22 @@ record(bo, "$(P):DISABLE_3") {
 
 substitute "DISABLE=$(P):DISABLE_0"
 substitute "INPUT=A"
-substitute "INDEX=0"
+#substitute "INDEX=0"
 include "lakeshore_input.template"
 
 substitute "DISABLE=$(P):DISABLE_1"
 substitute "INPUT=B"
-substitute "INDEX=1"
+#substitute "INDEX=1"
 include "lakeshore_input.template"
 
 substitute "DISABLE=$(P):DISABLE_2"
 substitute "INPUT=C"
-substitute "INDEX=2"
+#substitute "INDEX=2"
 include "lakeshore_input.template"
 
 substitute "DISABLE=$(P):DISABLE_3"
 substitute "INPUT=D"
-substitute "INDEX=3"
+#substitute "INDEX=3"
 include "lakeshore_input.template"
 
 ################################################################
@@ -128,10 +128,10 @@ include "lakeshore_input.template"
 # The common records are in lakeshore336output.template.
 ################################################################
 
-substitute "INPUTA=$(P):TEMP0"
-substitute "INPUTB=$(P):TEMP1"
-substitute "INPUTC=$(P):TEMP2"
-substitute "INPUTD=$(P):TEMP3"
+substitute "INPUTA=$(P):TEMP_A"
+substitute "INPUTB=$(P):TEMP_B"
+substitute "INPUTC=$(P):TEMP_C"
+substitute "INPUTD=$(P):TEMP_D"
 substitute "TOLERANCE=1"
 
 substitute "OUT=1"

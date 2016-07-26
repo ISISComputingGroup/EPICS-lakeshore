@@ -7,10 +7,10 @@
 # the input sensor selected. In order for this to work it requires the following
 # macros:
 #
-# INPUTA - Sensor 1 PV name
-# INPUTB - Sensor 2 PV name
-# INPUTC - Sensor 3 PV name
-# INPUTD - Sensor 4 PV name
+# INPUTA - Sensor A PV name
+# INPUTB - Sensor B PV name
+# INPUTC - Sensor C PV name
+# INPUTD - Sensor D PV name
 # TOLERANCE (optional - defaults to 1)
 # 
 # The input link names must fit into a stringout record for this to work.
@@ -32,8 +32,6 @@ record(stringout, "$(P):OUTPUT$(OUT)") {
 
 ## 
 ## Read the setpoint temperature.
-## In vendor code this was:
-## record(ai, "$(P):SETP$(OUT)")
 ##
 record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(DESC, "Setpoint Temperature Readback")
@@ -47,8 +45,6 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
 
 ## 
 ## Read the ramp rate parameter. This also populates the ramp status $(P):RAMP_ON$(OUT),
-## In vendor code this was:
-## record(ai, "$(P):RAMP$(OUT)") 
 ##
 record(ai, "$(P):RAMP_RATE$(OUT)") {
   field(DESC, "Ramp Rate")
@@ -66,8 +62,6 @@ alias("$(P):RAMP_RATE$(OUT)", "$(P):RAMP_RATE$(OUT):SP:RBV")
 ##
 ## 0=off
 ## 1=on
-## In vendor code this was:
-## record(bi, "$(P):RAMPST$(OUT)") 
 ##
 record(bi, "$(P):RAMP_ON$(OUT)") {
   field(DESC, "Ramp On")
@@ -80,8 +74,6 @@ alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 ## 
 ## Read the range parameter (the heater output power range).
 ## This is output specific and is defined in another file.
-## In vendor code this was:
-## record(mbbi, "$(P):RANGE$(OUT)")
 ##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(DESC, "Heater Output Power Range")
@@ -100,8 +92,6 @@ alias("$(P):HEATER$(OUT):RANGE", "$(P):HEATER$(OUT):RANGE:SP:RBV")
 
 ## 
 ## Read the manual output parameter.
-## In vendor code this was:
-## record(ai, "$(P):MOUT$(OUT)") 
 ##
 record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(DESC, "Manual Output Parameter")
@@ -152,8 +142,6 @@ alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 ## Read the mode to use for outmode.
 ## This also populates the CTRL_INPUT and POWERUP records.
 ## The mbbi strings and values are defined in the output specific templates.
-## In vendor code this was:
-## record(mbbi, "$(P):OMM$(OUT)")
 ##
 record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(DESC, "Output Mode")
@@ -172,8 +160,6 @@ alias("$(P):OUTPUT_MODE$(OUT)", "$(P):OUTPUT_MODE$(OUT):SP:RBV")
 
 ##
 ## Read the input to use for outmode
-## In vendor code this was:
-## record(mbbi, "$(P):OMI$(OUT)")
 ##
 record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(DESC, "Which Input To Control")
@@ -201,8 +187,6 @@ alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
 
 ##
 ## Read the power up mode to use for outmode
-## In vendor code this was:
-## record(mbbi, "$(P):OMP$(OUT)")
 ##
 record(mbbi, "$(P):POWERUP$(OUT)") {
   field(DESC, "Power Up Enable")
@@ -220,8 +204,6 @@ alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 
 ## 
 ## Set the setpoint temperature.
-## In vendor code this was:
-## record(ao, "$(P):SETP_S$(OUT)")
 ##
 record(ao, "$(P):TEMP$(OUT):SP") {
   field(DESC, "Temperature Setpoint")
@@ -241,21 +223,12 @@ record(ao, "$(P):TEMP$(OUT):SP") {
 ## A temperature window is used. The temperature must be within
 ## the window, before the callback is done.
 ##
-
-##
-## In vendor code this was:
-## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET")
-##
 record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET") {
    field(VAL, "0")
    field(OUTA, "$(P):IN_WINDOW$(OUT).VAL PP")
    field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET2")
 }
 
-##
-## In vendor code this was:
-## record(dfanout, "$(P):SETP_S$(OUT)_BUSYSET2")
-##
 record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2") {
    field(VAL, "1")
    field(OUTA, "$(P):TEMP$(OUT):SP:RBV.PROC PP")
@@ -263,12 +236,9 @@ record(dfanout, "$(P):TEMP$(OUT):SP_BUSYSET2") {
    field(FLNK, "$(P):CALC_IN_WINDOW$(OUT)")
 }
 
-##
-## In vendor code this was:
-## record(busy, "$(P):SETP_S$(OUT)_BUSY")
-##
 record(busy, "$(P):TEMP$(OUT):SP_BUSY") {
 }
+
 record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
   field(PINI, "YES")
   field(INPA, "$(TOLERANCE=1)")
@@ -281,6 +251,7 @@ record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
   field(SCAN, "1 second")
   field(PREC, "1") 
 }
+
 record(bo, "$(P):IN_WINDOW$(OUT)") {
   field(DESC, "Temperature In Window")
   field(VAL, "0")
@@ -370,8 +341,6 @@ record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
 ## 
 ## Set the range parameter.
 ## The strings are output specific and is defined in another file.
-## In vendor code this was:
-## record(mbbo, "$(P):RANGE_S$(OUT)")
 ##
 record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(DESC, "Heater Output Power Range")
@@ -392,9 +361,6 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
 ## record the existing/desired ramp status, as well as the 
 ## desired ramp. This is done automatically by reading the 
 ## PV which holds the current ramp status.
-##
-## In vendor code this was:
-## record(ao, "$(P):RAMP_S$(OUT)")
 ##
 record(ao, "$(P):RAMP_RATE$(OUT):SP") {
   field(DESC, "Ramp Rate")
@@ -418,9 +384,6 @@ record(ao, "$(P):RAMP_RATE$(OUT):SP") {
 ## desired ramp status. This is done automatically by reading the 
 ## PV which holds the current ramp value.
 ##
-## In vendor code this was:
-## record(bo, "$(P):RAMPST_S$(OUT)")
-##
 record(bo, "$(P):RAMP_ON$(OUT):SP") {
   field(DESC, "Ramp On")
   field(DTYP, "stream")
@@ -433,8 +396,6 @@ record(bo, "$(P):RAMP_ON$(OUT):SP") {
 
 ## 
 ## Set the manual output value.
-## In vendor code this was:
-## record(ao, "$(P):MOUT_S$(OUT)")
 ##
 record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
   field(DESC, "Manual Output Paramter")
@@ -446,8 +407,6 @@ record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
 
 ##
 ## Set the PID P parameter.
-## In vendor code this was:
-## record(ao, "$(P):P_S$(OUT)")
 ##
 record(ao, "$(P):P$(OUT):SP") {
   field(DESC, "PID P Parameter")
@@ -460,8 +419,6 @@ record(ao, "$(P):P$(OUT):SP") {
 
 ##
 ## Set the PID I parameter.
-## In vendor code this was:
-## record(ao, "$(P):I_S$(OUT)")
 ##
 record(ao, "$(P):I$(OUT):SP") {
   field(DESC, "PID I Parameter")
@@ -474,8 +431,6 @@ record(ao, "$(P):I$(OUT):SP") {
 
 ##
 ## Set the PID D parameter.
-## In vendor code this was:
-## record(ao, "$(P):D_S$(OUT)")
 ##
 record(ao, "$(P):D$(OUT):SP") {
   field(DESC, "PID D Parameter")
@@ -489,8 +444,6 @@ record(ao, "$(P):D$(OUT):SP") {
 ##
 ## Set the mode to use for outmode
 ## The strings are output specific. This is defined in another file.
-## In vendor code this was:
-## record(mbbo, "$(P):OMM_S$(OUT)")
 ##
 record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
   field(DESC, "Output Mode")
@@ -508,8 +461,6 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
 
 ##
 ## Set the input to use for outmode
-## In vendor code this was:
-## record(mbbo, "$(P):OMI_S$(OUT)")
 ##
 record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
   field(DESC, "Which Input To Control")
@@ -531,8 +482,6 @@ record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
 
 ##
 ## Set the power up mode to use for outmode
-## In vendor code this was:
-## record(mbbo, "$(P):OMP_S$(OUT)")
 ##
 record(mbbo, "$(P):POWERUP$(OUT):SP") {
   field(DESC, "Power Up Enable")
@@ -548,8 +497,6 @@ record(mbbo, "$(P):POWERUP$(OUT):SP") {
 
 ##
 ## Set the type of tuning mode
-## In vendor code this was:
-## record(mbbo, "$(P):TUNEMODE_S$(OUT)")
 ##
 record(mbbo, "$(P):AUTOTUNE_MODE$(OUT):SP") {
   field(DESC, "Autotune Mode")
@@ -564,8 +511,6 @@ record(mbbo, "$(P):AUTOTUNE_MODE$(OUT):SP") {
 
 ## 
 ## Start the tuning process
-## In vendor code this was:
-## record(ao, "$(P):TUNESTART$(OUT)")
 ##
 record(ao, "$(P):AUTOTUNE_START$(OUT)") {
   field(DESC, "Start the Auto Tuning")

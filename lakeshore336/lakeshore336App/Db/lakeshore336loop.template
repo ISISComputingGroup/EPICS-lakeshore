@@ -7,8 +7,6 @@
 
 ## 
 ## Read the heater output value.
-## In vendor code this was:
-## record(ai, "$(P):HTR$(OUT)")
 ##
 record(ai, "$(P):HEATER$(OUT):OUTPUT") {
   field(DESC, "Heater Output Percentage")
@@ -22,8 +20,6 @@ record(ai, "$(P):HEATER$(OUT):OUTPUT") {
 
 ## 
 ## Define the strings and values for this record.
-## In vendor code this was:
-## record(mbbi, "$(P):RANGE$(OUT)")
 ##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(ZRST, "Off")
@@ -36,8 +32,6 @@ record(mbbi, "$(P):HEATER$(OUT):RANGE") {
 
 ##
 ## Define the strings and values for this record.
-## In vendor code this was:
-## record(mbbi, "$(P):OMM$(OUT)")
 ##
 record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(ZRST, "Off")
@@ -51,8 +45,6 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
 
 ## 
 ## Define the strings and values for this record.
-## In vendor code this was:
-## record(mbbo, "$(P):RANGE_S$(OUT)")
 ## 
 record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(ZRST, "Off")
@@ -65,8 +57,6 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
 
 ##
 ## Define the strings and values for this record.
-## In vendor code this was:
-## record(mbbo, "$(P):OMM_S$(OUT)")
 ##
 record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
   field(ZRST, "Off")
@@ -77,8 +67,6 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
 
 ##
 ## Read the heater status
-## In vendor code this was:
-## record(longin, "$(P):HTRST$(OUT)")
 ##
 record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
   field(DESC, "Raw Heater Status")
@@ -91,8 +79,6 @@ record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
 
 ##
 ## Cache the heater status because this is cleared on a read on the controller.
-## In vendor code this was:
-## record(calcout, "$(P):HTRST$(OUT)_CALC")
 ##
 record(calcout, "$(P):HEATER$(OUT):STAT_CALC") {
   field(INPA, "$(P):HEATER$(OUT):RAW_STAT")
@@ -104,8 +90,6 @@ record(calcout, "$(P):HEATER$(OUT):STAT_CALC") {
 
 ##
 ## Caches the heater status
-## In vendor code this was:
-## record(mbbi, "$(P):HTRST$(OUT)_CACHE")
 ##
 record(mbbi, "$(P):HEATER$(OUT):STAT") {
   field(DESC, "Cached Heater Status")
@@ -124,8 +108,6 @@ record(mbbi, "$(P):HEATER$(OUT):STAT") {
 
 ##
 ## Provide record to reset the cached value
-## In vendor code this was:
-## record(bo, "$(P):HTRST$(OUT)_RESET")
 ##
 record(bo, "$(P):HEATER$(OUT):STAT_RESET") {
   field(DESC, "Reset Cached Heater Status")
