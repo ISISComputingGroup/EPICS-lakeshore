@@ -176,7 +176,6 @@ getINNAME {
 }
 
 
-
 # /// Read the alarm status
 # /// The first param is the input number, the second is the alarm low record.
 getALARMST {

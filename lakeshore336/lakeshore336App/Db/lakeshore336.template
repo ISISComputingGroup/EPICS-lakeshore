@@ -25,25 +25,12 @@ record(bo, "$(P):SIM") {
 }
 
 record(bo, "$(P):DISABLE") {
-  field(DESC, "Disable set records")
+  field(DESC, "Disable comms")
   field(PINI, "YES")
   field(VAL, "0")
   field(OMSL, "supervisory")
-  field(ZNAM, "Set Enabled")
-  field(ONAM, "Set Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MAJOR")
-}
-
-record(bo, "$(P):DISABLE_POLL") {
-  field(DESC, "Disable polling")
-  field(PINI, "YES")
-  field(VAL, "0")
-  field(OMSL, "supervisory")
-  field(ZNAM, "Poll Enabled")
-  field(ONAM, "Poll Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MAJOR")
+  field(ZNAM, "COMMS ENABLED")
+  field(ONAM, "COMMS DISABLED")
 }
 
 ################################################################
@@ -63,70 +50,18 @@ record(stringin, "$(P):ID") {
   field(SIOL, "$(P):SIM:ID CP")
 }
 
-################################################################
-# Input sensor records
-################################################################
-
-record(bo, "$(P):DISABLE_0") {
-  field(DESC, "Disable A polling")
-  field(PINI, "YES")
-  field(VAL, "0")
-  field(OMSL, "supervisory")
-  field(ZNAM, "Enabled")
-  field(ONAM, "Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MINOR")
-}
-
-record(bo, "$(P):DISABLE_1") {
-  field(DESC, "Disable B polling")
-  field(PINI, "YES")
-  field(VAL, "0")
-  field(OMSL, "supervisory")
-  field(ZNAM, "Enabled")
-  field(ONAM, "Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MINOR")
-}
-
-record(bo, "$(P):DISABLE_2") {
-  field(DESC, "Disable C polling")
-  field(PINI, "YES")
-  field(VAL, "0")
-  field(OMSL, "supervisory")
-  field(ZNAM, "Enabled")
-  field(ONAM, "Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MINOR")
-}
-
-record(bo, "$(P):DISABLE_3") {
-  field(DESC, "Disable D polling")
-  field(PINI, "YES")
-  field(VAL, "0")
-  field(OMSL, "supervisory")
-  field(ZNAM, "Enabled")
-  field(ONAM, "Disabled")
-  field(ZSV, "NO_ALARM")
-  field(OSV, "MINOR")
-}
-
-substitute "DISABLE=$(P):DISABLE_0"
 substitute "INPUT=A"
 include "lakeshore_input.template"
 include "lakeshore_input_SIM.template"
 
-substitute "DISABLE=$(P):DISABLE_1"
 substitute "INPUT=B"
 include "lakeshore_input.template"
 include "lakeshore_input_SIM.template"
 
-substitute "DISABLE=$(P):DISABLE_2"
 substitute "INPUT=C"
 include "lakeshore_input.template"
 include "lakeshore_input_SIM.template"
 
-substitute "DISABLE=$(P):DISABLE_3"
 substitute "INPUT=D"
 include "lakeshore_input.template"
 include "lakeshore_input_SIM.template"

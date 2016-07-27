@@ -10,7 +10,6 @@
 #
 # Macros:
 # INPUT - A to D
-# DISABLE - PV name to use for SDIS
 
 ##
 ## Alarm summary record for input
@@ -28,7 +27,7 @@ record(calc, "$(P):ALARM_$(INPUT):SUMMARY_CALC") {
   field(INPH, "$(P):READING_$(INPUT):SENS_OVER CP MS")
   field(CALC, "A")
   field(FLNK, "$(P):ALARM_$(INPUT):SUMMARY_CALC2")
-  field(SDIS, "$(DISABLE)")  
+  field(SDIS, "$(P):DISABLE")
 }
 
 record(calcout, "$(P):ALARM_$(INPUT):SUMMARY_CALC2") {
@@ -51,7 +50,7 @@ record(bi, "$(P):ALARM_$(INPUT):SUMMARY") {
 ## If we disable polling this input, disable the alarm
 ##
 record(calcout, "$(P):ALARM_$(INPUT):SUMMARY:DISABLE") {
-  field(INPA, "$(DISABLE) CP")
+  field(INPA, "$(P):DISABLE CP")
   field(CALC, "A==1?0:1")
   field(DOPT, "Use CALC")
   field(OOPT, "When Zero")
@@ -64,7 +63,7 @@ record(calcout, "$(P):ALARM_$(INPUT):SUMMARY:DISABLE") {
 ##
 record(ai, "$(P):TEMP_$(INPUT)") {
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(DESC, "Temperature Readback")
   field(INP, "@ls336.proto getKRDG($(INPUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(TEMPSCAN) second")
@@ -88,7 +87,7 @@ record(ai, "$(P):TEMP_$(INPUT)") {
 ##
 record(ai, "$(P):RAW_VOLT_$(INPUT)") {
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getSRDG($(INPUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(TEMPSCAN) second")
   field(PREC, "3")
@@ -134,7 +133,7 @@ alias("$(P):NAME_$(INPUT)", "$(P):NAME_$(INPUT):SP:RBV")
 record(bi, "$(P):ALARM_$(INPUT):HIGH") {
   field(DESC, "High Alarm Status")
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getALARMST($(INPUT),$(P):ALARM_$(INPUT):LOW) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(ZNAM, "Off")
@@ -162,7 +161,7 @@ record(bi, "$(P):ALARM_$(INPUT):LOW") {
 record(bi, "$(P):ALARM_$(INPUT):SP:RBV_DO") {
   field(DESC, "Read Alarm Params")
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getALARM($(INPUT),$(P):ALARM_$(INPUT):SP:RBV_BUFF) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(SIML, "$(P):SIM")
@@ -228,7 +227,7 @@ record(bi, "$(P):ALARM_$(INPUT):VISIBLE") {
 ##
 record(mbbiDirect, "$(P):READING_$(INPUT):STAT") {
   field(DESC, "Input Reading Status")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(TEMPSCAN) second")  
   field(DTYP, "stream")
   field(INP, "@ls336.proto getRDGST($(INPUT)) $(PORT) $(ADDR)")
@@ -288,7 +287,7 @@ record(bi, "$(P):READING_$(INPUT):SENS_OVER") {
 record(longin, "$(P):CURVE_$(INPUT):NUM") {
   field(DESC, "Input Curve Number")
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getINCRV($(INPUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):CURVE_$(INPUT):HEAD_DO")
@@ -303,7 +302,7 @@ record(longin, "$(P):CURVE_$(INPUT):NUM") {
 record(bi, "$(P):CURVE_$(INPUT):HEAD_DO") {
   field(DESC, "Read Input Curve Header Params")
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getCRVHDR($(P):CURVE_$(INPUT),NUM,HEAD_BUFF) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:CURVE_$(INPUT):HEAD_DO")
@@ -367,7 +366,7 @@ record(mbbi, "$(P):CURVE_$(INPUT):COEFF") {
 record(bi, "$(P):IN_$(INPUT):TYPE_DO") {
   field(DESC, "Read Input Type Params")
   field(DTYP, "stream")
-  field(SDIS, "$(DISABLE)")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getINTYPE($(INPUT),$(P):IN_$(INPUT):TYPE_BUFF) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(SIML, "$(P):SIM")

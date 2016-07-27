@@ -11,7 +11,7 @@
 record(ai, "$(P):HEATER$(OUT):OUTPUT") {
   field(DESC, "Heater Output Percentage")
   field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE_POLL")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getHTR($(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "1")
@@ -73,7 +73,7 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
 record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
   field(DESC, "Raw Heater Status")
   field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE_POLL")
+  field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(SCAN) second")  
   field(INP, "@ls336.proto getHTRST($(INPUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):HEATER$(OUT):STAT_CALC")
