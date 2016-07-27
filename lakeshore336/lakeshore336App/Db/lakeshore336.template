@@ -41,6 +41,7 @@ record(bo, "$(P):DISABLE") {
 ## Read the ID string from the device.
 ##
 record(stringin, "$(P):ID") {
+  field(DESC, "The device ID")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getID $(PORT) $(ADDR)")

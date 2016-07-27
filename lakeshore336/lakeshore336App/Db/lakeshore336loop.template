@@ -41,7 +41,6 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
   field(THST, "Open Loop")
-  
   field(FRST, "Monitor Out")
   field(FVST, "Warm Up Supply")
 }

@@ -289,7 +289,7 @@ record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
 }
 
 record(bo, "$(P):IN_WINDOW$(OUT)") {
-  field(DESC, "Temperature In Window")
+  field(DESC, "Temperature Within Tolerance Window")
   field(VAL, "0")
   field(PINI, "YES")
   field(OMSL, "supervisory")

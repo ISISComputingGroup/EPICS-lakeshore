@@ -88,6 +88,7 @@ record(ai, "$(P):TEMP_$(INPUT)") {
 ## Read the raw voltage on this channel.
 ##
 record(ai, "$(P):RAW_VOLT_$(INPUT)") {
+  field(DESC, "Raw voltage Readback")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getSRDG($(INPUT)) $(PORT) $(ADDR)")
@@ -182,7 +183,7 @@ record(calc, "$(P):ALARM_$(INPUT):SP:RBV_BUFF") {
 ## Read the rest of the alarm params.
 ##
 record(bi, "$(P):ALARM_$(INPUT):ON") {
-  field(DESC, "Alarm Enabled")
+  field(DESC, "Alarm Enabled Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.A CP")
   field(ZNAM, "Disabled")
   field(ONAM, "Enabled")
@@ -190,28 +191,28 @@ record(bi, "$(P):ALARM_$(INPUT):ON") {
 }
 
 record(ai, "$(P):ALARM_$(INPUT):HIVAL") {
-  field(DESC, "Alarm High Value")
+  field(DESC, "Alarm High Value Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.B CP")
   field(EGU, "K")
   info(INTEREST, "HIGH")
 }
 
 record(ai, "$(P):ALARM_$(INPUT):LOVAL") {
-  field(DESC, "Alarm Low Value")
+  field(DESC, "Alarm Low Value Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.C CP")
   field(EGU, "K")
   info(INTEREST, "HIGH")
 }
 
 record(ai, "$(P):ALARM_$(INPUT):DEADBAND") {
-  field(DESC, "Alarm Deadband")
+  field(DESC, "Alarm Deadband Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.D CP")
   field(EGU, "K")
   info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):ALARM_$(INPUT):LATCHED") {
-  field(DESC, "Alarm Latch Enable")
+  field(DESC, "Alarm Latch Enable Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.E CP")
   field(ZNAM, "Non Latching")
   field(ONAM, "Latching")
@@ -219,7 +220,7 @@ record(bi, "$(P):ALARM_$(INPUT):LATCHED") {
 }
 
 record(bi, "$(P):ALARM_$(INPUT):AUDIBLE") {
-  field(DESC, "Alarm Audible")
+  field(DESC, "Alarm Audible Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.F CP")
   field(ZNAM, "Quiet")
   field(ONAM, "Audible")
@@ -227,7 +228,7 @@ record(bi, "$(P):ALARM_$(INPUT):AUDIBLE") {
 }
 
 record(bi, "$(P):ALARM_$(INPUT):VISIBLE") {
-  field(DESC, "Alarm Visible")
+  field(DESC, "Alarm Visible Setting")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.G CP")
   field(ZNAM, "Non Visible")
   field(ONAM, "Visible")
@@ -303,7 +304,7 @@ record(bi, "$(P):READING_$(INPUT):SENS_OVER") {
 ## Read the input curve number
 ##
 record(longin, "$(P):CURVE_$(INPUT):NUM") {
-  field(DESC, "Input Curve Number")
+  field(DESC, "Curve Number")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(SCAN) second")  
