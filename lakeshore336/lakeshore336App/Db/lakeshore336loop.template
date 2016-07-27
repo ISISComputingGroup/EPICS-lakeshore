@@ -1,5 +1,13 @@
-# This is included in lakeshore336.template
+#
+# 	Macros:
+#   P - Prefix for PV name
+#   PORT - Bus/Port Address (eg. ASYN Port).
+#   ADDR - Address on the bus (optional)
+#   TEMPSCAN - SCAN rate for the temperature/voltage readings
+#   SCAN - SCAN rate for non-temperature/voltage parameters.
+#
 # This template is for outputs 1 and 2, which can provide heater power.
+# 
 
 ################################################################
 # Read records
@@ -76,7 +84,7 @@ record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(SCAN) second")  
-  field(INP, "@ls336.proto getHTRST($(INPUT)) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getHTRST($(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):HEATER$(OUT):STAT_CALC")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):RAW_STAT")

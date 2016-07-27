@@ -1,4 +1,4 @@
-
+#
 # Template to provide the records required for an input. 
 # This makes use of the macros required by lakeshore336.template
 # but also requires macros to specify the input channel.
@@ -9,7 +9,12 @@
 # For the ZONE commands I used waveforms and subarrays, but that is not as simple.
 #
 # Macros:
-# INPUT - A to D
+#   P - Prefix for PV name
+#   PORT - Bus/Port Address (eg. ASYN Port).
+#   ADDR - Address on the bus (optional)
+#   TEMPSCAN - SCAN rate for the temperature/voltage readings
+#   SCAN - SCAN rate for non-temperature/voltage parameters.
+#   INPUT - A to D
 
 ##
 ## Alarm summary record for input

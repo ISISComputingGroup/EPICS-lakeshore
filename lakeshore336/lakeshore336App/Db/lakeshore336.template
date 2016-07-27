@@ -6,13 +6,7 @@
 #   P - Prefix for PV name
 #   PORT - Bus/Port Address (eg. ASYN Port).
 #   ADDR - Address on the bus (optional)
-#   TEMPSCAN - SCAN rate for the temperature/voltage readings
-#   SCAN - SCAN rate for non-temperature/voltage parameters.
 #
-# Notes: The loop/output dependant PVs are in a seperate template file, included in this one.
-#        Generally, set records forward process the associated read records in order
-#        to update the read record faster than their SCAN rate otherwise would do (but they
-#        are not processed in the same processing chain).
 #
 # Matt Pearson, June 2013
 #
@@ -50,42 +44,3 @@ record(stringin, "$(P):ID") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:ID CP")
 }
-
-substitute "INPUT=A"
-include "lakeshore_input.template"
-include "lakeshore_input_SIM.template"
-
-substitute "INPUT=B"
-include "lakeshore_input.template"
-include "lakeshore_input_SIM.template"
-
-substitute "INPUT=C"
-include "lakeshore_input.template"
-include "lakeshore_input_SIM.template"
-
-substitute "INPUT=D"
-include "lakeshore_input.template"
-include "lakeshore_input_SIM.template"
-
-################################################################
-# Now include the loop dependant records, for outputs 1, 2.
-# The common records are in lakeshore336output.template.
-################################################################
-
-substitute "INPUTA=$(P):TEMP_A"
-substitute "INPUTB=$(P):TEMP_B"
-substitute "INPUTC=$(P):TEMP_C"
-substitute "INPUTD=$(P):TEMP_D"
-substitute "TOLERANCE=1"
-
-substitute "OUT=1"
-include "lakeshore336output.template"
-include "lakeshore336loop.template"
-include "lakeshore336output_SIM.template"
-include "lakeshore336loop_SIM.template"
-
-substitute "OUT=2"
-include "lakeshore336output.template"
-include "lakeshore336loop.template"
-include "lakeshore336output_SIM.template"
-include "lakeshore336loop_SIM.template"

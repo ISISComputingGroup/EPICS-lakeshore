@@ -1,4 +1,3 @@
-# This is included in lakeshore336.template
 # This template is for the common functionality shared by all 4 outputs.
 #
 # There is some logic in this database to provide put_callback functionality
@@ -7,11 +6,21 @@
 # the input sensor selected. In order for this to work it requires the following
 # macros:
 #
-# INPUTA - Sensor A PV name
-# INPUTB - Sensor B PV name
-# INPUTC - Sensor C PV name
-# INPUTD - Sensor D PV name
-# TOLERANCE (optional - defaults to 1)
+#   P - Prefix for PV name
+#   PORT - Bus/Port Address (eg. ASYN Port).
+#   ADDR - Address on the bus (optional)
+#   TEMPSCAN - SCAN rate for the temperature/voltage readings
+#   SCAN - SCAN rate for non-temperature/voltage parameters.
+#   INPUTA - Sensor A PV name
+#   INPUTB - Sensor B PV name
+#   INPUTC - Sensor C PV name
+#   INPUTD - Sensor D PV name
+#   TOLERANCE (optional - defaults to 1)
+#
+# Notes: The loop/output dependant PVs are in a seperate template file.
+#        Generally, set records forward process the associated read records in order
+#        to update the read record faster than their SCAN rate otherwise would do (but they
+#        are not processed in the same processing chain).
 # 
 # The input link names must fit into a stringout record for this to work.
 # The above link names default to a dummy record.
