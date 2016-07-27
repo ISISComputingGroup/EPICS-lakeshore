@@ -57,7 +57,7 @@ record(ai, "$(P):RAMP_RATE$(OUT)") {
   field(INP, "@ls336.proto getRAMP($(OUT),$(P):RAMP_ON$(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "3")
-  field(EGU, "K/minute")  
+  field(EGU, "K/min")  
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_RATE$(OUT)")
   info(INTEREST, "HIGH")
@@ -117,6 +117,7 @@ record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT)")
+  field(EGU, "%")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
@@ -135,6 +136,7 @@ record(ai, "$(P):P$(OUT)") {
   field(PREC, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:P$(OUT)")
+  field(EGU, "")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
@@ -150,6 +152,7 @@ record(ai, "$(P):I$(OUT)") {
   field(PREC, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:I$(OUT) CP")
+  field(EGU, "")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
@@ -165,6 +168,7 @@ record(ai, "$(P):D$(OUT)") {
   field(PREC, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:D$(OUT) CP")
+  field(EGU, "")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
@@ -421,7 +425,7 @@ record(ao, "$(P):RAMP_RATE$(OUT):SP") {
   field(OUT, "@ls336.proto setRAMP($(P):RAMP_ON$(OUT),$(OUT)) $(PORT) $(ADDR)")
   field(PREC, "3")
   field(FLNK, "$(P):RAMP_RATE$(OUT).PROC CA")
-  field(EGU, "K/minute")
+  field(EGU, "K/min")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_RATE$(OUT):SP")
   info(INTEREST, "HIGH")
@@ -463,6 +467,7 @@ record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
   field(FLNK, "$(P):MANUAL_OUT$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT):SP")
+  field(EGU, "%")
   info(INTEREST, "HIGH")
 }
 
@@ -478,6 +483,7 @@ record(ao, "$(P):P$(OUT):SP") {
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:P$(OUT):SP PP")
+  field(EGU, "")
   info(INTEREST, "HIGH")
 }
 
@@ -493,6 +499,7 @@ record(ao, "$(P):I$(OUT):SP") {
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:I$(OUT):SP PP")
+  field(EGU, "")
   info(INTEREST, "HIGH")
 }
 
@@ -508,6 +515,7 @@ record(ao, "$(P):D$(OUT):SP") {
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:D$(OUT):SP PP")
+  field(EGU, "")
   info(INTEREST, "HIGH")
 }
 
@@ -599,6 +607,7 @@ record(ao, "$(P):AUTOTUNE_START$(OUT)") {
   field(OUT, "@ls336.proto setATUNE($(OUT),$(P):AUTOTUNE_MODE$(OUT):SP) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:AUTOTUNE_START$(OUT)")
+  field(EGU, "")
   info(INTEREST, "HIGH")
 }
 

@@ -39,6 +39,7 @@ record(calcout, "$(P):ALARM_$(INPUT):SUMMARY_CALC2") {
 }
 
 record(bi, "$(P):ALARM_$(INPUT):SUMMARY") {
+  field(DESC, "Alarm Summary for This Input")
   field(ZNAM, "No Alarm")
   field(ONAM, "Alarm")
   field(OSV, "MAJOR")
@@ -324,6 +325,7 @@ record(longin, "$(P):CURVE_$(INPUT):NUM") {
   field(FLNK, "$(P):CURVE_$(INPUT):HEAD_DO")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:CURVE_$(INPUT):NUM")
+  field(EGU, "")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
