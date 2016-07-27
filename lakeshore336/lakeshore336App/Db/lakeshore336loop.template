@@ -19,6 +19,7 @@ record(ai, "$(P):HEATER$(OUT):OUTPUT") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):OUTPUT")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 
 ## 
@@ -79,6 +80,7 @@ record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
   field(FLNK, "$(P):HEATER$(OUT):STAT_CALC")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):RAW_STAT")
+  info(archive, "VAL")
 }
 
 ##

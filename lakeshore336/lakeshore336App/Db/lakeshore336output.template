@@ -44,6 +44,7 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP:RBV")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 
 ## 
@@ -60,6 +61,7 @@ record(ai, "$(P):RAMP_RATE$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_RATE$(OUT)")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):RAMP_RATE$(OUT)", "$(P):RAMP_RATE$(OUT):SP:RBV")
 
@@ -77,6 +79,7 @@ record(bi, "$(P):RAMP_ON$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_ON$(OUT) CP")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
@@ -99,6 +102,7 @@ record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):RANGE")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):HEATER$(OUT):RANGE", "$(P):HEATER$(OUT):RANGE:SP:RBV")
 
@@ -114,6 +118,7 @@ record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT)")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):MANUAL_OUT$(OUT)", "$(P):MANUAL_OUT$(OUT):SP:RBV")
 
@@ -131,6 +136,7 @@ record(ai, "$(P):P$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:P$(OUT)")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):P$(OUT)", "$(P):P$(OUT):SP:RBV")
 
@@ -145,6 +151,7 @@ record(ai, "$(P):I$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:I$(OUT) CP")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):I$(OUT)", "$(P):I$(OUT):SP:RBV")
 
@@ -159,6 +166,7 @@ record(ai, "$(P):D$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:D$(OUT) CP")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 
@@ -182,6 +190,7 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT)")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):OUTPUT_MODE$(OUT)", "$(P):OUTPUT_MODE$(OUT):SP:RBV")
 
@@ -212,6 +221,7 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT) CP")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
 
@@ -228,6 +238,7 @@ record(mbbi, "$(P):POWERUP$(OUT)") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:POWERUP$(OUT) CP")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 
@@ -250,6 +261,7 @@ record(ao, "$(P):TEMP$(OUT):SP") {
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP")
   info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 
 ###############################################################################
