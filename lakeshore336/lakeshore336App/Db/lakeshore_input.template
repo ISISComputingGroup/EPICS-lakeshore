@@ -96,8 +96,6 @@ record(ai, "$(P):RAW_VOLT_$(INPUT)") {
   field(SCAN, "$(TEMPSCAN) second")
   field(PREC, "3")
   field(EGU, "V")
-  field(ADEL, "$(ADEL=1)")
-  field(MDEL, "$(MDEL=0)")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAW_VOLT_$(INPUT)")
   info(archive, "VAL")
