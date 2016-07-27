@@ -18,6 +18,7 @@ record(ai, "$(P):HEATER$(OUT):OUTPUT") {
   field(EGU, "%")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):OUTPUT")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -108,6 +109,7 @@ record(mbbi, "$(P):HEATER$(OUT):STAT") {
   field(PINI, "YES")
   field(ONSV, "MAJOR")
   field(TWSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -117,5 +119,6 @@ record(bo, "$(P):HEATER$(OUT):STAT_RESET") {
   field(DESC, "Reset Cached Heater Status")
   field(VAL, "0")
   field(OUT, "$(P):HEATER$(OUT):STAT.RVAL PP")
+  info(INTEREST, "HIGH")
 }
 

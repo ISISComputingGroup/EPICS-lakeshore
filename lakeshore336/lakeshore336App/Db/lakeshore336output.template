@@ -43,6 +43,7 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(EGU, "K")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP:RBV")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -58,6 +59,7 @@ record(ai, "$(P):RAMP_RATE$(OUT)") {
   field(EGU, "K/minute")  
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_RATE$(OUT)")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):RAMP_RATE$(OUT)", "$(P):RAMP_RATE$(OUT):SP:RBV")
 
@@ -74,6 +76,7 @@ record(bi, "$(P):RAMP_ON$(OUT)") {
   field(ONAM, "On")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_ON$(OUT) CP")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
@@ -95,6 +98,7 @@ record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(INP, "@ls336.proto getRANGE($(OUT)) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):RANGE")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):HEATER$(OUT):RANGE", "$(P):HEATER$(OUT):RANGE:SP:RBV")
 
@@ -109,6 +113,7 @@ record(ai, "$(P):MANUAL_OUT$(OUT)") {
   field(SCAN, "$(SCAN) second")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT)")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):MANUAL_OUT$(OUT)", "$(P):MANUAL_OUT$(OUT):SP:RBV")
 
@@ -125,6 +130,7 @@ record(ai, "$(P):P$(OUT)") {
   field(PREC, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:P$(OUT)")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):P$(OUT)", "$(P):P$(OUT):SP:RBV")
 
@@ -138,6 +144,7 @@ record(ai, "$(P):I$(OUT)") {
   field(PREC, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:I$(OUT) CP")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):I$(OUT)", "$(P):I$(OUT):SP:RBV")
 
@@ -151,6 +158,7 @@ record(ai, "$(P):D$(OUT)") {
   field(PREC, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:D$(OUT) CP")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 
@@ -173,6 +181,7 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(INP, "@ls336.proto getOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT)")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):OUTPUT_MODE$(OUT)", "$(P):OUTPUT_MODE$(OUT):SP:RBV")
 
@@ -202,6 +211,7 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(EIVL, "8")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT) CP")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
 
@@ -217,6 +227,7 @@ record(mbbi, "$(P):POWERUP$(OUT)") {
   field(ONVL, "1")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:POWERUP$(OUT) CP")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 
@@ -238,6 +249,7 @@ record(ao, "$(P):TEMP$(OUT):SP") {
   field(EGU, "K")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP")
+  info(INTEREST, "HIGH")
 }
 
 ###############################################################################
@@ -283,6 +295,7 @@ record(bo, "$(P):IN_WINDOW$(OUT)") {
   field(OMSL, "supervisory")
   field(ZNAM, "Not In Window")
   field(ONAM, "In Window")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -374,6 +387,7 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(FLNK, "$(P):HEATER$(OUT):RANGE.PROC CA") 
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:HEATER$(OUT):RANGE:SP")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -398,6 +412,7 @@ record(ao, "$(P):RAMP_RATE$(OUT):SP") {
   field(EGU, "K/minute")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_RATE$(OUT):SP")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -422,6 +437,7 @@ record(bo, "$(P):RAMP_ON$(OUT):SP") {
   field(ONAM, "On")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:RAMP_ON$(OUT):SP PP")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -435,6 +451,7 @@ record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
   field(FLNK, "$(P):MANUAL_OUT$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:MANUAL_OUT$(OUT):SP")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -449,6 +466,7 @@ record(ao, "$(P):P$(OUT):SP") {
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:P$(OUT):SP PP")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -463,6 +481,7 @@ record(ao, "$(P):I$(OUT):SP") {
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:I$(OUT):SP PP")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -477,6 +496,7 @@ record(ao, "$(P):D$(OUT):SP") {
   field(FLNK, "$(P):P$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:D$(OUT):SP PP")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -497,6 +517,7 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT):SP") 
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -520,6 +541,7 @@ record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT):SP PP")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -537,6 +559,7 @@ record(mbbo, "$(P):POWERUP$(OUT):SP") {
   field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:POWERUP$(OUT):SP PP")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -551,6 +574,7 @@ record(mbbo, "$(P):AUTOTUNE_MODE$(OUT):SP") {
   field(ONVL, "1")
   field(TWST, "P, I and D")
   field(TWVL, "2")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -563,5 +587,6 @@ record(ao, "$(P):AUTOTUNE_START$(OUT)") {
   field(OUT, "@ls336.proto setATUNE($(OUT),$(P):AUTOTUNE_MODE$(OUT):SP) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:AUTOTUNE_START$(OUT)")
+  info(INTEREST, "HIGH")
 }
 

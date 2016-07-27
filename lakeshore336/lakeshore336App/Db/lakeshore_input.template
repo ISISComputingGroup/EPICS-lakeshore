@@ -44,6 +44,7 @@ record(bi, "$(P):ALARM_$(INPUT):SUMMARY") {
   field(OSV, "MAJOR")
   field(PINI, "YES")
   field(VAL, "0")  
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -80,6 +81,7 @@ record(ai, "$(P):TEMP_$(INPUT)") {
   field(LOLO,"-1")  
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP_$(INPUT)")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -109,6 +111,7 @@ record(stringout, "$(P):NAME_$(INPUT):SP") {
   field(FLNK, "$(P):NAME_$(INPUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:NAME_$(INPUT):SP")
+  info(INTEREST, "HIGH")
 }
 
 ## 
@@ -123,6 +126,7 @@ record(stringin, "$(P):NAME_$(INPUT)") {
   field(SCAN, "Passive")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:NAME_$(INPUT)")
+  info(INTEREST, "HIGH")
 }
 alias("$(P):NAME_$(INPUT)", "$(P):NAME_$(INPUT):SP:RBV")
 
@@ -141,6 +145,7 @@ record(bi, "$(P):ALARM_$(INPUT):HIGH") {
   field(OSV, "MAJOR")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:ALARM_$(INPUT):HIGH")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -152,6 +157,7 @@ record(bi, "$(P):ALARM_$(INPUT):LOW") {
   field(ZNAM, "Off")
   field(ONAM, "On")
   field(OSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -180,24 +186,28 @@ record(bi, "$(P):ALARM_$(INPUT):ON") {
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.A CP")
   field(ZNAM, "Disabled")
   field(ONAM, "Enabled")
+  info(INTEREST, "HIGH")
 }
 
 record(ai, "$(P):ALARM_$(INPUT):HIVAL") {
   field(DESC, "Alarm High Value")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.B CP")
   field(EGU, "K")
+  info(INTEREST, "HIGH")
 }
 
 record(ai, "$(P):ALARM_$(INPUT):LOVAL") {
   field(DESC, "Alarm Low Value")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.C CP")
   field(EGU, "K")
+  info(INTEREST, "HIGH")
 }
 
 record(ai, "$(P):ALARM_$(INPUT):DEADBAND") {
   field(DESC, "Alarm Deadband")
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.D CP")
   field(EGU, "K")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):ALARM_$(INPUT):LATCHED") {
@@ -205,6 +215,7 @@ record(bi, "$(P):ALARM_$(INPUT):LATCHED") {
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.E CP")
   field(ZNAM, "Non Latching")
   field(ONAM, "Latching")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):ALARM_$(INPUT):AUDIBLE") {
@@ -212,6 +223,7 @@ record(bi, "$(P):ALARM_$(INPUT):AUDIBLE") {
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.F CP")
   field(ZNAM, "Quiet")
   field(ONAM, "Audible")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):ALARM_$(INPUT):VISIBLE") {
@@ -219,6 +231,7 @@ record(bi, "$(P):ALARM_$(INPUT):VISIBLE") {
   field(INP, "$(P):ALARM_$(INPUT):SP:RBV_BUFF.G CP")
   field(ZNAM, "Non Visible")
   field(ONAM, "Visible")
+  info(INTEREST, "HIGH")
 }
 
 
@@ -242,6 +255,7 @@ record(bi, "$(P):READING_$(INPUT):INVALID") {
   field(ONAM, "Invalid")
   field(ZSV, "NO_ALARM")
   field(OSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):READING_$(INPUT):TEMP_UNDER") {
@@ -251,6 +265,7 @@ record(bi, "$(P):READING_$(INPUT):TEMP_UNDER") {
   field(ONAM, "Temp Underrange")
   field(ZSV, "NO_ALARM")
   field(OSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):READING_$(INPUT):TEMP_OVER") {
@@ -260,6 +275,7 @@ record(bi, "$(P):READING_$(INPUT):TEMP_OVER") {
   field(ONAM, "Temp Overrange")
   field(ZSV, "NO_ALARM")
   field(OSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):READING_$(INPUT):SENS_ZERO") {
@@ -269,6 +285,7 @@ record(bi, "$(P):READING_$(INPUT):SENS_ZERO") {
   field(ONAM, "Sensor Units Zero")
   field(ZSV, "NO_ALARM")
   field(OSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):READING_$(INPUT):SENS_OVER") {
@@ -278,6 +295,7 @@ record(bi, "$(P):READING_$(INPUT):SENS_OVER") {
   field(ONAM, "Sensor Units Overrange")
   field(ZSV, "NO_ALARM")
   field(OSV, "MAJOR")
+  info(INTEREST, "HIGH")
 }
 
 
@@ -293,6 +311,7 @@ record(longin, "$(P):CURVE_$(INPUT):NUM") {
   field(FLNK, "$(P):CURVE_$(INPUT):HEAD_DO")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:CURVE_$(INPUT):NUM")
+  info(INTEREST, "HIGH")
 }
 
 ##
@@ -318,11 +337,13 @@ record(scalcout, "$(P):CURVE_$(INPUT):HEAD_BUFF") {
 record(stringin, "$(P):CURVE_$(INPUT):NAME") {
   field(DESC, "Curve Name")
   field(INP, "$(P):CURVE_$(INPUT):HEAD_BUFF.AA CP")
+  info(INTEREST, "HIGH")
 }
 
 record(stringin, "$(P):CURVE_$(INPUT):SERIAL_N") {
   field(DESC, "Curve Serial Number")
   field(INP, "$(P):CURVE_$(INPUT):HEAD_BUFF.BB CP")
+  info(INTEREST, "HIGH")
 }
 
 record(mbbi, "$(P):CURVE_$(INPUT):FORMAT") {
@@ -338,6 +359,7 @@ record(mbbi, "$(P):CURVE_$(INPUT):FORMAT") {
   field(THST, "Ohm/K")
   field(FRVL, "4")
   field(FRST, "log Ohm/K")
+  info(INTEREST, "HIGH")
 }
 
 record(ai, "$(P):CURVE_$(INPUT):LIM") {
@@ -345,6 +367,7 @@ record(ai, "$(P):CURVE_$(INPUT):LIM") {
   field(INP, "$(P):CURVE_$(INPUT):HEAD_BUFF.B CP")
   field(EGU, "K")
   field(PREC, "3")
+  info(INTEREST, "HIGH")
 }
 
 record(mbbi, "$(P):CURVE_$(INPUT):COEFF") {
@@ -356,6 +379,7 @@ record(mbbi, "$(P):CURVE_$(INPUT):COEFF") {
   field(ONST, "Negative")
   field(TWVL, "2")
   field(TWST, "Positive")
+  info(INTEREST, "HIGH")
 }
 
 
@@ -396,6 +420,7 @@ record(mbbi, "$(P):IN_$(INPUT):SENS_TYPE") {
   field(FRVL, "4")
   field(FVST, "Capacitance")
   field(FVVL, "5")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):IN_$(INPUT):AUTORANGE") {
@@ -403,6 +428,7 @@ record(bi, "$(P):IN_$(INPUT):AUTORANGE") {
   field(INP, "$(P):IN_$(INPUT):TYPE_BUFF.B CP")
   field(ZNAM, "Off")
   field(ONAM, "On")
+  info(INTEREST, "HIGH")
 }
 
 record(mbbi, "$(P):IN_$(INPUT):RANGE") {
@@ -426,6 +452,7 @@ record(mbbi, "$(P):IN_$(INPUT):RANGE") {
   field(SVVL, "7")
   field(EIST, "100 KOhm")
   field(EIVL, "8")
+  info(INTEREST, "HIGH")
 }
 
 record(bi, "$(P):IN_$(INPUT):COMPENSATION") {
@@ -433,6 +460,7 @@ record(bi, "$(P):IN_$(INPUT):COMPENSATION") {
   field(INP, "$(P):IN_$(INPUT):TYPE_BUFF.D CP")
   field(ZNAM, "Off")
   field(ONAM, "On")
+  info(INTEREST, "HIGH")
 }
 
 record(mbbi, "$(P):IN_$(INPUT):UNITS") {
@@ -446,6 +474,7 @@ record(mbbi, "$(P):IN_$(INPUT):UNITS") {
   field(TWVL, "2")
   field(THST, "Sensor")
   field(THVL, "3")
+  info(INTEREST, "HIGH")
 }
 
 
