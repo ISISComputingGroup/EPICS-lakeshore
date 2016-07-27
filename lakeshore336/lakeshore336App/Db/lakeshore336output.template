@@ -357,7 +357,7 @@ record(calcout, "$(P):SET_$(OUT)_INPUTA") {
   field(OUT, "$(P):SET_$(OUT)_INPUTA_LINK.PROC")
 }
 record(stringout, "$(P):SET_$(OUT)_INPUTA_LINK") {
-  field(VAL, "$(INPUTA=$(P):DUMMY$(OUT)).VAL CP")
+  field(VAL, "$(P):TEMP_A CP")
   field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
 }
 
@@ -370,7 +370,7 @@ record(calcout, "$(P):SET_$(OUT)_INPUTB") {
   field(OUT, "$(P):SET_$(OUT)_INPUTB_LINK.PROC")
 }
 record(stringout, "$(P):SET_$(OUT)_INPUTB_LINK") {
-  field(VAL, "$(INPUTB=$(P):DUMMY$(OUT)).VAL CP")
+  field(VAL, "$(P):TEMP_B CP")
   field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
 }
 
@@ -383,7 +383,7 @@ record(calcout, "$(P):SET_$(OUT)_INPUTC") {
   field(OUT, "$(P):SET_$(OUT)_INPUTC_LINK.PROC")
 }
 record(stringout, "$(P):SET_$(OUT)_INPUTC_LINK") {
-  field(VAL, "$(INPUTC=$(P):DUMMY$(OUT)).VAL CP")
+  field(VAL, "$(P):TEMP_C CP")
   field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
 }
 
@@ -396,7 +396,7 @@ record(calcout, "$(P):SET_$(OUT)_INPUTD") {
   field(OUT, "$(P):SET_$(OUT)_INPUTD_LINK.PROC")
 }
 record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
-  field(VAL, "$(INPUTD=$(P):DUMMY$(OUT)).VAL CP")
+  field(VAL, "$(P):TEMP_D CP")
   field(OUT, "$(P):CALC_IN_WINDOW$(OUT).INPB CA")
 }
 
