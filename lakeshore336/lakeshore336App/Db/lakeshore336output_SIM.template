@@ -51,16 +51,16 @@ alias("$(P):SIM:D$(OUT)", "$(P):SIM:D$(OUT):SP")
 alias("$(P):SIM:D$(OUT)", "$(P):SIM:D$(OUT):SP:RBV")
 
 
-record(mbbi, "$(P):SIM:OUTPUT_MODE$(OUT)") {
+record(mbbi, "$(P):SIM:OUT_MODE$(OUT)") {
 }
-alias("$(P):SIM:OUTPUT_MODE$(OUT)", "$(P):SIM:OUTPUT_MODE$(OUT):SP")
-alias("$(P):SIM:OUTPUT_MODE$(OUT)", "$(P):SIM:OUTPUT_MODE$(OUT):SP:RBV")
+alias("$(P):SIM:OUT_MODE$(OUT)", "$(P):SIM:OUT_MODE$(OUT):SP")
+alias("$(P):SIM:OUT_MODE$(OUT)", "$(P):SIM:OUT_MODE$(OUT):SP:RBV")
 
 
-record(mbbi, "$(P):SIM:CTRL_INPUT$(OUT)") {
+record(mbbi, "$(P):SIM:CTRL_IN$(OUT)") {
 }
-alias("$(P):SIM:CTRL_INPUT$(OUT)", "$(P):SIM:CTRL_INPUT$(OUT):SP")
-alias("$(P):SIM:CTRL_INPUT$(OUT)", "$(P):SIM:CTRL_INPUT$(OUT):SP:RBV")
+alias("$(P):SIM:CTRL_IN$(OUT)", "$(P):SIM:CTRL_IN$(OUT):SP")
+alias("$(P):SIM:CTRL_IN$(OUT)", "$(P):SIM:CTRL_IN$(OUT):SP:RBV")
 
 
 record(mbbi, "$(P):SIM:POWERUP$(OUT)") {

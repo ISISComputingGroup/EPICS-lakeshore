@@ -178,10 +178,10 @@ alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 
 ##
 ## Read the mode to use for outmode.
-## This also populates the CTRL_INPUT and POWERUP records.
+## This also populates the CTRL_IN and POWERUP records.
 ## The mbbi strings and values are defined in the output specific templates.
 ##
-record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
+record(mbbi, "$(P):OUT_MODE$(OUT)") {
   field(DESC, "Output Mode")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
@@ -192,18 +192,18 @@ record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
   field(FRVL, "4")
   field(FVVL, "5")
   field(SCAN, "$(SCAN) second")
-  field(INP, "@ls336.proto getOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto getOM($(OUT),$(P),CTRL_IN$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT)")
+  field(SIOL, "$(P):SIM:OUT_MODE$(OUT)")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
-alias("$(P):OUTPUT_MODE$(OUT)", "$(P):OUTPUT_MODE$(OUT):SP:RBV")
+alias("$(P):OUT_MODE$(OUT)", "$(P):OUT_MODE$(OUT):SP:RBV")
 
 ##
 ## Read the input to use for outmode
 ##
-record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
+record(mbbi, "$(P):CTRL_IN$(OUT)") {
   field(DESC, "Which Input To Control")
   field(DTYP, "Soft Channel")
   field(ZRST, "None")
@@ -225,11 +225,11 @@ record(mbbi, "$(P):CTRL_INPUT$(OUT)") {
   field(EIST, "Input D5")
   field(EIVL, "8")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT) CP")
+  field(SIOL, "$(P):SIM:CTRL_IN$(OUT) CP")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
-alias("$(P):CTRL_INPUT$(OUT)", "$(P):CTRL_INPUT$(OUT):SP:RBV")
+alias("$(P):CTRL_IN$(OUT)", "$(P):CTRL_IN$(OUT):SP:RBV")
 
 ##
 ## Read the power up mode to use for outmode
@@ -336,14 +336,14 @@ record(ai, "$(P):DUMMY$(OUT)") {
 }
 
 ##
-## Monitor $(P):CTRL_INPUT$(OUT) to determin which input sensor to use
+## Monitor $(P):CTRL_IN$(OUT) to determine which input sensor to use
 ## to deal with the callback. The below set of records automatically
 ## switch the input when the 'control input' is changed. They make
 ## use of the input sensor PV names passed into this template.
 ##
 record(calcout, "$(P):SET_$(OUT)_INPUTA") {
   field(CALC, "A=1")
-  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -356,7 +356,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTA_LINK") {
 
 record(calcout, "$(P):SET_$(OUT)_INPUTB") {
   field(CALC, "A=2")
-  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -369,7 +369,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTB_LINK") {
 
 record(calcout, "$(P):SET_$(OUT)_INPUTC") {
   field(CALC, "A=3")
-  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -382,7 +382,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTC_LINK") {
 
 record(calcout, "$(P):SET_$(OUT)_INPUTD") {
   field(CALC, "A=4")
-  field(INPA, "$(P):CTRL_INPUT$(OUT).VAL CP")
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
   field(DOPT, "Use OCAL")
   field(OVAL, "1")
   field(OOPT, "When Non-zero")
@@ -525,7 +525,7 @@ record(ao, "$(P):D$(OUT):SP") {
 ## Set the mode to use for outmode
 ## The strings are output specific. This is defined in another file.
 ##
-record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
+record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
   field(DESC, "Output Mode")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
@@ -535,17 +535,17 @@ record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
   field(THVL, "3")
   field(FRVL, "4")
   field(FVVL, "5")
-  field(OUT, "@ls336.proto setOM($(OUT),$(P),CTRL_INPUT$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setOM($(OUT),$(P),CTRL_IN$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):OUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:OUTPUT_MODE$(OUT):SP") 
+  field(SIOL, "$(P):SIM:OUT_MODE$(OUT):SP") 
   info(INTEREST, "HIGH")
 }
 
 ##
 ## Set the input to use for outmode
 ##
-record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
+record(mbbo, "$(P):CTRL_IN$(OUT):SP") {
   field(DESC, "Which Input To Control")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
@@ -559,10 +559,10 @@ record(mbbo, "$(P):CTRL_INPUT$(OUT):SP") {
   field(THVL, "3")
   field(FRST, "Input D")
   field(FRVL, "4")
-  field(OUT, "@ls336.proto setOMI($(OUT),$(P),OUTPUT_MODE$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setOMI($(OUT),$(P),OUT_MODE$(OUT),POWERUP$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):OUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
-  field(SIOL, "$(P):SIM:CTRL_INPUT$(OUT):SP PP")
+  field(SIOL, "$(P):SIM:CTRL_IN$(OUT):SP PP")
   info(INTEREST, "HIGH")
 }
 
@@ -577,8 +577,8 @@ record(mbbo, "$(P):POWERUP$(OUT):SP") {
   field(ZRVL, "0")
   field(ONST, "On")
   field(ONVL, "1")
-  field(OUT, "@ls336.proto setOMP($(OUT),$(P),OUTPUT_MODE$(OUT),CTRL_INPUT$(OUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):OUTPUT_MODE$(OUT).PROC CA")
+  field(OUT, "@ls336.proto setOMP($(OUT),$(P),OUT_MODE$(OUT),CTRL_IN$(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):OUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:POWERUP$(OUT):SP PP")
   info(INTEREST, "HIGH")

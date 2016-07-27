@@ -45,7 +45,7 @@ record(mbbi, "$(P):HEATER$(OUT):RANGE") {
 ##
 ## Define the strings and values for this record.
 ##
-record(mbbi, "$(P):OUTPUT_MODE$(OUT)") {
+record(mbbi, "$(P):OUT_MODE$(OUT)") {
   field(ZRST, "Off")
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
@@ -69,7 +69,7 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
 ##
 ## Define the strings and values for this record.
 ##
-record(mbbo, "$(P):OUTPUT_MODE$(OUT):SP") {
+record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
   field(ZRST, "Off")
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
