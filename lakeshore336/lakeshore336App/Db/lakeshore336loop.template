@@ -35,11 +35,9 @@ record(ai, "$(P):HEATER$(OUT):OUTPUT") {
 ##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(ZRST, "Off")
-  field(ONST, "Range1/Low")
-  field(TWST, "Range2/Medium")
-  field(THST, "Range3/High")
-  field(FRST, "Range4")	
-  field(FVST, "Range5")
+  field(ONST, "Low")
+  field(TWST, "Medium")
+  field(THST, "High")
 }
 
 ##
@@ -50,8 +48,6 @@ record(mbbi, "$(P):OUT_MODE$(OUT)") {
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
   field(THST, "Open Loop")
-  field(FRST, "Monitor Out")
-  field(FVST, "Warm Up Supply")
 }
 
 ## 
@@ -59,11 +55,9 @@ record(mbbi, "$(P):OUT_MODE$(OUT)") {
 ## 
 record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(ZRST, "Off")
-  field(ONST, "Range1/Low")
-  field(TWST, "Range2/Medium")
-  field(THST, "Range3/High")
-  field(FRST, "Range4")	
-  field(FVST, "Range5")
+  field(ONST, "Low")
+  field(TWST, "Medium")
+  field(THST, "High")
 }
 
 ##
