@@ -36,7 +36,7 @@ record(stringout, "$(P):OUTPUT$(OUT)") {
 ## Read the setpoint temperature.
 ##
 record(ai, "$(P):TEMP$(OUT):SP:RBV") {
-  field(DESC, "Setpoint Temperature Readback")
+  field(DESC, "Output $(OUT) Setpoint Temperature Readback")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getSETP($(OUT)) $(PORT) $(ADDR)")
@@ -53,7 +53,7 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
 ## Read the ramp rate parameter. This also populates the ramp status $(P):RAMP_ON$(OUT),
 ##
 record(ai, "$(P):RAMP_RATE$(OUT)") {
-  field(DESC, "Ramp Rate")
+  field(DESC, "Output $(OUT) Ramp Rate")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getRAMP($(OUT),$(P):RAMP_ON$(OUT)) $(PORT) $(ADDR)")
@@ -74,7 +74,7 @@ alias("$(P):RAMP_RATE$(OUT)", "$(P):RAMP_RATE$(OUT):SP:RBV")
 ## 1=on
 ##
 record(bi, "$(P):RAMP_ON$(OUT)") {
-  field(DESC, "Ramp On")
+  field(DESC, "Output $(OUT) Ramp On")
   field(DTYP, "Soft Channel")
   field(ZNAM, "Off")
   field(ONAM, "On")
@@ -90,7 +90,7 @@ alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 ## This is output specific and is defined in another file.
 ##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
-  field(DESC, "Heater Output Power Range")
+  field(DESC, "Output $(OUT) Heater Output Power Range")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRVL, "0")
@@ -112,7 +112,7 @@ alias("$(P):HEATER$(OUT):RANGE", "$(P):HEATER$(OUT):RANGE:SP:RBV")
 ## Read the manual output parameter.
 ##
 record(ai, "$(P):MANUAL_OUT$(OUT)") {
-  field(DESC, "Manual Output Parameter")
+  field(DESC, "Output $(OUT) Manual Output Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getMOUT($(OUT)) $(PORT) $(ADDR)")
@@ -130,7 +130,7 @@ alias("$(P):MANUAL_OUT$(OUT)", "$(P):MANUAL_OUT$(OUT):SP:RBV")
 ## Separate out the prefix, to make INP field shorter.
 ##
 record(ai, "$(P):P$(OUT)") {
-  field(DESC, "PID P Parameter")
+  field(DESC, "Output $(OUT) PID P Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getPID($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -148,7 +148,7 @@ alias("$(P):P$(OUT)", "$(P):P$(OUT):SP:RBV")
 ## Read the PID I parameter.
 ##
 record(ai, "$(P):I$(OUT)") {
-  field(DESC, "PID I Parameter")
+  field(DESC, "Output $(OUT) PID I Parameter")
   field(DTYP, "Soft Channel")
   field(SCAN, "Passive")
   field(PREC, "1")
@@ -164,7 +164,7 @@ alias("$(P):I$(OUT)", "$(P):I$(OUT):SP:RBV")
 ## Read the PID D parameter.
 ##
 record(ai, "$(P):D$(OUT)") {
-  field(DESC, "PID D Parameter")
+  field(DESC, "Output $(OUT) PID D Parameter")
   field(DTYP, "Soft Channel")
   field(SCAN, "Passive")
   field(PREC, "1")
@@ -182,7 +182,7 @@ alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 ## The mbbi strings and values are defined in the output specific templates.
 ##
 record(mbbi, "$(P):OUT_MODE$(OUT)") {
-  field(DESC, "Output Mode")
+  field(DESC, "Output $(OUT) Output Mode")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRVL, "0")
@@ -204,7 +204,7 @@ alias("$(P):OUT_MODE$(OUT)", "$(P):OUT_MODE$(OUT):SP:RBV")
 ## Read the input to use for outmode
 ##
 record(mbbi, "$(P):CTRL_IN$(OUT)") {
-  field(DESC, "Which Input To Control")
+  field(DESC, "Output $(OUT) Control Input")
   field(DTYP, "Soft Channel")
   field(ZRST, "None")
   field(ZRVL, "0")
@@ -235,7 +235,7 @@ alias("$(P):CTRL_IN$(OUT)", "$(P):CTRL_IN$(OUT):SP:RBV")
 ## Read the power up mode to use for outmode
 ##
 record(mbbi, "$(P):POWERUP$(OUT)") {
-  field(DESC, "Power Up Enable")
+  field(DESC, "Output $(OUT) Power Up Enable")
   field(DTYP, "Soft Channel")
   field(ZRST, "Off")
   field(ZRVL, "0")
@@ -256,7 +256,7 @@ alias("$(P):POWERUP$(OUT)", "$(P):POWERUP$(OUT):SP:RBV")
 ## Set the setpoint temperature.
 ##
 record(ao, "$(P):TEMP$(OUT):SP") {
-  field(DESC, "Temperature Setpoint")
+  field(DESC, "Set Output $(OUT) Temperature Setpoint")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(DESC, "Setpoint temperature")
@@ -307,7 +307,7 @@ record(calcout, "$(P):CALC_IN_WINDOW$(OUT)") {
 }
 
 record(bo, "$(P):IN_WINDOW$(OUT)") {
-  field(DESC, "Temperature Within Tolerance Window")
+  field(DESC, "Output $(OUT) Temp in Tolerance Window")
   field(VAL, "0")
   field(PINI, "YES")
   field(OMSL, "supervisory")
@@ -398,7 +398,7 @@ record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
 ## The strings are output specific and is defined in another file.
 ##
 record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
-  field(DESC, "Heater Output Power Range")
+  field(DESC, "Set Output $(OUT) Heater Output Power Range")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRANGE($(OUT)) $(PORT) $(ADDR)")
@@ -421,7 +421,7 @@ record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
 ## PV which holds the current ramp status.
 ##
 record(ao, "$(P):RAMP_RATE$(OUT):SP") {
-  field(DESC, "Ramp Rate")
+  field(DESC, "Set Output $(OUT) Ramp Rate")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRAMP($(P):RAMP_ON$(OUT),$(OUT)) $(PORT) $(ADDR)")
@@ -446,7 +446,7 @@ record(ao, "$(P):RAMP_RATE$(OUT):SP") {
 ## PV which holds the current ramp value.
 ##
 record(bo, "$(P):RAMP_ON$(OUT):SP") {
-  field(DESC, "Ramp On")
+  field(DESC, "Set Output $(OUT) Ramp On")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setRAMPSTATUS($(P):RAMP_RATE$(OUT),$(OUT)) $(PORT) $(ADDR)")
@@ -462,7 +462,7 @@ record(bo, "$(P):RAMP_ON$(OUT):SP") {
 ## Set the manual output value.
 ##
 record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
-  field(DESC, "Manual Output Paramter")
+  field(DESC, "Set Output $(OUT) Manual Output Paramter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setMOUT($(OUT)) $(PORT) $(ADDR)")
@@ -477,7 +477,7 @@ record(ao, "$(P):MANUAL_OUT$(OUT):SP") {
 ## Set the PID P parameter.
 ##
 record(ao, "$(P):P$(OUT):SP") {
-  field(DESC, "PID P Parameter")
+  field(DESC, "Set Output $(OUT) PID P Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setP($(OUT),$(P),I$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -493,7 +493,7 @@ record(ao, "$(P):P$(OUT):SP") {
 ## Set the PID I parameter.
 ##
 record(ao, "$(P):I$(OUT):SP") {
-  field(DESC, "PID I Parameter")
+  field(DESC, "Set Output $(OUT) PID I Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setI($(OUT),$(P),P$(OUT),D$(OUT)) $(PORT) $(ADDR)")
@@ -509,7 +509,7 @@ record(ao, "$(P):I$(OUT):SP") {
 ## Set the PID D parameter.
 ##
 record(ao, "$(P):D$(OUT):SP") {
-  field(DESC, "PID D Parameter")
+  field(DESC, "Set Output $(OUT) PID D Parameter")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setD($(OUT),$(P),P$(OUT),I$(OUT)) $(PORT) $(ADDR)")
@@ -526,7 +526,7 @@ record(ao, "$(P):D$(OUT):SP") {
 ## The strings are output specific. This is defined in another file.
 ##
 record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
-  field(DESC, "Output Mode")
+  field(DESC, "Set Output $(OUT) Output Mode")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRVL, "0")
@@ -546,7 +546,7 @@ record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
 ## Set the input to use for outmode
 ##
 record(mbbo, "$(P):CTRL_IN$(OUT):SP") {
-  field(DESC, "Which Input To Control")
+  field(DESC, "Set Output $(OUT) Control Input")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRST, "None")
@@ -570,7 +570,7 @@ record(mbbo, "$(P):CTRL_IN$(OUT):SP") {
 ## Set the power up mode to use for outmode
 ##
 record(mbbo, "$(P):POWERUP$(OUT):SP") {
-  field(DESC, "Power Up Enable")
+  field(DESC, "Set Output $(OUT) Power Up Enable")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(ZRST, "Off")
@@ -588,7 +588,7 @@ record(mbbo, "$(P):POWERUP$(OUT):SP") {
 ## Set the type of tuning mode
 ##
 record(mbbo, "$(P):AUTOTUNE_MODE$(OUT):SP") {
-  field(DESC, "Autotune Mode")
+  field(DESC, "Set Output $(OUT) Autotune Mode")
   field(SDIS, "$(P):DISABLE")
   field(ZRST, "P Only")
   field(ZRVL, "0")
@@ -603,7 +603,7 @@ record(mbbo, "$(P):AUTOTUNE_MODE$(OUT):SP") {
 ## Start the tuning process
 ##
 record(ao, "$(P):AUTOTUNE_START$(OUT)") {
-  field(DESC, "Start the Auto Tuning")
+  field(DESC, "Start Auto Tuning Output $(OUT)")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(OUT, "@ls336.proto setATUNE($(OUT),$(P):AUTOTUNE_MODE$(OUT):SP) $(PORT) $(ADDR)")

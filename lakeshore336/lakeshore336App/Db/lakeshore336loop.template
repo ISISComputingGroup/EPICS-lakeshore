@@ -17,7 +17,7 @@
 ## Read the heater output value.
 ##
 record(ai, "$(P):HEATER$(OUT):OUTPUT") {
-  field(DESC, "Heater Output Percentage")
+  field(DESC, "Output $(OUT) Heater Output Percentage")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getHTR($(OUT)) $(PORT) $(ADDR)")
@@ -74,7 +74,7 @@ record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
 ## Read the heater status
 ##
 record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
-  field(DESC, "Raw Heater Status")
+  field(DESC, "Raw Heater Status Output $(OUT)")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(SCAN) second")  
@@ -100,7 +100,7 @@ record(calcout, "$(P):HEATER$(OUT):STAT_CALC") {
 ## Caches the heater status
 ##
 record(mbbi, "$(P):HEATER$(OUT):STAT") {
-  field(DESC, "Cached Heater Status")
+  field(DESC, "Output $(OUT) Heater Status")
   field(DTYP, "Raw Soft Channel")
   field(ZRST, "No Error")
   field(ZRVL, "0")
@@ -119,7 +119,7 @@ record(mbbi, "$(P):HEATER$(OUT):STAT") {
 ## Provide record to reset the cached value
 ##
 record(bo, "$(P):HEATER$(OUT):STAT_RESET") {
-  field(DESC, "Reset Cached Heater Status")
+  field(DESC, "Reset Heater Status Output $(OUT)")
   field(VAL, "0")
   field(OUT, "$(P):HEATER$(OUT):STAT.RVAL PP")
   info(INTEREST, "HIGH")
