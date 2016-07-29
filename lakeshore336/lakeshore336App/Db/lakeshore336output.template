@@ -234,13 +234,11 @@ alias("$(P):CTRL_IN$(OUT)", "$(P):CTRL_IN$(OUT):SP:RBV")
 ##
 ## Read the power up mode to use for outmode
 ##
-record(mbbi, "$(P):POWERUP$(OUT)") {
+record(bi, "$(P):POWERUP$(OUT)") {
   field(DESC, "Output $(OUT) Power Up Enable")
   field(DTYP, "Soft Channel")
-  field(ZRST, "Off")
-  field(ZRVL, "0")
-  field(ONST, "On")
-  field(ONVL, "1")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:POWERUP$(OUT) CP")
   info(INTEREST, "HIGH")
@@ -569,14 +567,12 @@ record(mbbo, "$(P):CTRL_IN$(OUT):SP") {
 ##
 ## Set the power up mode to use for outmode
 ##
-record(mbbo, "$(P):POWERUP$(OUT):SP") {
+record(bo, "$(P):POWERUP$(OUT):SP") {
   field(DESC, "Set Output $(OUT) Power Up Enable")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-  field(ZRST, "Off")
-  field(ZRVL, "0")
-  field(ONST, "On")
-  field(ONVL, "1")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
   field(OUT, "@ls336.proto setOMP($(OUT),$(P),OUT_MODE$(OUT),CTRL_IN$(OUT)) $(PORT) $(ADDR)")
   field(FLNK, "$(P):OUT_MODE$(OUT).PROC CA")
   field(SIML, "$(P):SIM")

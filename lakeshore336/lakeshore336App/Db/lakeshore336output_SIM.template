@@ -63,7 +63,7 @@ alias("$(P):SIM:CTRL_IN$(OUT)", "$(P):SIM:CTRL_IN$(OUT):SP")
 alias("$(P):SIM:CTRL_IN$(OUT)", "$(P):SIM:CTRL_IN$(OUT):SP:RBV")
 
 
-record(mbbi, "$(P):SIM:POWERUP$(OUT)") {
+record(bi, "$(P):SIM:POWERUP$(OUT)") {
 }
 alias("$(P):SIM:POWERUP$(OUT)", "$(P):SIM:POWERUP$(OUT):SP")
 alias("$(P):SIM:POWERUP$(OUT)", "$(P):SIM:POWERUP$(OUT):SP:RBV")
