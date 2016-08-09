@@ -12,3 +12,4 @@ runIOC.bat
 runIOC.sh
 relPaths.sh
 /lakeshore336/db/
+data/
