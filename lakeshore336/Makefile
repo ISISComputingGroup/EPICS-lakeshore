@@ -5,6 +5,7 @@ DIRS := $(DIRS) $(filter-out $(DIRS), configure)
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *App))
 #DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *app))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocBoot))
+DIRS := $(DIRS) $(filter-out $(DIRS), protocol)
 #DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocboot))
 # Comment out the following line to creation of example iocs and documentation
 #DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard etc))

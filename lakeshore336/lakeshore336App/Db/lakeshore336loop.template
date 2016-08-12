@@ -1,5 +1,13 @@
-# This is included in lakeshore336.template
+#
+# 	Macros:
+#   P - Prefix for PV name
+#   PORT - Bus/Port Address (eg. ASYN Port).
+#   ADDR - Address on the bus (optional)
+#   TEMPSCAN - SCAN rate for the temperature/voltage readings
+#   SCAN - SCAN rate for non-temperature/voltage parameters.
+#
 # This template is for outputs 1 and 2, which can provide heater power.
+# 
 
 ################################################################
 # Read records
@@ -8,32 +16,34 @@
 ## 
 ## Read the heater output value.
 ##
-record(ai, "$(P):HTR$(OUT)") {
+record(ai, "$(P):HEATER$(OUT):OUTPUT") {
+  field(DESC, "Output $(OUT) Heater Output Percentage")
   field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE_POLL")
+  field(SDIS, "$(P):DISABLE")
   field(INP, "@ls336.proto getHTR($(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "1")
   field(EGU, "%")
-  info(archive, "Monitor, 00:00:01, VAL")   
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:HEATER$(OUT):OUTPUT")
+  info(INTEREST, "HIGH")
+  info(archive, "VAL")
 }
 
 ## 
 ## Define the strings and values for this record.
 ##
-record(mbbi, "$(P):RANGE$(OUT)") {
+record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(ZRST, "Off")
-  field(ONST, "Range1/Low")
-  field(TWST, "Range2/Medium")
-  field(THST, "Range3/High")
-  field(FRST, "Range4")	
-  field(FVST, "Range5")
+  field(ONST, "Low")
+  field(TWST, "Medium")
+  field(THST, "High")
 }
 
 ##
 ## Define the strings and values for this record.
 ##
-record(mbbi, "$(P):OMM$(OUT)") {
+record(mbbi, "$(P):OUT_MODE$(OUT)") {
   field(ZRST, "Off")
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
@@ -42,20 +52,18 @@ record(mbbi, "$(P):OMM$(OUT)") {
 
 ## 
 ## Define the strings and values for this record.
-##
-record(mbbo, "$(P):RANGE_S$(OUT)") {
+## 
+record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(ZRST, "Off")
-  field(ONST, "Range1/Low")
-  field(TWST, "Range2/Medium")
-  field(THST, "Range3/High")
-  field(FRST, "Range4")	
-  field(FVST, "Range5")
+  field(ONST, "Low")
+  field(TWST, "Medium")
+  field(THST, "High")
 }
 
 ##
 ## Define the strings and values for this record.
 ##
-record(mbbo, "$(P):OMM_S$(OUT)") {
+record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
   field(ZRST, "Off")
   field(ONST, "Closed Loop PID")
   field(TWST, "Zone")
@@ -65,27 +73,34 @@ record(mbbo, "$(P):OMM_S$(OUT)") {
 ##
 ## Read the heater status
 ##
-record(longin, "$(P):HTRST$(OUT)") {
+record(longin, "$(P):HEATER$(OUT):RAW_STAT") {
+  field(DESC, "Raw Heater Status Output $(OUT)")
   field(DTYP, "stream")
-  field(SDIS, "$(P):DISABLE_POLL")
+  field(SDIS, "$(P):DISABLE")
   field(SCAN, "$(SCAN) second")  
-  field(INP, "@ls336.proto getHTRST($(INPUT)) $(PORT) $(ADDR)")
-  field(FLNK, "$(P):HTRST$(OUT)_CALC")
-  info(archive, "Monitor, 00:00:01, VAL")   
+  field(INP, "@ls336.proto getHTRST($(OUT)) $(PORT) $(ADDR)")
+  field(FLNK, "$(P):HEATER$(OUT):STAT_CALC")
+  field(SIML, "$(P):SIM")
+  field(SIOL, "$(P):SIM:HEATER$(OUT):RAW_STAT")
+  info(archive, "VAL")
 }
 
 ##
 ## Cache the heater status because this is cleared on a read on the controller.
 ##
-record(calcout, "$(P):HTRST$(OUT)_CALC") {
-  field(INPA, "$(P):HTRST$(OUT).VAL")
+record(calcout, "$(P):HEATER$(OUT):STAT_CALC") {
+  field(INPA, "$(P):HEATER$(OUT):RAW_STAT")
   field(CALC, "A!=0?A:0")
   field(DOPT, "Use CALC")
   field(OOPT, "When Non-zero")
-  field(OUT, "$(P):HTRST$(OUT)_CACHE.RVAL PP")
+  field(OUT, "$(P):HEATER$(OUT):STAT.RVAL PP")
 }
-record(mbbi, "$(P):HTRST$(OUT)_CACHE") {
-  field(DESC, "Cached HTRST")
+
+##
+## Caches the heater status
+##
+record(mbbi, "$(P):HEATER$(OUT):STAT") {
+  field(DESC, "Output $(OUT) Heater Status")
   field(DTYP, "Raw Soft Channel")
   field(ZRST, "No Error")
   field(ZRVL, "0")
@@ -97,55 +112,16 @@ record(mbbi, "$(P):HTRST$(OUT)_CACHE") {
   field(PINI, "YES")
   field(ONSV, "MAJOR")
   field(TWSV, "MAJOR")
-  info(archive, "Monitor, 00:00:01, VAL")   
+  info(INTEREST, "HIGH")
 }
 
 ##
 ## Provide record to reset the cached value
 ##
-record(bo, "$(P):HTRST$(OUT)_RESET") {
-  field(DESC, "Reset Cached HTRST")
+record(bo, "$(P):HEATER$(OUT):STAT_RESET") {
+  field(DESC, "Reset Heater Status Output $(OUT)")
   field(VAL, "0")
-  field(OUT, "$(P):HTRST$(OUT)_CACHE.RVAL PP")
+  field(OUT, "$(P):HEATER$(OUT):STAT.RVAL PP")
+  info(INTEREST, "HIGH")
 }
-
-###############################################
-# Add in ZONE support
-###############################################
-
-substitute "ZONE=1"
-include "lakeshore336zone.template"
-
-substitute "ZONE=2"
-include "lakeshore336zone.template"
-
-substitute "ZONE=2"
-include "lakeshore336zone.template"
-
-substitute "ZONE=3"
-include "lakeshore336zone.template"
-
-substitute "ZONE=4"
-include "lakeshore336zone.template"
-
-substitute "ZONE=5"
-include "lakeshore336zone.template"
-
-substitute "ZONE=6"
-include "lakeshore336zone.template"
-
-substitute "ZONE=7"
-include "lakeshore336zone.template"
-
-substitute "ZONE=8"
-include "lakeshore336zone.template"
-
-substitute "ZONE=9"
-include "lakeshore336zone.template"
-
-substitute "ZONE=10"
-include "lakeshore336zone.template"
-
-
-
 
