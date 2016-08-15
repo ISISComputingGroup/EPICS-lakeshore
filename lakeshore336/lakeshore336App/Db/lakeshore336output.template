@@ -257,7 +257,6 @@ record(ao, "$(P):TEMP$(OUT):SP") {
   field(DESC, "Set Output $(OUT) Temperature Setpoint")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-  field(DESC, "Setpoint temperature")
   field(OUT, "@ls336.proto setSETP($(OUT)) $(PORT) $(ADDR)")
   field(PREC, "3")
   field(FLNK, "$(P):TEMP$(OUT):SP_BUSYSET.PROC")
