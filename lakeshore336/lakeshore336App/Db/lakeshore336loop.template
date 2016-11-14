@@ -30,46 +30,6 @@ record(ai, "$(P):HEATER$(OUT):OUTPUT") {
   info(archive, "VAL")
 }
 
-## 
-## Define the strings and values for this record.
-##
-record(mbbi, "$(P):HEATER$(OUT):RANGE") {
-  field(ZRST, "Off")
-  field(ONST, "Low")
-  field(TWST, "Medium")
-  field(THST, "High")
-}
-
-##
-## Define the strings and values for this record.
-##
-record(mbbi, "$(P):OUT_MODE$(OUT)") {
-  field(ZRST, "Off")
-  field(ONST, "Closed Loop PID")
-  field(TWST, "Zone")
-  field(THST, "Open Loop")
-}
-
-## 
-## Define the strings and values for this record.
-## 
-record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
-  field(ZRST, "Off")
-  field(ONST, "Low")
-  field(TWST, "Medium")
-  field(THST, "High")
-}
-
-##
-## Define the strings and values for this record.
-##
-record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
-  field(ZRST, "Off")
-  field(ONST, "Closed Loop PID")
-  field(TWST, "Zone")
-  field(THST, "Open Loop")
-}
-
 ##
 ## Read the heater status
 ##
