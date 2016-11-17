@@ -102,7 +102,7 @@ record(sel, "$(P):FETCH_TEMP$(OUT)") {
 }
 
 record(ai, "$(P):TEMP$(OUT)") {
-  field(DESC, "Temp read on input channel for output $(OUT)")
+  field(DESC, "Output $(OUT) Temperature Reading")
   field(INP, "$(P):FETCH_TEMP$(OUT)")
   field(PREC, "3")
   field(EGU, "K")

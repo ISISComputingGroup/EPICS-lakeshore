@@ -97,7 +97,7 @@ record(ai, "$(P):TEMP_$(INPUT)") {
 ## This way, when a block points at the temperature for this input, it can be set too
 ##
 record(ao, "$(P):TEMP_$(INPUT):SP") {
-  field(DESC, "Input $(INPUT) Temperature Setpoint")
+  field(DESC, "Set Input $(INPUT) Temperature Setpoint")
   field(PREC, "3")
   field(EGU, "K")
   field(FLNK, "$(P):TEMP_$(INPUT):SP_WAS_PROC")
