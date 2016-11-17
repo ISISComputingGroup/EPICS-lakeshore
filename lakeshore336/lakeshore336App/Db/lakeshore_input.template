@@ -92,6 +92,29 @@ record(ai, "$(P):TEMP_$(INPUT)") {
 }
 
 ## 
+## Hold the temperature setpoint on this channel in Kelvin.
+## The actual set happens in the output
+## This way, when a block points at the temperature for this input, it can be set too
+##
+record(ao, "$(P):TEMP_$(INPUT):SP") {
+  field(DESC, "Input $(INPUT) Temperature Setpoint")
+  field(PREC, "3")
+  field(EGU, "K")
+  field(FLNK, "$(P):TEMP_$(INPUT):SP_WAS_PROC")
+  info(INTEREST, "HIGH")
+  info(archive, "VAL")
+}
+
+##
+## Flag when the SP above has processed, even if value is unchanged,
+## because output needs to know even if the value hasn't changed
+##
+record(calc, "$(P):TEMP_$(INPUT):SP_WAS_PROC") {
+  field(INPA, "$(P):TEMP_$(INPUT):SP_WAS_PROC")
+  field(CALC, "!A")
+}
+
+## 
 ## Read the raw voltage on this channel.
 ##
 record(ai, "$(P):RAW_VOLT_$(INPUT)") {

@@ -269,6 +269,65 @@ record(ao, "$(P):TEMP$(OUT):SP") {
   info(archive, "VAL")
 }
 
+##
+## A few records to fetch the setpoint from that set in the input
+## This way, the user can define a block pointing at the sp in the input file,
+## and setting the block will still work
+## INPC is needed because this has to trigger whenever the input is processed,
+## not just when it changes value! Otherwise if we swap to e.g. INPUT B and then re-set INPUT_B:SP to
+## what it is already, the value doesn't get pushed
+## NOTE: can't do simply with a single sel record, because you still want to
+## trigger only when the relevant PV from the input changes
+##
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_A") {
+  field(DESC, "Fetch SP$(OUT) from A if needed")
+  field(INPA, "$(P):TEMP_A:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_A:SP_WAS_PROC CP")
+  field(CALC, "B == 1")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_B") {
+  field(DESC, "Fetch SP$(OUT) from B if needed")
+  field(INPA, "$(P):TEMP_B:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_B:SP_WAS_PROC CP")
+  field(CALC, "B == 2")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_C") {
+  field(DESC, "Fetch SP$(OUT) from C if needed")
+  field(INPA, "$(P):TEMP_C:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_C:SP_WAS_PROC CP")
+  field(CALC, "B == 3")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_D") {
+  field(DESC, "Fetch SP$(OUT) from D if needed")
+  field(INPA, "$(P):TEMP_D:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_D:SP_WAS_PROC CP")
+  field(CALC, "B == 4")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
 ###############################################################################
 
 ##
