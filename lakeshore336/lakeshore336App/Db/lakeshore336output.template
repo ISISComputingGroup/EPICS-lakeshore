@@ -49,6 +49,46 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   info(archive, "VAL")
 }
 
+##
+## A few records to fetch the temperature read on the corresponding input channel
+## This is so users can define a block as TEMP_1
+record(calcout, "$(P):SELECT_WHICH_TEMP$(OUT)") {
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
+  field(CALC, "A<=4 ? A : 0")
+  field(OUT, "$(P):FETCH_TEMP$(OUT).SELN PP")
+}
+
+record(ai, "$(P):DUMMY_TEMP$(OUT)") {
+  field(DESC, "Dummy to use when CtrlInput is None")
+}
+
+record(sel, "$(P):FETCH_TEMP$(OUT)") {
+  field(INPA, "$(P):DUMMY_TEMP$(OUT)")
+  field(INPB, "$(P):TEMP_A CP")
+  field(INPC, "$(P):TEMP_B CP")
+  field(INPD, "$(P):TEMP_C CP")
+  field(INPE, "$(P):TEMP_D CP")
+  field(SELM, "Specified")
+  field(FLNK, "$(P):TEMP$(OUT)")
+}
+
+record(ai, "$(P):TEMP$(OUT)") {
+  field(DESC, "Temp read on input channel for output $(OUT)")
+  field(INP, "$(P):FETCH_TEMP$(OUT)")
+  field(PREC, "3")
+  field(EGU, "K")
+  field(HHSV,"MAJOR")
+  field(HSV, "MINOR")
+  field(LSV, "MINOR")
+  field(LLSV,"MAJOR")
+  field(HIHI,"1000")
+  field(HIGH,"1000")
+  field(LOW,"-1")
+  field(LOLO,"-1")
+  info(INTEREST, "HIGH")
+  info(archive, "VAL")
+}
+
 ## 
 ## Read the ramp rate parameter. This also populates the ramp status $(P):RAMP_ON$(OUT),
 ##
