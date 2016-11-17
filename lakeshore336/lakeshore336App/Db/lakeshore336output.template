@@ -45,13 +45,42 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(EGU, "K")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP:RBV")
+  field(FLNK, "$(P):PUSH_TEMP$(OUT):SP:RBV")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
 
 ##
+## A few records to push the setpoint RBV to the corresponding PV in the input
+##
+record(calcout, "$(P):SELECT_WHICH_TEMP$(OUT):SP:RBV") {
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
+  field(CALC, "A<=4 ? A+1 : 1")
+  field(OUT, "$(P):PUSH_TEMP$(OUT):SP:RBV.SELN PP")
+}
+
+record(ai, "$(P):DUMMY_TEMP$(OUT):SP:RBV") {
+  field(DESC, "Dummy to use when CtrlInput is None")
+}
+
+record(seq, "$(P):PUSH_TEMP$(OUT):SP:RBV") {
+  field(DOL1, "$(P):TEMP$(OUT):SP:RBV CP")
+  field(LNK1, "$(P):DUMMY_TEMP$(OUT):SP:RBV PP")
+  field(DOL2, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK2, "$(P):TEMP_A:SP:RBV PP")
+  field(DOL3, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK3, "$(P):TEMP_B:SP:RBV PP")
+  field(DOL4, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK4, "$(P):TEMP_C:SP:RBV PP")
+  field(DOL5, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK5, "$(P):TEMP_D:SP:RBV PP")
+  field(SELM, "Specified")
+}
+
+##
 ## A few records to fetch the temperature read on the corresponding input channel
 ## This is so users can define a block as TEMP_1
+##
 record(calcout, "$(P):SELECT_WHICH_TEMP$(OUT)") {
   field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
   field(CALC, "A<=4 ? A : 0")

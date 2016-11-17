@@ -106,6 +106,19 @@ record(ao, "$(P):TEMP_$(INPUT):SP") {
 }
 
 ##
+## Hold the temperature setpoint readback on this channel in Kelvin.
+## The actual RBV is in the output and gets pushed here
+## This is for completeness, as we have TEMP_X and TEMP_X:SP, so we have also TEMP_X:SP:RBV
+##
+record(ai, "$(P):TEMP_$(INPUT):SP:RBV") {
+  field(DESC, "Input $(INPUT) Temperature Setpoint Readback")
+  field(PREC, "3")
+  field(EGU, "K")
+  info(INTEREST, "HIGH")
+  info(archive, "VAL")
+}
+
+##
 ## Flag when the SP above has processed, even if value is unchanged,
 ## because output needs to know even if the value hasn't changed
 ##
