@@ -156,7 +156,8 @@ alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
 ## 
 ## Read the range parameter (the heater output power range).
-## This is output specific and is defined in another file.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(DESC, "Output $(OUT) Heater Output Power Range")
@@ -248,7 +249,8 @@ alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 ##
 ## Read the mode to use for outmode.
 ## This also populates the CTRL_IN and POWERUP records.
-## The mbbi strings and values are defined in the output specific templates.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbi, "$(P):OUT_MODE$(OUT)") {
   field(DESC, "Output $(OUT) Output Mode")
@@ -522,7 +524,8 @@ record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
 
 ## 
 ## Set the range parameter.
-## The strings are output specific and is defined in another file.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(DESC, "Set Output $(OUT) Heater Output Power Range")
@@ -660,7 +663,8 @@ record(ao, "$(P):D$(OUT):SP") {
 
 ##
 ## Set the mode to use for outmode
-## The strings are output specific. This is defined in another file.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
   field(DESC, "Set Output $(OUT) Output Mode")
