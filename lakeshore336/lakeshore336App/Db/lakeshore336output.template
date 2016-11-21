@@ -45,6 +45,75 @@ record(ai, "$(P):TEMP$(OUT):SP:RBV") {
   field(EGU, "K")
   field(SIML, "$(P):SIM")
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP:RBV")
+  field(FLNK, "$(P):PUSH_TEMP$(OUT):SP:RBV")
+  info(INTEREST, "HIGH")
+  info(archive, "VAL")
+}
+
+##
+## A few records to push the setpoint RBV to the corresponding PV in the input
+##
+record(calcout, "$(P):SELECT_WHICH_TEMP$(OUT):SP:RBV") {
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
+  field(CALC, "A<=4 ? A+1 : 1")
+  field(OUT, "$(P):PUSH_TEMP$(OUT):SP:RBV.SELN PP")
+}
+
+record(ai, "$(P):DUMMY_TEMP$(OUT):SP:RBV") {
+  field(DESC, "Dummy to use when CtrlInput is None")
+}
+
+record(seq, "$(P):PUSH_TEMP$(OUT):SP:RBV") {
+  field(DOL1, "$(P):TEMP$(OUT):SP:RBV CP")
+  field(LNK1, "$(P):DUMMY_TEMP$(OUT):SP:RBV PP")
+  field(DOL2, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK2, "$(P):TEMP_A:SP:RBV PP")
+  field(DOL3, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK3, "$(P):TEMP_B:SP:RBV PP")
+  field(DOL4, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK4, "$(P):TEMP_C:SP:RBV PP")
+  field(DOL5, "$(P):TEMP$(OUT):SP:RBV")
+  field(LNK5, "$(P):TEMP_D:SP:RBV PP")
+  field(SELM, "Specified")
+}
+
+##
+## A few records to fetch the temperature read on the corresponding input channel
+## This is so users can define a block as TEMP_1
+##
+record(calcout, "$(P):SELECT_WHICH_TEMP$(OUT)") {
+  field(INPA, "$(P):CTRL_IN$(OUT).VAL CP")
+  field(CALC, "A<=4 ? A : 0")
+  field(OUT, "$(P):FETCH_TEMP$(OUT).SELN PP")
+}
+
+record(ai, "$(P):DUMMY_TEMP$(OUT)") {
+  field(DESC, "Dummy to use when CtrlInput is None")
+}
+
+record(sel, "$(P):FETCH_TEMP$(OUT)") {
+  field(INPA, "$(P):DUMMY_TEMP$(OUT)")
+  field(INPB, "$(P):TEMP_A CP")
+  field(INPC, "$(P):TEMP_B CP")
+  field(INPD, "$(P):TEMP_C CP")
+  field(INPE, "$(P):TEMP_D CP")
+  field(SELM, "Specified")
+  field(FLNK, "$(P):TEMP$(OUT)")
+}
+
+record(ai, "$(P):TEMP$(OUT)") {
+  field(DESC, "Output $(OUT) Temperature Reading")
+  field(INP, "$(P):FETCH_TEMP$(OUT)")
+  field(PREC, "3")
+  field(EGU, "K")
+  field(HHSV,"MAJOR")
+  field(HSV, "MINOR")
+  field(LSV, "MINOR")
+  field(LLSV,"MAJOR")
+  field(HIHI,"1000")
+  field(HIGH,"1000")
+  field(LOW,"-1")
+  field(LOLO,"-1")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
 }
@@ -87,7 +156,8 @@ alias("$(P):RAMP_ON$(OUT)", "$(P):RAMP_ON$(OUT):SP:RBV")
 
 ## 
 ## Read the range parameter (the heater output power range).
-## This is output specific and is defined in another file.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbi, "$(P):HEATER$(OUT):RANGE") {
   field(DESC, "Output $(OUT) Heater Output Power Range")
@@ -179,7 +249,8 @@ alias("$(P):D$(OUT)", "$(P):D$(OUT):SP:RBV")
 ##
 ## Read the mode to use for outmode.
 ## This also populates the CTRL_IN and POWERUP records.
-## The mbbi strings and values are defined in the output specific templates.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbi, "$(P):OUT_MODE$(OUT)") {
   field(DESC, "Output $(OUT) Output Mode")
@@ -267,6 +338,65 @@ record(ao, "$(P):TEMP$(OUT):SP") {
   field(SIOL, "$(P):SIM:TEMP$(OUT):SP")
   info(INTEREST, "HIGH")
   info(archive, "VAL")
+}
+
+##
+## A few records to fetch the setpoint from that set in the input
+## This way, the user can define a block pointing at the sp in the input file,
+## and setting the block will still work
+## INPC is needed because this has to trigger whenever the input is processed,
+## not just when it changes value! Otherwise if we swap to e.g. INPUT B and then re-set INPUT_B:SP to
+## what it is already, the value doesn't get pushed
+## NOTE: can't do simply with a single sel record, because you still want to
+## trigger only when the relevant PV from the input changes
+##
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_A") {
+  field(DESC, "Fetch SP$(OUT) from A if needed")
+  field(INPA, "$(P):TEMP_A:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_A:SP_WAS_PROC CP")
+  field(CALC, "B == 1")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_B") {
+  field(DESC, "Fetch SP$(OUT) from B if needed")
+  field(INPA, "$(P):TEMP_B:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_B:SP_WAS_PROC CP")
+  field(CALC, "B == 2")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_C") {
+  field(DESC, "Fetch SP$(OUT) from C if needed")
+  field(INPA, "$(P):TEMP_C:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_C:SP_WAS_PROC CP")
+  field(CALC, "B == 3")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
+}
+
+record(calcout, "$(P):PUSH_SP_$(OUT)_FROM_D") {
+  field(DESC, "Fetch SP$(OUT) from D if needed")
+  field(INPA, "$(P):TEMP_D:SP")
+  field(INPB, "$(P):CTRL_IN$(OUT).VAL")
+  field(INPC, "$(P):TEMP_D:SP_WAS_PROC CP")
+  field(CALC, "B == 4")
+  field(OOPT, "When Non-zero")
+  field(OCAL, "A")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P):TEMP$(OUT):SP PP")
 }
 
 ###############################################################################
@@ -394,7 +524,8 @@ record(stringout, "$(P):SET_$(OUT)_INPUTD_LINK") {
 
 ## 
 ## Set the range parameter.
-## The strings are output specific and is defined in another file.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbo, "$(P):HEATER$(OUT):RANGE:SP") {
   field(DESC, "Set Output $(OUT) Heater Output Power Range")
@@ -532,7 +663,8 @@ record(ao, "$(P):D$(OUT):SP") {
 
 ##
 ## Set the mode to use for outmode
-## The strings are output specific. This is defined in another file.
+## IMPORTANT: This is the part of the record that is common to both output types
+## The strings are output specific and are defined in another file.
 ##
 record(mbbo, "$(P):OUT_MODE$(OUT):SP") {
   field(DESC, "Set Output $(OUT) Output Mode")
