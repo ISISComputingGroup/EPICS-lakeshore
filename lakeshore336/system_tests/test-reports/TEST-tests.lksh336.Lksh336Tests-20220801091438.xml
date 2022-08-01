@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tests.lksh336.Lksh336Tests-20220801091438" tests="1" file="tests/lksh336.py" time="1.140" timestamp="2022-08-01T09:14:47" failures="0" errors="0" skipped="0">
+	<testcase classname="tests.lksh336.Lksh336Tests" name="test_GIVEN_temp_set_WHEN_read_THEN_temp_is_as_expected" time="1.140" timestamp="2022-08-01T09:14:47" file="tests\lksh336.py" line="37"/>
+</testsuite>

@@ -12,3 +12,9 @@ DIRS := $(DIRS) $(filter-out $(DIRS), protocol)
 # Comment out the following line to disable building of example iocs
 #DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard iocs))
 include $(TOP)/configure/RULES_TOP
+
+ioctests:
+
+	.\system_tests\run_tests.bat
+
+	
