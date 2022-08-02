@@ -14,7 +14,5 @@ DIRS := $(DIRS) $(filter-out $(DIRS), protocol)
 include $(TOP)/configure/RULES_TOP
 
 ioctests:
-
 	.\system_tests\run_tests.bat
-
-	
+    

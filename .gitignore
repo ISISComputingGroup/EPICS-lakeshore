@@ -18,7 +18,8 @@ relPaths.sh
 /doc/
 *_info_positions.req
 *_info_settings.req
-/system_tests/test-reports/
+/lakeshore336/test-reports/
+/lakeshore336/system_tests/test-reports/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -115,7 +116,9 @@ ENV/
 *.port
 .project
 
+# vscode
+.vscode
 
-#pycharm
+# pycharm
 **/.idea/
 *.pyc
