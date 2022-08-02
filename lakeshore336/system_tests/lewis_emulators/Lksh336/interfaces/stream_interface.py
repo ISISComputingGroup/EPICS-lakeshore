@@ -31,7 +31,7 @@ class Lksh336StreamInterface(StreamInterface):
             CmdBuilder(self.get_rdgst).escape("RDGST? ").string().eos().build(),
             CmdBuilder(self.get_htrst).escape("HTRST? ").int().eos().build(),
             CmdBuilder(self.get_incrv).escape("INCRV? ").string().eos().build(),
-            CmdBuilder(self.get_crvhdr).escape("CRVHDR? ").string().eos().build(),
+            CmdBuilder(self.get_crvhdr).escape("CRVHDR? ").int().eos().build(),
             CmdBuilder(self.get_intype).escape("INTYPE? ").string().eos().build(),
 
             CmdBuilder(self.set_setp).escape("SETP ").int().eos().build(),
@@ -118,7 +118,7 @@ class Lksh336StreamInterface(StreamInterface):
     def get_incrv(self, input):
         return f"{self.device.input_curve_numbers[input]}"
 
-    def get_crvhdr(self, _):
+    def get_crvhdr(self, num):
         return "{},{},{},{},{}".format(
             self.device.input_curve_names,
             self.device.input_curve_serial_numbers,
@@ -162,3 +162,4 @@ class Lksh336StreamInterface(StreamInterface):
 
     def set_inname(self, _):
         pass
+    

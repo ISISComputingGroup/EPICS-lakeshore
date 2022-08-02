@@ -11,7 +11,6 @@ from utils.testing import get_running_lewis_and_ioc, parameterized_list
 
 DEVICE_PREFIX = "LKSH336_01"
 
-
 IOCS = [
     {
         "name": DEVICE_PREFIX,
@@ -21,9 +20,8 @@ IOCS = [
     },
 ]
 
-
-#TEST_MODES = [TestModes.RECSIM, TestModes.DEVSIM]
 TEST_MODES = [TestModes.DEVSIM]
+
 
 OUTPUTS = [ 1, 2, 3, 4 ]
 INPUTS = ['A', 'B', 'C', 'D']
@@ -132,14 +130,13 @@ class Lksh336Tests(unittest.TestCase):
     def test_GIVEN_default_input_curve_number_THEN_input_curve_number_set_correctly(self, _, input):
         self.ca.assert_that_pv_is(f"CURVE_{input}:NUM", 2)
 
-    # TODO: How does this work?
-    # @parameterized.expand(parameterized_list(INPUTS))
-    # def test_GIVEN_default_input_curve_header_THEN_input_curve_header_set_correctly(self, _, input):
-    #     self.ca.assert_that_pv_is(f"CURVE_{input}:NAME", "test0")
-    #     self.ca.assert_that_pv_is(f"CURVE_{input}:SERIAL_N", "test1")
-    #     self.ca.assert_that_pv_is(f"CURVE_{input}:FORMAT", "V/K")
-    #     self.ca.assert_that_pv_is(f"CURVE_{input}:LIM", 2)
-    #     self.ca.assert_that_pv_is(f"CURVE_{input}:COEFF", 2)
+    @parameterized.expand(parameterized_list(INPUTS))
+    def test_GIVEN_default_input_curve_header_THEN_input_curve_header_set_correctly(self, _, input):
+        self.ca.assert_that_pv_is(f"CURVE_{input}:NAME", "111111111111111")
+        self.ca.assert_that_pv_is(f"CURVE_{input}:SERIAL_N", "2222222222")
+        self.ca.assert_that_pv_is(f"CURVE_{input}:FORMAT", "V/K")
+        self.ca.assert_that_pv_is(f"CURVE_{input}:LIM", 2.0)
+        self.ca.assert_that_pv_is(f"CURVE_{input}:COEFF", "Positive")
 
     @parameterized.expand(parameterized_list(INPUTS))
     def test_GIVEN_default_input_type_parameters_THEN_input_type_parameters_set_correctly(self, _, input):
@@ -152,3 +149,4 @@ class Lksh336Tests(unittest.TestCase):
     @parameterized.expand(parameterized_list(OUTPUTS))
     def test_autotune_pv_exists(self, _, output):
         self.ca.assert_that_pv_exists(f"AUTOTUNE_START{output}")
+        

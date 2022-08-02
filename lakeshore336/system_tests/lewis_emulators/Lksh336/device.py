@@ -42,10 +42,10 @@ class SimulatedLksh336(StateMachineDevice):
         self.input_reading_statuses = { k:v for k,v in zip(INPUTS, [2] * len(INPUTS)) }
         self.output_heater_statuses_st = [2] * NUM_OUTPUTS
         self.input_curve_numbers = { k:v for k,v in zip(INPUTS, [2] * len(INPUTS)) }
-        self.input_curve_names = "test0"
-        self.input_curve_serial_numbers = "test1"
+        self.input_curve_names = "111111111111111"
+        self.input_curve_serial_numbers = "2222222222"
         self.input_curve_data_formats = 2
-        self.input_curve_temperature_limits = 2
+        self.input_curve_temperature_limits = 2.0
         self.input_curve_temperature_coefficients = 2
         self.input_sensor_types = { k:v for k,v in zip(INPUTS, [2] * len(INPUTS)) }
         self.input_auto_range_settings = { k:v for k,v in zip(INPUTS, [1] * len(INPUTS)) }
