@@ -34,15 +34,13 @@ class Lksh336StreamInterface(StreamInterface):
             CmdBuilder(self.get_crvhdr).escape("CRVHDR? ").int().eos().build(),
             CmdBuilder(self.get_intype).escape("INTYPE? ").string().eos().build(),
 
-            CmdBuilder(self.set_setp).escape("SETP ").int().eos().build(),
-            CmdBuilder(self.set_range).escape("RANGE ").int().eos().build(),
-            CmdBuilder(self.set_ramp).escape("RAMP ").int().int().eos().build(),
-            CmdBuilder(self.set_mout).escape("MOUT ").int().eos().build(),
-            CmdBuilder(self.set_pid).escape("PID ").int().int().int().int().eos().build(),
-            CmdBuilder(self.set_outmode).escape("OUTMODE ").int().int().int().int().eos().build(),
-            CmdBuilder(self.set_atune).escape("ATUNE ").int().int().eos().build(),
-            CmdBuilder(self.set_zone).escape("ZONE ").int().int().eos().build(),
-            CmdBuilder(self.set_inname).escape("INNAME ").string().eos().build()
+            CmdBuilder(self.set_setp).escape("SETP ").int().escape(",").float().eos().build(),
+            CmdBuilder(self.set_range).escape("RANGE ").int().escape(",").int().eos().build(),
+            CmdBuilder(self.set_ramp).escape("RAMP ").int().escape(",").int().escape(",").float().eos().build(),
+            CmdBuilder(self.set_mout).escape("MOUT ").int().escape(",").float().eos().build(),
+            CmdBuilder(self.set_pid).escape("PID ").int().escape(",").float().escape(",").float().escape(",").float().eos().build(),
+            CmdBuilder(self.set_outmode).escape("OUTMODE ").int().escape(",").int().escape(",").int().escape(",").int().eos().build(),
+            CmdBuilder(self.set_inname).escape("INNAME ").string().escape(",").escape('"').string().escape('"').eos().build()
         }
 
     def handle_error(self, request, error):
@@ -118,7 +116,7 @@ class Lksh336StreamInterface(StreamInterface):
     def get_incrv(self, input):
         return f"{self.device.input_curve_numbers[input]}"
 
-    def get_crvhdr(self, num):
+    def get_crvhdr(self, _):
         return "{},{},{},{},{}".format(
             self.device.input_curve_names,
             self.device.input_curve_serial_numbers,
@@ -136,30 +134,28 @@ class Lksh336StreamInterface(StreamInterface):
             self.device.input_units[input]
         )
 
-    def set_setp(self, _):
-        pass
+    def set_setp(self, output, value):
+        self.device.output_setpoints[output - 1] = value
 
-    def set_range(self, _):
-        pass
+    def set_range(self, output, value):
+        self.device.output_ranges[output - 1] = value
 
-    def set_ramp(self, *_):
-        pass
+    def set_ramp(self, output, status, value):
+        self.device.output_ramp_statuses[output - 1] = status
+        self.device.output_ramp_values[output - 1] = value
 
-    def set_mout(self, _):
-        pass
+    def set_mout(self, output, value):
+        self.device.output_manual_values[output - 1] = value
 
-    def set_pid(self, *_):
-        pass
+    def set_pid(self, output, p, i, d):
+        self.device.p[output - 1] = p
+        self.device.i[output - 1] = i
+        self.device.d[output - 1] = d
 
-    def set_outmode(self, *_):
-        pass
+    def set_outmode(self, output, mode, input, powerup):
+        self.device.output_mode_values[output - 1] = mode
+        self.device.output_input_modes[output - 1] = input
+        self.device.output_powerup_modes[output - 1] = powerup
 
-    def set_atune(self, *_):
-        pass
-
-    def set_zone(self, *_):
-        pass
-
-    def set_inname(self, _):
-        pass
-    
+    def set_inname(self, input, value):
+        self.device.input_sensor_names[input] = value
