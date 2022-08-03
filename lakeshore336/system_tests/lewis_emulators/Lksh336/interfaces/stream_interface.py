@@ -24,7 +24,6 @@ class Lksh336StreamInterface(StreamInterface):
             CmdBuilder(self.get_mout).escape("MOUT? ").int().eos().build(),
             CmdBuilder(self.get_pid).escape("PID? ").int().eos().build(),
             CmdBuilder(self.get_om).escape("OUTMODE? ").int().eos().build(),
-            CmdBuilder(self.get_zone).escape("ZONE? ").int().int().eos().build(),
             CmdBuilder(self.get_inname).escape("INNAME? ").string().eos().build(),
             CmdBuilder(self.get_alarmst).escape("ALARMST? ").string().eos().build(),
             CmdBuilder(self.get_alarm).escape("ALARM? ").string().eos().build(),
@@ -54,108 +53,106 @@ class Lksh336StreamInterface(StreamInterface):
         """
         self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
+    @conditional_reply("connected")
     def get_id(self):
         return "LSCI,{}".format(self.device.id)
 
+    @conditional_reply("connected")
     def get_htr(self, output):
-        return f"{self.device.output_heater_statuses[output - 1]}"
+        return self.device.get_output_heater_value(output)
 
+    @conditional_reply("connected")
     def get_aout(self, output):
-        return f"{self.device.output_analog_outputs[output - 1]}"
+        return self.device.get_output_analog_output(output)
 
+    @conditional_reply("connected")
     def get_setp(self, output):
-        return f"{self.device.output_setpoints[output - 1]}"
+        return self.device.get_output_setpoint(output)
 
+    @conditional_reply("connected")
     def get_krdg(self, input):
-        return f"{self.device.input_kelvin_temperatures[input]}"
+        return self.device.get_input_kelvin_temperature(input)
 
+    @conditional_reply("connected")
     def get_srdg(self, input):
-        return f"{self.device.input_voltage_inputs[input]}"
+        return self.device.get_input_voltage_input(input)
 
+    @conditional_reply("connected")
     def get_range(self, output):
-        return f"{self.device.output_ranges[output - 1]}"
+        return self.device.get_output_range(output)
 
+    @conditional_reply("connected")
     def get_ramp(self, output):
-        return f"{self.device.output_ramp_statuses[output - 1]},{self.device.output_ramp_values[output - 1]}"
+        return self.device.get_output_ramp(output)
 
+    @conditional_reply("connected")
     def get_mout(self, output):
-        return f"{self.device.output_manual_values[output - 1]}"
+        return self.device.get_output_manual_value(output)
 
+    @conditional_reply("connected")
     def get_pid(self, output):
-        return f"{self.device.p[output - 1]},{self.device.i[output - 1]},{self.device.d[output - 1]}"
+        return self.device.get_pid(output)
 
+    @conditional_reply("connected")
     def get_om(self, output):
-        return f"{self.device.output_mode_values[output - 1]},{self.device.output_input_modes[output - 1]},{self.device.output_powerup_modes[output - 1]}"
+        return self.device.get_output_mode(output)
 
-    def get_zone(self, output, zone):
-        return self.device.zone_parameters[output - 1][zone - 1]
-
+    @conditional_reply("connected")
     def get_inname(self, input):
-        return self.device.input_sensor_names[input]
-    
+        return self.device.get_input_sensor_name(input)
+
+    @conditional_reply("connected")
     def get_alarmst(self, input):
-        return f"{self.device.input_alarm_statuses[input]},{self.device.input_low_alarm_statuses[input]}"
+        return self.device.get_input_alarm_status(input)
 
+    @conditional_reply("connected")
     def get_alarm(self, input):
-        return "{},{},{},{},{},{},{}".format(
-            self.device.input_alarm_enabled_settings[input],
-            self.device.input_alarm_high_setpoints[input],
-            self.device.input_alarm_low_setpoints[input],
-            self.device.input_alarm_deadband_settings[input],
-            self.device.input_alarm_latching_settings[input],
-            self.device.input_alarm_audible_settings[input],
-            self.device.input_alarm_visible_settings[input]
-        )
+        return self.device.get_input_alarm(input)
 
+    @conditional_reply("connected")
     def get_rdgst(self, input):
-        return f"{self.device.input_reading_statuses[input]}"
+        return self.device.get_input_reading_status(input)
 
+    @conditional_reply("connected")
     def get_htrst(self, output):
-        return f"{self.device.output_heater_statuses_st[output - 1]}"
+        return self.device.get_output_heater_status(output)
 
+    @conditional_reply("connected")
     def get_incrv(self, input):
-        return f"{self.device.input_curve_numbers[input]}"
+        return self.device.get_input_curve_number(input)
 
+    @conditional_reply("connected")
     def get_crvhdr(self, _):
-        return "{},{},{},{},{}".format(
-            self.device.input_curve_names,
-            self.device.input_curve_serial_numbers,
-            self.device.input_curve_data_formats,
-            self.device.input_curve_temperature_limits,
-            self.device.input_curve_temperature_coefficients
-        )
+        return self.device.get_input_curve_header()
 
+    @conditional_reply("connected")
     def get_intype(self, input):
-        return "{},{},{},{},{}".format(
-            self.device.input_sensor_types[input],
-            self.device.input_auto_range_settings[input],
-            self.device.input_ranges[input],
-            self.device.input_compensations[input],
-            self.device.input_units[input]
-        )
+        return self.device.get_input_type(input)
 
+    @conditional_reply("connected")
     def set_setp(self, output, value):
-        self.device.output_setpoints[output - 1] = value
+        self.device.set_output_setpoint(output, value)
 
+    @conditional_reply("connected")
     def set_range(self, output, value):
-        self.device.output_ranges[output - 1] = value
+        self.device.set_output_range(output, value)
 
-    def set_ramp(self, output, status, value):
-        self.device.output_ramp_statuses[output - 1] = status
-        self.device.output_ramp_values[output - 1] = value
+    @conditional_reply("connected")
+    def set_ramp(self, output, status, rate):
+        self.device.set_output_ramp(output, status, rate)
 
+    @conditional_reply("connected")
     def set_mout(self, output, value):
-        self.device.output_manual_values[output - 1] = value
+        self.device.set_output_manual_value(output, value)
 
+    @conditional_reply("connected")
     def set_pid(self, output, p, i, d):
-        self.device.p[output - 1] = p
-        self.device.i[output - 1] = i
-        self.device.d[output - 1] = d
+        self.device.set_pid(output, p, i, d)
 
-    def set_outmode(self, output, mode, input, powerup):
-        self.device.output_mode_values[output - 1] = mode
-        self.device.output_input_modes[output - 1] = input
-        self.device.output_powerup_modes[output - 1] = powerup
+    @conditional_reply("connected")
+    def set_outmode(self, output, mode, control_input, powerup):
+        self.device.set_output_mode(output, mode, control_input, powerup)
 
+    @conditional_reply("connected")
     def set_inname(self, input, value):
-        self.device.input_sensor_names[input] = value
+        self.device.set_input_sensor_name(input, value)
