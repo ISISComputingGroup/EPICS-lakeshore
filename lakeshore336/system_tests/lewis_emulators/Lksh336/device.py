@@ -1,8 +1,4 @@
 from collections import OrderedDict
-from enum import Enum, auto
-from re import A
-from unicodedata import name
-from webbrowser import UnixBrowser
 from .states import DefaultState
 from lewis.devices import StateMachineDevice
 

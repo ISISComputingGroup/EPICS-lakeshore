@@ -26,7 +26,18 @@ TEST_MODES = [TestModes.DEVSIM]
 OUTPUTS = [ 1, 2, 3, 4 ]
 INPUTS = ['A', 'B', 'C', 'D']
 ALARM_PVS = [
-    "HEATER1:RAW_STAT"
+    "HEATER1:OUTPUT",
+    "HEATER2:OUTPUT",
+    "HEATER3:OUTPUT",
+    "HEATER4:OUTPUT",
+    "TEMP1:SP:RBV",
+    "TEMP2:SP:RBV",
+    "TEMP3:SP:RBV",
+    "TEMP4:SP:RBV",
+    "TEMP_A",
+    "TEMP_B",
+    "TEMP_C",
+    "TEMP_D",
 ]
 
 class Lksh336Tests(unittest.TestCase):
@@ -167,9 +178,9 @@ class Lksh336Tests(unittest.TestCase):
 
     @parameterized.expand(parameterized_list(ALARM_PVS))
     def test_WHEN_device_disconnected_THEN_go_into_alarm(self, _, alarm_pv):
-        self.ca.assert_that_pv_alarm_is(alarm_pv, self.ca.Alarms.NONE)
+        self.ca.assert_that_pv_alarm_is(alarm_pv, self.ca.Alarms.NONE, timeout=30)
 
         with self._disconnect_device():
-            self.ca.assert_that_pv_alarm_is(alarm_pv, self.ca.Alarms.INVALID)
+            self.ca.assert_that_pv_alarm_is(alarm_pv, self.ca.Alarms.INVALID, timeout=30)
 
-        self.ca.assert_that_pv_alarm_is(alarm_pv, self.ca.Alarms.NONE)
+        self.ca.assert_that_pv_alarm_is(alarm_pv, self.ca.Alarms.NONE, timeout=30)
