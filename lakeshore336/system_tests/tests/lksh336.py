@@ -54,18 +54,15 @@ class Lksh336Tests(unittest.TestCase):
         self.ca.process_pv("ID")
         self.ca.assert_that_pv_is("ID", "test")
     
-    @parameterized.expand(parameterized_list(OUTPUTS))
+    @parameterized.expand(
+        [("heater_value", i, f"HEATER{i}:OUTPUT") for i in range(1,3)] +
+        [("analog_output", j, f"HEATER{j}:OUTPUT") for j in range (3,5)]
+    )
     @skip_if_recsim("Requires lewis backdoor")
-    def test_WHEN_output_heater_value_set_via_backdoor_THEN_output_heater_value_updates(self, _, output):
-        self._lewis.backdoor_command(["device", "set_output_heater_value", str(output), str(2)])
-        self.ca.assert_that_pv_is(f"HEATER{output}:OUTPUT", 2)
-
-    @parameterized.expand(parameterized_list(OUTPUTS))
-    @skip_if_recsim("Requires lewis backdoor")
-    def test_WHEN_output_analog_output_set_via_backdoor_THEN_output_analog_output_value_updates(self, _, output):
-        self._lewis.backdoor_command(["device", "set_output_analog_output", str(output), str(2)])
-        self.ca.assert_that_pv_is(f"AOUT{output}", 2)
-
+    def test_WHEN_output_set_via_backdoor_THEN_output_value_updates(self, output_type, output, pv):
+        self._lewis.backdoor_command(["device", f"set_output_{output_type}", str(output), str(2)])
+        self.ca.assert_that_pv_is(pv, 2)
+    
     @parameterized.expand(parameterized_list(OUTPUTS))
     def test_WHEN_output_setpoint_set_THEN_output_setpoint_updates(self, _, output):
         self.ca.set_pv_value(f"TEMP{output}:SP", 2.0)
