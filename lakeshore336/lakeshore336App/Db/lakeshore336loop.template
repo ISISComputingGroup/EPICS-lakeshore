@@ -20,7 +20,7 @@ record(ai, "$(P):HEATER$(OUT):OUTPUT") {
   field(DESC, "Output $(OUT) Heater Output Percentage")
   field(DTYP, "stream")
   field(SDIS, "$(P):DISABLE")
-  field(INP, "@ls336.proto getHTR($(OUT)) $(PORT) $(ADDR)")
+  field(INP, "@ls336.proto $(CMD)($(OUT)) $(PORT) $(ADDR)")
   field(SCAN, "$(SCAN) second")
   field(PREC, "1")
   field(EGU, "%")
