@@ -3,7 +3,7 @@ REM Run this directory's tests using the IOC Testing Framework
 
 SET CurrentDir=%~dp0
 
-call "%~dp0..\..\..\..\config_env.bat"
+call "%~dp0..\..\..\..\..\config_env.bat"
 
 set "PYTHONUNBUFFERED=1"
 
