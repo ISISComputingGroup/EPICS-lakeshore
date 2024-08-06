@@ -5,13 +5,14 @@ from lewis.devices import StateMachineDevice
 from .states import DefaultState
 
 NUM_OUTPUTS = 4
-INPUTS = ['A', 'B', 'C', 'D']
+INPUTS = ["A", "B", "C", "D"]
 
 
 class CurveHeader(object):
     """
     Class representing the header information of a curve.
     """
+
     def __init__(self):
         # Needs to be 15 characters.
         self.name = "".rjust(15, "#")
@@ -20,11 +21,13 @@ class CurveHeader(object):
         self.data_format = 0
         self.temperature_limit = 0.0
         self.temperature_coefficient = 0
-        
+
+
 class Outputs(object):
     """
     Class holding all of the output variables.
     """
+
     def __init__(self) -> None:
         self.heater_value = 0
         self.analog_output = 0
@@ -41,10 +44,12 @@ class Outputs(object):
         self.powerup = 0
         self.heater_status = 0
 
+
 class Inputs(object):
     """
     Class holding all of the input variables.
     """
+
     def __init__(self) -> None:
         self.kelvin_temperature = 0
         self.voltage_input = 0
@@ -66,28 +71,26 @@ class Inputs(object):
         self.compensation = 0
         self.units = 0
 
-class SimulatedLksh336(StateMachineDevice):
 
+class SimulatedLksh336(StateMachineDevice):
     def _initialize_data(self):
         self.connected = True
 
         self.id = ""
         self.outputs = [Outputs()] * NUM_OUTPUTS
-        self.inputs = { k:v for k,v in zip(INPUTS, [Inputs()] * len(INPUTS)) }
+        self.inputs = {k: v for k, v in zip(INPUTS, [Inputs()] * len(INPUTS))}
         self.input_curve_header = CurveHeader()
-        
-        
+
     def _get_state_handlers(self):
         return {
-            'default': DefaultState(),
+            "default": DefaultState(),
         }
 
     def _get_initial_state(self):
-        return 'default'
+        return "default"
 
     def _get_transition_handlers(self):
         return OrderedDict([])
-
 
     def get_output_heater_value(self, output):
         return self.outputs[output - 1].heater_value
@@ -138,7 +141,7 @@ class SimulatedLksh336(StateMachineDevice):
             input.alarm_deadband,
             input.alarm_latching,
             input.alarm_audible,
-            input.alarm_visible
+            input.alarm_visible,
         )
 
     def get_input_reading_status(self, input):
@@ -156,13 +159,12 @@ class SimulatedLksh336(StateMachineDevice):
             self.input_curve_header.serial_number,
             self.input_curve_header.data_format,
             self.input_curve_header.temperature_limit,
-            self.input_curve_header.temperature_coefficient
+            self.input_curve_header.temperature_coefficient,
         )
 
     def get_input_type(self, input):
         input = self.inputs[input]
         return f"{input.sensor_type},{input.auto_range_setting},{input.range},{input.compensation},{input.units}"
-
 
     def set_output_heater_value(self, output, value):
         self.outputs[output - 1].heater_value = value
@@ -210,7 +212,9 @@ class SimulatedLksh336(StateMachineDevice):
         input.alarm_high = high
         input.alarm_low = low
 
-    def set_input_alarm(self, input, enabled, high_setpoint, low_setpoint, deadband, latching, audible, visible):
+    def set_input_alarm(
+        self, input, enabled, high_setpoint, low_setpoint, deadband, latching, audible, visible
+    ):
         input = self.inputs[input]
         input.alarm_enabled = enabled
         input.alarm_high_setpoint = high_setpoint
@@ -229,7 +233,9 @@ class SimulatedLksh336(StateMachineDevice):
     def set_input_curve_number(self, input, value):
         self.inputs[input].curve_number = value
 
-    def set_input_curve_header(self, _, name, serial_number, data_format, temperature_limit, temperature_coefficient):
+    def set_input_curve_header(
+        self, _, name, serial_number, data_format, temperature_limit, temperature_coefficient
+    ):
         self.input_curve_header.name = name
         self.input_curve_header.serial_number = serial_number
         self.input_curve_header.data_format = data_format
