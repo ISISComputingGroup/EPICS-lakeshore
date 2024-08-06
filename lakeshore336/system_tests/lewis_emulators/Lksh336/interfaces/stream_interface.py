@@ -1,12 +1,11 @@
 from lewis.adapters.stream import StreamInterface
-from lewis.utils.command_builder import CmdBuilder
 from lewis.core.logging import has_log
+from lewis.utils.command_builder import CmdBuilder
 from lewis.utils.replies import conditional_reply
 
 
 @has_log
 class Lksh336StreamInterface(StreamInterface):
-    
     in_terminator = "\r\n"
     out_terminator = "\r\n"
 
@@ -32,14 +31,49 @@ class Lksh336StreamInterface(StreamInterface):
             CmdBuilder(self.get_incrv).escape("INCRV? ").string().eos().build(),
             CmdBuilder(self.get_crvhdr).escape("CRVHDR? ").int().eos().build(),
             CmdBuilder(self.get_intype).escape("INTYPE? ").string().eos().build(),
-
             CmdBuilder(self.set_setp).escape("SETP ").int().escape(",").float().eos().build(),
             CmdBuilder(self.set_range).escape("RANGE ").int().escape(",").int().eos().build(),
-            CmdBuilder(self.set_ramp).escape("RAMP ").int().escape(",").int().escape(",").float().eos().build(),
+            CmdBuilder(self.set_ramp)
+            .escape("RAMP ")
+            .int()
+            .escape(",")
+            .int()
+            .escape(",")
+            .float()
+            .eos()
+            .build(),
             CmdBuilder(self.set_mout).escape("MOUT ").int().escape(",").float().eos().build(),
-            CmdBuilder(self.set_pid).escape("PID ").int().escape(",").float().escape(",").float().escape(",").float().eos().build(),
-            CmdBuilder(self.set_outmode).escape("OUTMODE ").int().escape(",").int().escape(",").int().escape(",").int().eos().build(),
-            CmdBuilder(self.set_inname).escape("INNAME ").string().escape(",").escape('"').string().escape('"').eos().build()
+            CmdBuilder(self.set_pid)
+            .escape("PID ")
+            .int()
+            .escape(",")
+            .float()
+            .escape(",")
+            .float()
+            .escape(",")
+            .float()
+            .eos()
+            .build(),
+            CmdBuilder(self.set_outmode)
+            .escape("OUTMODE ")
+            .int()
+            .escape(",")
+            .int()
+            .escape(",")
+            .int()
+            .escape(",")
+            .int()
+            .eos()
+            .build(),
+            CmdBuilder(self.set_inname)
+            .escape("INNAME ")
+            .string()
+            .escape(",")
+            .escape('"')
+            .string()
+            .escape('"')
+            .eos()
+            .build(),
         }
 
     def handle_error(self, request, error):
